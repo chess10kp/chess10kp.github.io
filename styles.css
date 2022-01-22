@@ -1,0 +1,43 @@
+h1{
+  font-family: Brush Script MT ,serif;
+  font-size: 100px;
+  border: 2px solid rgb(105, 201, 42);
+}	
+
+nav li{
+  display:inline;
+  padding: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  border: 1px solid black;
+}
+
+nav a{
+  text-decoration: none;
+  color: black;
+}
+
+.hero {
+   padding: 1000px 0;
+   margin: 30px;
+   background-image: url("https://t3.ftcdn.net/jpg/00/63/64/44/360_F_63644418_B5gPj0uMuWgJSEWW1sr0Kc5akw9hBQYC.jpg");
+   background-size: contain;
+   
+}
+
+.top {
+  text-align: center;
+}
+
+#poem {
+  color: #FFD700;
+  font-family: Courier New;
+  text-align:center;
+}
+
+#footer{
+  float: right;
+  
+  margin-right: 50px;
+ 
+}
+
