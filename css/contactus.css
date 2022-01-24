@@ -1,1 +1,63 @@
+    #description{
+    border: 2px solid black;
+    padding: 30px;
+    padding-top: 10px;
+    font-size: x-large;
+    padding-bottom: 0%;
+    margin-bottom: 0%;
+    border-bottom: 0ch;
+    color: rgb(0, 0, 0);
+}
+
+
+.bottom-half{
+    border: 1px solid black;
+    padding-top: 0ch;
+    margin-top: 0ch;
+    background-color: black;
+    text-align: center;
+}
+
+#title{
+    font-weight: 100;
+    color: black;
+    text-align: center;
+    font-family: cursive;
+}
+
+
+.product-together{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top:20px;
+    justify-content: center;
+  }
+
+.product{
+    display: inline;
+    padding: 20px;
+}
+
+#caption{
+    text-align: right;
+    color: white;
+}
+
+nav li{
+    display:inline;
+    padding: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    border: 1px solid black;
+  }
+  
+  nav a{
+    text-decoration: none;
+    color: black;
+  }
+  #footer{
+    float: right;
     
+    margin-right: 50px;
+   
+  }
+  
