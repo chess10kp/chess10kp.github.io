@@ -1,1 +1,48 @@
+h2{
+    text-align: center;
+}
 
+
+.product-together{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top:20px;
+    justify-content: center;
+  }
+
+.product{
+    display: inline;
+    padding: 20px;
+}
+
+#caption{
+    text-align: right;
+    color: rgb(20, 19, 19);
+}
+
+.contactdetails{
+    text-align: left;
+    background-color: black;
+    background-size: cover;
+    color: white;
+    padding-bottom: 500px;
+    font-family: Didot, serif
+}
+
+
+nav li{
+    display:inline;
+    padding: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    border: 1px solid black;
+  }
+  
+  nav a{
+    text-decoration: none;
+    color: black;
+  }
+  #footer{
+    float: right;
+   
+  }
+  
