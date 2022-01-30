@@ -1,63 +1,120 @@
-    #description{
-    border: 2px solid black;
-    padding: 30px;
-    padding-top: 10px;
-    font-size: x-large;
-    padding-bottom: 0%;
-    margin-bottom: 0%;
-    border-bottom: 0ch;
-    color: rgb(0, 0, 0);
+@import url("https://fonts.googleapis.com/css2?family=Asap&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Asap", sans-serif;
+}
+body {
+  background:  rgb(24, 24, 24);
+}
+section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+section:nth-child(1) {
+  color: #e0ffff;
+}
+section:nth-child(2) {
+  color:  rgb(24, 24, 24);
+  background: #e0ffff;
+}
+section:nth-child(3) {
+  color: #e0ffff;
+}
+section:nth-child(4) {
+  color:  rgb(24, 24, 24);
+  background: #e0ffff;
+}
+section .container {
+  margin: 100px;
+}
+section h1 {
+  font-size: 3rem;
+  margin: 20px;
+}
+section h2 {
+  font-size: 40px;
+  text-align: center;
+  text-transform: uppercase;
+}
+section .text-container {
+  display: flex;
+}
+section .text-container .text-box {
+  margin: 20px;
+  padding: 20px;
+  background:  #e0ffff;
+}
+section .text-container .text-box h3 {
+  font-size: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 10px;
 }
 
+#third{
+  background-color: rgb(24, 24, 24);
+  text-align: center;
+}
 
-.bottom-half{
-    border: 1px solid black;
-    padding-top: 0ch;
-    margin-top: 0ch;
-    background-color: black;
+@media (max-width: 900px) {
+  section h1 {
+    font-size: 2rem;
     text-align: center;
+  }
+  section .text-container {
+    flex-direction: column;
+  }
 }
 
-#title{
-    font-weight: 100;
-    color: black;
-    text-align: center;
-    font-family: cursive;
+.reveal {
+  position: relative;
+  opacity: 0;
 }
 
-
-.product-together{
-    display: flex;
-    flex-wrap: wrap;
-    margin-top:20px;
-    justify-content: center;
+.reveal.active {
+  opacity: 1;
+}
+.active.fade-bottom {
+  animation: fade-bottom 1s ease-in;
+}
+.active.fade-left {
+  animation: fade-left 1s ease-in;
+}
+.active.fade-right {
+  animation: fade-right 1s ease-out;
+}
+@keyframes fade-bottom {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
   }
-
-.product{
-    display: inline;
-    padding: 20px;
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-left {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
-#caption{
-    text-align: right;
-    color: white;
+@keyframes fade-right {
+  0% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
-
-nav li{
-    display:inline;
-    padding: 10px;
-    font-family: 'Courier New', Courier, monospace;
-    border: 1px solid black;
-  }
-  
-  nav a{
-    text-decoration: none;
-    color: black;
-  }
-  #footer{
-    float: right;
-    
-    margin-right: 50px;
-   
-  }
-  
