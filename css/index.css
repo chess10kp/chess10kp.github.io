@@ -4,25 +4,6 @@ h1{
   border: 2px solid rgb(105, 201, 42);
 }	
 
-.navbar{
-  overflow: hidden;
-  background-color: black;
-  position: fixed;
-  top: 0;
-  color: white;
-  width: 100%;
-}
-
-.navbar a:hover{
-  background: white;
-  color: black;
-}
-
-
-.main{
-  margin-top: 30px;
-}
-
 
 .navbar a{
   text-decoration: none;
@@ -33,6 +14,7 @@ h1{
   text-align: center;
   padding: 14px 16px;
   
+}
 
 .hero {
    padding: 1000px 0;
@@ -52,10 +34,24 @@ h1{
   text-align:center;
 }
 
-#footer{
-  float: right;
-  
-  margin-right: 50px;
- 
+.navbar{
+  overflow: hidden;
+  background-color: black;
+  position: fixed;
+  top: 0;
+  color: white;
+  width: 100%;
 }
 
+.navbar a:hover{
+  background: white;
+  color: black;
+}
+
+.navbar a{
+  color: white;
+}
+
+.main{
+  margin-top: 30px;
+}
