@@ -1,0 +1,103 @@
+#title{
+    color:rgb(255, 255, 255);
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.33);
+    margin: 0;
+    padding: 20px;
+    font-family:"Raleway",sans-serif;
+    font-size: 220%;
+}
+
+body{
+    background-color:rgb(17, 17, 126);
+    margin: 0;
+}
+
+#base,#color,#mood{
+    text-align: center;
+    align-content: center;
+    color: white;
+    padding: 65px;
+    font-family:"Raleway",sans-serif;
+}
+
+h2{
+    font-size: 30px;
+}
+
+.a{
+    background-color:rgba(0, 0, 0, 0.43) ;
+
+}
+
+.b{
+    background-color:rgba(25, 0, 0, 0.63) ;
+
+}
+
+.c{
+    background-color:rgba(40, 0, 0, 0.83) ;
+}
+
+.button a{
+    width:10%;
+    margin:0px auto;
+    padding:16px 8px 16px 8px;
+    font-size:20px;
+    text-decoration: none;
+    font-weight:bolder;
+    color:white;
+}
+
+
+.button a:hover{
+    border-radius: 3px;
+    background-color: rgba(161, 161, 161, 0.2);
+    color: white;
+    padding:16px 8px 16px 8px;
+}
+
+nav {
+    margin: 0%;
+    padding: 0%;
+    border: 0ch;
+    padding: 20px 10px;
+    background-color: rgba(50, 0, 0, 0.90);
+  }
+  
+nav a {
+    text-decoration: none;
+    color: white;
+    padding:5px 10px;
+}
+
+nav li {
+    display: inline;
+    padding: 10px;
+    font-family: "Courier New", Courier, monospace;
+  }
+
+nav ul{
+    margin:0;
+}
+
+nav a:hover{
+    background-color:rgba(161, 161, 161, 0.2);
+    color:white;
+    border-radius:3px;
+    padding:5px 10px;
+  }
+
+div #label{
+    display: flex;
+    justify-content: space-between;
+    width:370px;
+    margin:0 auto;
+    padding-left: 5px;
+}
+
+.label{
+    font-size:20px;
+    font-weight:bolder;
+    color:white;
+}
