@@ -2,6 +2,7 @@ html {
   margin: 0px;
   padding: 0px;
   font-family: "Asap", sans-serif;
+  overflow-x: hidden;
 }
 
 body {
