@@ -8,23 +8,59 @@
 body {
   background: rgb(24, 24, 24);
 }
+
+body .navbar {
+  overflow: hidden;
+  border-radius: 0%;
+  background-color: black;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  color: white;
+  width: 100%;
+}
+
+#logo {
+  font-family: Brush Script MT, serif;
+  float: left;
+}
+
+.navbar a:hover {
+  text-decoration: none;
+  background: white;
+  color: black;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  float: right;
+  display: block;
+  color: black;
+  padding: 14px 16px;
+}
+
+.navbar a {
+  color: white;
+}
+
 section {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-section:nth-child(1) {
+section:nth-of-type(1) {
   color: #e0ffff;
 }
-section:nth-child(2) {
+section:nth-of-type(2) {
   color: rgb(24, 24, 24);
   background: #e0ffff;
 }
-section:nth-child(3) {
+section:nth-of-type(3) {
   color: #e0ffff;
 }
-section:nth-child(4) {
+section:nth-of-type(4) {
   color: rgb(24, 24, 24);
   background: #e0ffff;
 }
