@@ -8,56 +8,96 @@
 <ins> - Inserted text
 <sub> - Subscript text
 <sup> - Superscript text
-
-
-
-  
-border: sets the outline of an HTML page element, like a picture frame that contains the element.
-padding: sets the amount of space between an element’s content and its border.
-margin: sets the amount of space between an HTML element and the next nearest element(s).
-display: property that determines how the selected element will be arranged in relation to other HTML elements on the page.
-inline: display value used to arrange HTML elements on the same line as neighboring elements.
-flex: display value that allows us to easily align multiple page elements vertically or horizontally.
-float: property used to float HTML elements left or right of neighboring elements.
-position: property used to position HTML elements in exact locations on a webpage.
 -->
 
-
 <!DOCTYPE html>
-<html>
-<head>
-  <title>The Shyam Shop</title>  
-  <link rel="stylesheet" type="text/css" href="css/index.css"/>
-</head><body>
-<div class="top">
-<h1>The Sham Shop</h1>
-</div>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-<div class="navbar">
-  <a href="/html/aboutus.html" id='aboutus'>About us</a>
-  <a href='/html/contactus.html'>Contact us</a>
-  <a href="html/franchises.html">Franchises</a>
-  <a href="html/product.html">Products</a>
-</div>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+      integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+      crossorigin="anonymous"
+    />
+    <title>The Sham Shop</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <a id="logo" href="../index.html">The Sham Shop</a>
+      <a href="html/aboutus.html" id="aboutus">About</a>
+      <a href="html/contactus.html">Contact</a>
+      <a href="html/franchises.html">Franchises</a>
+      <a href="html/product.html">Products</a>
+    </div>
 
-<div class="main">
+    <section>
+      <div>
+        <h2><b>Sham isn't merely a word, it is a way of life.</b></h2>
+        <a href="html/aboutus.html#imp"
+          ><button class="button">Learn More</button></a
+        >
+      </div>
+    </section>
+    <section>
+      <div>
+        <h2>Premium Products. Premium Prices.</h2>
+        <p>
+          Extraordinary quality always comes at extraordinary prices.<br />At
+          TheShamStore<sup>tm</sup>, we believe in pricing our products right.
+          After all, you get what you pay for, and you can expect the same from
+          us.<br />
+          As part if the Sham<sup>tm</sup>family, you get to enjoy the large
+          host of intangible benifits associated with us.
+        </p>
+      </div>
+    </section>
 
-<div class="hero">
-  <blockquote> 
-  <h3 id="poem">
-  Poo in the toilet <br>
-  Please don't boil it<br>
-  Toilet in the poo <br>
-  I give it to you<br>
-  Pee in the Toilet<br>
-  Please don't foil it<br>
-  Toilet in the Pee<br>
-  I drink it for tea<br>
-  </h3>
-  </blockquote>
-</div>
-</div>
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <h3>Free Shipping</h3>
+            <img
+              src="https://previews.123rf.com/images/rastudio/rastudio1505/rastudio150500285/39500116-delivery-van-icon-thin-line-for-web-and-mobile-modern-minimalistic-flat-design-vector-dark-grey-icon.jpg"
+              alt="truck"
+              width="60"
+              height="auto"
+            />
+            <p>Enjoy free shipping worldwide on all orders.<sup>*</sup></p>
+          </div>
+          <div class="col-sm-4">
+            <h3>24/7 Support</h3>
+            <img
+              src="https://i.pinimg.com/736x/8c/18/34/8c183411f3ed3fdc3d88ee5b47a60fdf.jpg"
+              alt="calendar"
+              height="auto"
+              width="60"
+            />
+            <p>Enjoy 24/7 on demand support for all products.<sup>*</sup></p>
+          </div>
+          <div class="col-sm-4">
+            <h3>Lifetime Warranty</h3>
+            <img
+              src="https://www.pngitem.com/pimgs/m/519-5192845_check-icon-png-gray-transparent-png.png"
+              alt="truck"
+              width="60"
+              height="60"
+            />
+            <p>Free lifetime warranty on all products.<sup>*</sup></p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-
-</body>
+    <footer>
+      <p>ShamCorp &copy;<br /></p>
+      <small><sup>*</sup>These are lies</small>
+    </footer>
+  </body>
 </html>
