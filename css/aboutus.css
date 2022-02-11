@@ -13,12 +13,9 @@ body .navbar {
   overflow: hidden;
   border-radius: 0%;
   background-color: black;
-  position: fixed;
-  top: 0px;
-  left: 0px;
   color: white;
   width: 100%;
-  z-index:1;
+ 
 }
 
 #logo {
