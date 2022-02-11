@@ -18,6 +18,7 @@ body .navbar {
   left: 0px;
   color: white;
   width: 100%;
+  z-index:1;
 }
 
 #logo {
