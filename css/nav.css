@@ -1,0 +1,68 @@
+.enclosed{
+    display: flex;
+    justify-content: right;
+}
+
+.nav{
+    width: 10%;
+    background-color:rgb(255,255,255,0.2);;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.603);
+    height: 100vh;
+    position: fixed;
+    padding: 0px;
+    margin:0px;
+    transform: translateX(80px);
+    overflow: hidden;
+    transition: 1s;
+}
+
+ul{
+    list-style: none;
+    padding:0;
+}
+
+body{
+    height:2000px;
+    padding: 0px;
+    margin:0px;
+    overflow:scroll;
+    background-color: red;
+}
+
+ion-icon{
+    font-size: 32px;
+    padding:30px 30px 30px 20px;
+    flex-shrink:0;
+}
+
+li {
+    display: flex;
+    justify-content:start;
+    align-content: center;
+    align-items: center;
+    border-radius: 3px;
+}
+
+li:hover{
+    background-color: rgba(212, 212, 212, 0.5);
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.nav:hover{
+    transform:translateX(1px);
+    transition: 1s;
+}
+
+.text{
+    font-weight:700;
+}
+
+.content{
+    width:90%;
+    background-color:red; /* change to aqua if u want to see its width*/
+    
+}
