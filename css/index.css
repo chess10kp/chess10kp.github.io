@@ -65,13 +65,12 @@ section {
 section div {
   font-family: "Montserrat", sans-serif;
   font-weight: bold;
-  padding-top: 20%;
   text-align: center;
   align-items: center;
 }
 
 section:nth-of-type(1) {
-  background-image: url("../../images/home-page-title-background.jpg");
+  background-image: url("/website/images/home-page-title-background.jpg");
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
@@ -80,17 +79,16 @@ section:nth-of-type(1) {
   color: whitesmoke;
   margin-bottom: 10px;
   min-height: 100%;
+  padding-top: 20%;
 }
 
 section:nth-of-type(2) {
   color: black;
   padding-left: 20%;
   padding-right: 20%;
-  padding-top: 50px;
   margin-top: 20px;
   min-height: 1%;
   padding-bottom: 0;
-  margin-bottom: 70px;
 }
 
 section:nth-of-type(2) div {
@@ -134,10 +132,14 @@ footer {
 footer small {
   font-size: xx-small;
 }
-
+  
 .button {
   background-color: transparent;
   outline: white 1px;
   color: white;
   text-decoration: none;
+}
+#news {
+  padding-left: 20px;
+  padding-right: 20px;
 }
