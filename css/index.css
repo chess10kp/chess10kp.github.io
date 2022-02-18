@@ -70,7 +70,7 @@ section div {
 }
 
 section:nth-of-type(1) {
-  background-image: url("/website/images/home-page-title-background.jpg");
+  background-image: url("../images/home-page-title-background.jpg");
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
