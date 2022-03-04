@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap");
+html,
+body {
+  font-family: Raleway, sans-serif;
+  box-sizing: border-box;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  color: black;
+
+  overflow-x: hidden;
+}
+
+.container {
+  min-width: 100vw;
+  padding: 0;
+  display: table;
+  margin: 0px;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+body .navbar {
+  border-radius: 0%;
+  background-color: black;
+
+  top: 0px;
+  left: 0px;
+  color: white;
+  width: 100%;
+}
+
+#logo {
+  font-family: Brush Script MT, serif;
+  float: left;
+}
+
+.navbar a:hover {
+  text-decoration: none;
+  background: white;
+  color: black;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  float: right;
+  display: block;
+  color: black;
+  padding: 14px 16px;
+}
+
+.navbar a {
+  color: white;
+}
+
+.row {
+  margin-top: 2px;
+  margin-left: 2px;
+}
+
+.row .col-sm-7 {
+  text-align: left;
+  justify-content: center;
+}
+
+.row .col-sm-7 h2 {
+  position: relative;
+  left: 30px;
+}
+.row .col-sm-6 {
+  text-align: center;
+}
+.btn.btn-primary {
+  border-radius: 2px;
+  border: 0px;
+  color: #fbd1d5;
+  text-shadow: none;
+  background-color: black;
+}
+.column {
+  float: left;
+  width: 27%;
+  height: 300px;
+}
+footer {
+  display: flex;
+  justify-content: center;
+  min-width: 100vw;
+  background-color: black;
+  color: white;
+  padding-top: 50px;
+  font-family: Raleway, sans-serif;
+}
