@@ -47,6 +47,7 @@ body .navbar {
   display: block;
   color: black;
   padding: 14px 16px;
+  transition: 1s;
 }
 
 .navbar a {
@@ -70,7 +71,7 @@ section div {
 }
 
 section:nth-of-type(1) {
-  background-image: url("../../images/home-page-title-background.jpg");
+  background-image: url("/website/images/home-page-title-background.jpg");
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
@@ -87,13 +88,26 @@ section:nth-of-type(2) {
   padding-left: 20%;
   padding-right: 20%;
   margin-top: 20px;
-  min-height: 1%;
+  min-height: 80%;
   padding-bottom: 0;
+  display: flex   ;
+  align-items: center;
 }
 
 section:nth-of-type(2) div {
   padding: 0;
   margin: 0%;
+  min-height: 80vh;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+}
+
+section:nth-of-type(2) div p{
+
+    border-left: 1px solid black;
+
 }
 
 section:nth-of-type(3) {
@@ -101,9 +115,20 @@ section:nth-of-type(3) {
   padding-top: 50px;
   margin-top: 20px;
   min-height: 1%;
-  padding-bottom: 200px;
+  padding-bottom: 75px;
   margin-bottom: 0px;
   background-color: black;
+}
+
+section:nth-of-type(4){
+  background-image: url("images/pencils.jpg");
+  min-height: 30%;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  justify-content: center;
+  display: flex;
 }
 
 body .row {
@@ -132,7 +157,7 @@ footer {
 footer small {
   font-size: xx-small;
 }
-  
+
 .button {
   background-color: transparent;
   outline: white 1px;
@@ -142,4 +167,45 @@ footer small {
 #news {
   padding-left: 20px;
   padding-right: 20px;
+}
+footer {
+  display: flex;
+  justify-content: center;
+  min-width: 100vw;
+  background-color: black;
+  color: white;
+  padding-top: 50px;
+  min-height: 30%;
+  
+}
+.column {
+  float: left;
+  width: 33%;
+  padding-bottom: 0%;
+  margin-bottom: 0%;
+  
+}
+li{
+  list-style: none;  
+  padding: 0;
+  margin: 0%;
+  color: white;
+  font-family: "Montserrat", sans-serif; 
+}
+li a{
+  color: white;
+  font-family: "Montserrat", sans-serif;
+}
+.column p a{
+  color: white;
+  font-family: "Montserrat", sans-serif; 
+}
+.column p{
+  font-family: "Montserrat", sans-serif;
+}
+
+li a:hover{
+  text-decoration: none;
+  color: white;
+  
 }
