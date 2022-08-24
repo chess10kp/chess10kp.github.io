@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Kolker+Brush&family=Koulen&family=Open+Sans:wght@300&family=Playfair+Display:wght@500&family=Source+Serif+Pro:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap');
+
+:root {
+    --main: #0e1111;
+    --accent: #EBB2DB;
+    --slate-gray: #3D4849;
+    --main2: #36454f
+    --logo: #C5BEF5;
+    --contrast: #A18117;
+}
+
+* {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: -moz-none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--main);
+  
+    
+}
+
+body {
+    animation: fadeInAnimation ease 5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+a{
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+h1 {
+
+    font-size: 100px;
+    font-family: "Kolker Brush", cursive;
+    color: whitesmoke;
+
+}
+
+
+
+
+
+
+nav {
+    margin-top: 0.2vh;
+    margin-bottom: 0;
+    
+    top: 0;
+    margin: 30px 30px 0 30px;
+    width: 100%;
+    z-index: 999;
+    margin: 0;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+nav a {
+    display: inline-block;
+    color: rgba(245, 245, 245, 0.265);
+    font: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 2px 2px 2px 2px;
+
+}
+
+nav a:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    transform: translate(0, -3px);
+    color: var(--accent);
+}
+
+#welcome{
+    min-height: 100vh;
+    background-image: url('../images/backgroundimg.jpg');
+    background-size: cover;
+    font-family: "Raleway",'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+.title_btn{
+    color: white;
+    position: relative;
+    top: 5vh;
+    font-size: 8em;    
+}
+
+
+section {
+    min-width: 100%;
+    height: 60vh;
+    color: whitesmoke;
+    font-family: 'Source Serif Pro', serif;
+    font-size: x-large;
+    font-weight: 100;
+    letter-spacing: 2px;
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    
+    text-decoration: none;
+    
+    color: white;
+    padding: 10px 20px;
+    position: relative;
+    top: 20px;
+    transition: all 1s;
+    overflow: hidden;
+    overflow-x: hidden;
+  }
+  
+  .btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    background-color: #764abc;
+    transition: all 1s;
+    z-index: -1;
+    transform: translateX(-100%);
+    
+  }
+  
+  .btn:hover::before {
+    transform: translateX(0);
+  }
+  .btn:hover {
+    color: #fff;
+  }
+
+
+
+
+#well {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    
+}
+
+.empty-space {
+    height: 20vh;
+    width: 100%;
+    background-color: var(--main);
+}
+
+.nav_right{
+    float: right;
+    padding: 5vh 5vw;
+}
+
+.nav_left{
+    float: left;
+    padding: 5vh 5vw;
+}
+
+
+#contact{
+    height: 120vh;
+    background-attachment: fixed;
+}
+
+.container {
+    width: auto;
+    height: 100%;
+    text-align: center;
+  }
+
+  
+  .contact-details {
+    margin-bottom: 10px;
+    padding: 10px;
+    opacity: 75%;
+  }
+  
+  .contact-container {
+    font-family: "Quicksand", sans-serif;
+    text-align: center;
+    background-color: var(--main2);
+    background-size: cover;
+    color: white;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  
+  #icons{
+      display: flex;
+      justify-content: space-evenly;
+      padding: 10% 0 10% 0;
+  }
+
+  .icon:hover{
+      transition: all 0.2s ease-in;
+      transform: translateY(-5px);
+
+  }
+
+  i{
+      color: whitesmoke;
+  }
+
+        
