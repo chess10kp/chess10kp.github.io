@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Changer</title>
+
+    <style>
+        :root 
+        {
+            --default: #ff00ff;
+        }
+
+        body
+        {
+            margin: 0;
+            padding:0;
+            min-height: 100vh;
+            background-color: var(--default);
+            overflow: hidden;
+        }
+        div
+        {
+            margin: 50vh auto auto auto;
+            background-color: rgb(42, 42, 42);
+            width: fit-content;
+            padding: 5vh 25vh 5vh 25vh;
+            border-radius: 3vh;
+            
+        }
+        button
+        {
+            background-color: var(--default);
+            padding: 2vh 2vw 2vh 2vw;
+        }
+
+        h2
+        {
+            color: var(--default);
+        }
+        div .class > *
+        {
+            display: block;
+            margin: auto auto auto auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <h2 id="color_name">#ff00ff</h2>
+
+        <button id="generate_button">Generate</button>
+    </div>
+
+
+    <script src="./color_changer.js"></script>
+</body>
+</html>
