@@ -1,6 +1,9 @@
 let btn=document.querySelector("#generate_button");
 let t=document.querySelector("#color_name");
+let arr_gen=document.querySelector("#arr_generate_button")
+let arr_t=document.querySelector("#arr_color_name")
 let root=document.querySelector(":root");
+
 root.style.setProperty('--default', 'lightblue');
 
 let randNo,randCode="";
