@@ -10,6 +10,7 @@
         :root 
         {
             --default: #ff00ff;
+            --array: #ffffff;   
         }
 
         html,body
@@ -21,7 +22,8 @@
         }
         nav
         {padding: 0;
-        margin: 0;}
+        margin: 0;
+        max-height: 15vh;}
         nav ul
         {   
             padding: 0;
@@ -105,20 +107,22 @@
         {
             padding: 0;
             margin: 0;
-            background-color: #f1f1f1;
+            background-color: var(--array);
             position: absolute;
-            top: 0;
+            top: 6vh;
             left: 0;
             width: 100%;
+            min-height: 100%;
+            border-radius: 0;
         }
     </style>
 </head>
 <body>
     <nav>
         <ul>
-            <li >Random Colors</li>
-            <li >Preselected Colors</li>
-            <li >Blind me</li>
+            <li id="st">Random Colors</li>
+            <li id="nd">Preselected Colors</li>
+            <li id="rd">Blind me</li>
         </ul>
     </nav>
     <div>

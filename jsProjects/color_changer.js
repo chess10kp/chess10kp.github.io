@@ -1,8 +1,12 @@
 let btn=document.querySelector("#generate_button");
 let t=document.querySelector("#color_name");
-let arr_gen=document.querySelector("#arr_generate_button")
+let arr_gen_btn=document.querySelector("#arr_generate_button")
 let arr_t=document.querySelector("#arr_color_name")
 let root=document.querySelector(":root");
+
+nav_after=document.querySelector("nav ul::after");
+nav_before=document.querySelector("nav ul:before");
+
 
 root.style.setProperty('--default', 'lightblue');
 
@@ -42,5 +46,11 @@ btn.addEventListener("click",function(){
         root.style.setProperty("--default","#"+randCode);
         t.textContent="#"+randCode;
     }
+})
+let arr_of_color=["#070707","40434E","C297B8","FDCFF3","DE89BE"];
+arr_gen_btn.addEventListener("click",function(){
+    let choice=Math.floor(Math.random()*(arr_of_color.length));
+    root.style.setProperty("--array","#"+arr_of_color[choice]);
+    arr_t.textContent=arr_of_color[choice];
 
 })
