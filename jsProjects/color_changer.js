@@ -13,14 +13,14 @@ root.style.setProperty('--default', 'lightblue');
 let randNo,randCode="";
 
 nav1.addEventListener("click",function(){
-    div2.style.visibility="visible";
+    div2.style.visibility="hidden";
     
     nav2.style.setProperty("color","black");
     nav1.style.setProperty("color","blue")
 })
 
 nav2.addEventListener("click",function(){
-    div2.style.visibility="hidden";    
+    div2.style.visibility="visible";    
     div2.style.setProperty("z-index","99");
     nav2.style.setProperty("color","blue");
     nav1.style.setProperty("color","black");
