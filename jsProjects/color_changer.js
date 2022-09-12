@@ -4,14 +4,27 @@ let arr_gen_btn=document.querySelector("#arr_generate_button")
 let arr_t=document.querySelector("#arr_color_name")
 let root=document.querySelector(":root");
 
-nav1=document.querySelector("#st");
-nav2=document.querySelector("nd");
+let div2=document.querySelector(".array_colors");
+let nav1=document.querySelector("#st");
+let nav2=document.querySelector("#nd");
 
 root.style.setProperty('--default', 'lightblue');
 
 let randNo,randCode="";
 
+nav1.addEventListener("click",function(){
+    div2.style.visibility="visible";
+    
+    nav2.style.setProperty("color","black");
+    nav1.style.setProperty("color","blue")
+})
 
+nav2.addEventListener("click",function(){
+    div2.style.visibility="hidden";    
+    div2.style.setProperty("z-index","99");
+    nav2.style.setProperty("color","blue");
+    nav1.style.setProperty("color","black");
+})
 
 btn.addEventListener("click",function(){
     randCode="";
