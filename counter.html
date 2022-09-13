@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter</title>
+
+    <style>
+
+        :root{
+            --theme: lightblue;
+        }
+
+        body,html{
+            margin: 0;
+            padding: 0;
+        }
+        .main
+        {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+        }
+        #counter_val{
+            color: var(--theme);
+            text-align: center;
+            margin: 0 0 3vh 0vh;
+            font-size: 3em;
+
+        }
+        .btn{
+            color: var(--theme);
+            border: 1px solid var(--theme);
+            margin: 0 2vw 0 2vw;
+            padding: 1vh 1vw 1vh 1vw;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none; /*Safari*/
+            -moz-user-select: none; /*Firefox*/
+            transition: all 0.5s;
+            transform: translate(0,0);
+            border-radius: 3vh;
+
+        }
+        .btn-wrap{
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .btn:active
+        {
+            color: black;
+            background-color: white;
+            transform: translate(-0.2vh,0.2vh);
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div id="wrap"><div id="counter_val">0</div>
+        <div class="btn-wrap">
+            <div class="btn" id="b1">Increase</div>
+        <div class="btn" id="b2">Reset</div>
+        <div class="btn" id="b3">Decrease</div>
+        </div>
+    </div></div>
+    <script src="counter.js"></script>
+</body>
+</html>
