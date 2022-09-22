@@ -18,14 +18,23 @@
   </head>
   <body>
     <div class="navbar">
-      <a id="logo" href="index.html">The Sham Shop</a>
-      <a href="html/aboutus.html" id="aboutus">About</a>
-      <a href="html/contactus.html">Contact</a>
-      <a href="html/franchises.html">Brother Store</a>
-      <a href="html/product.html">Products</a>
-      <a href="jsProjects/colorchanger.html">C</a>
-    </div>
+      <div id="logo">
+        <h3>The Sham Shop</h3>
+      </div>
+      <a href="./html/contactus.html">Contact us</a>
+      <a href="./html/franchises.html">SubStore</a>
+      <a href="./html/product.html">Products</a>
+      <div class="dropdown">
+      <button class="dropdown-btn" onclick="dropdown()">JS
 
+      </button>
+      <div class="dropdown-content" id="dropdown">
+        <a href="./jsProjects/colorchanger.html">Color generator</a>
+        <a href="./jsProjects/counter.html">Counter</a>
+        <a href="./jsProjects/Roman_converter.html">Number Converter</a>
+      </div>
+      </div> 
+    </div>  
     <section>
       <div>
         <h2><b>Sham isn't merely a word, it is a way of life.</b></h2>
@@ -116,6 +125,6 @@
       </div>
       
     </footer>
-    
+    <script src="index.js"></script>
   </body>
 </html>
