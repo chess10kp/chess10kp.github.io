@@ -5,7 +5,9 @@
 layout: default
 ---
 <style>
-
+.content-container {
+  width: fit-content;
+}
 .text-gradient {
   font-weight: 800;
   color: black;
@@ -19,17 +21,22 @@ layout: default
         font-family: Helvetica, Arial, sans-serif;
         font-weight: bold;
         font-size: 200px;
-        background: linear-gradient(to bottom, black 50%, white 50%);
+        background: linear-gradient(to left, black 50%, blue 50%);
         background-clip: text;
         -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        -webkit-text-fill-color: trsansparent;
+        width: fit-content;
   }
   
   .text-gradient::selection {
     color: black;
     background: white;
   }
+  
 
+  .flex {
+    display: flex;
+  }
 
 body {
   padding: 2rem;
@@ -39,7 +46,7 @@ body {
   min-height: 100vh;
 }  
 </style>
+<div class="flex">
+<h1 class="text-gradient"><span class="text-gradient">Nitin Gradients</span></h1>
 
-<h1><span class="text-gradient">Nitin Gradients</span></h1>
-
-<h1><span class="text-gradient">Nitin Gradients</span></h1>
+</div>
