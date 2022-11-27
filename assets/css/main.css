@@ -100,8 +100,14 @@ input, select, textarea {
 	font-size: xx-large;
 }
 
-#workone a {
-	padding
+
+.work-btn {
+	border-radius: 999px;
+	margin-top: 1%;
+}
+
+.work-btn a {
+	color: white;
 }
 	.row {
 		display: flex;
@@ -1335,9 +1341,10 @@ input, select, textarea {
 	}
 
 	body {
-		background-image: url("images/overlay.png"), url("images/bg.jpg");
+		background-color: #161925;
+		/*background-image: url("images/overlay.png"), url("images/bg.jpg");
 		background-repeat: repeat, no-repeat;
-		background-size: auto, 100% 100%;
+		background-size: auto, 100% 100%;*/
 		background-attachment: fixed;
 		overflow-y: scroll;
 	}
