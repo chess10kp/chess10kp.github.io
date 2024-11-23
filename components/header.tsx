@@ -24,7 +24,7 @@ const NavLink = (props: any) => {
 const Header = () => {
   return (
     <Menubar className="sm:px-12 bg-background flex flex-row justify-between text-foreground">
-      <h1 className="dark:text-foreground p-2 font-bold">Nitin Madhu</h1>
+      <h1 className="dark:text-foreground p-2 font-bold">NM</h1>
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
