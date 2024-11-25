@@ -5,6 +5,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Header from "@/components/header";
 import Hero from "@/components/hero";
+import Footer from "@/components/footer";
+import Projects from "@/components/projects";
 
 const myAvatar = () => {
   return (
@@ -21,9 +23,13 @@ const myAvatar = () => {
 export default function Home() {
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-      <main className="bg-background pb-96">
-        <Header /> 
-        <Hero></Hero>
+      <main className="bg-background">
+        <Header />
+        <div className="scroller">
+          <Hero />
+          <Projects />
+        </div>
+        <Footer></Footer>
       </main>
     </ThemeProvider>
   );

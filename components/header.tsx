@@ -28,8 +28,6 @@ const Header = () => {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavLink href="/docs">Docs</NavLink>
-            <NavLink href="/docs">Documetation</NavLink>
             <NavLink href="/docs">Blog</NavLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
