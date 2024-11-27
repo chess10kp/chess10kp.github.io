@@ -19,9 +19,21 @@ import reactSvg from "../assets/images/React.svg";
 import nextSvg from "../assets/images/next.svg";
 import fastAPISvg from "../assets/images/fastapi.svg";
 import typescriptSvg from "../assets/images/Typescript.svg";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import javaSvg from "../assets/images/Java.svg";
 
 const Projects = () => {
-  const projects = [
+  const projects: Project[] = [
+    {
+      name: "HD3",
+      description: "A cross platform app for UM Dearborn's HackDearborn 3",
+      stack: [
+        [typescriptSvg, "typescript"],
+        [reactSvg, "react native"],
+        [javaSvg, "java"],
+      ],
+      href: "https://play.google.com/store/apps/details?id=org.hackdearborn.hackdearbornapp&pli=1",
+    },
     {
       name: "Socraticoin",
       description: "An educational cryptocurrency",
@@ -53,10 +65,9 @@ const Projects = () => {
       ],
       href: "https://github.com/snip-lang/snip",
     },
-
     {
       name: "Evalyn",
-      description: "A scheme interpreter written in Haskell",
+      description: "An interpreter for a subset of Scheme",
       stack: [[haskellSvg, "haskell"]],
       href: "https://github.com/chess10kp/evalyn",
     },
@@ -65,46 +76,57 @@ const Projects = () => {
     <section>
       <div className="flex flex-col mx-16">
         <h2 className="font-light text-center text-4xl my-4">
-          Projects I've worked on
+          Projects
         </h2>
-        <div className="grid gap-4 grid-cols-3 grid-rows-3">
+        <div className="grid gap-1 grid-cols-0 lg:gap-4 lg:grid-cols-3 md:gap-4 md:gap-cols-3">
           {projects.map((project) => {
-            return (
-              <Card className="text-center">
-                <CardHeader>
-                  <CardTitle>{project.name}</CardTitle>
-                </CardHeader>
-                <CardDescription>{project.description}</CardDescription>
-                <CardContent>
-                  <CardDescription className="flex flex-col justify-items-end text-bold">
-                    <p>Built with</p>
-                    <div className="flex">
-                      {project.stack.map((tech) => {
-                        return (
-                          <HoverCard>
-                            <HoverCardTrigger>
-                              <Image
-                                src={tech[0]}
-                                width="20"
-                                height="20"
-                                alt="svg icon"
-                              ></Image>
-                            </HoverCardTrigger>
-                            <HoverCardContent className="p-0 m-0 w-fit">
-                              {tech[1]}
-                            </HoverCardContent>
-                          </HoverCard>
-                        );
-                      })}
-                    </div>
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            );
+            return <ProjectCard project={project} />;
           })}
         </div>
       </div>
     </section>
+  );
+};
+
+type Project = {
+  name: string;
+  description: string;
+  stack: [StaticImport, string][];
+  href: string;
+};
+
+const ProjectCard = ({ project }: { project: Project }) => {
+  return (
+    <Card className="text-center">
+      <CardHeader>
+        <CardTitle>{project.name}</CardTitle>
+      </CardHeader>
+      <CardDescription>{project.description}</CardDescription>
+      <CardContent>
+        <CardDescription className="flex text-bold">
+          <p>Built with</p>
+          <div className="flex flex-1 px-2 space-x-2">
+            {project.stack.map((tech) => {
+              return (
+                <HoverCard>
+                  <HoverCardTrigger>
+                    <Image
+                      src={tech[0]}
+                      width="20"
+                      height="20"
+                      alt="svg icon"
+                    />
+                  </HoverCardTrigger>
+                  <HoverCardContent className="p-0 m-0 w-fit">
+                    {tech[1]}
+                  </HoverCardContent>
+                </HoverCard>
+              );
+            })}
+          </div>
+        </CardDescription>
+      </CardContent>
+    </Card>
   );
 };
 
