@@ -1,24 +1,9 @@
-"use client";
-
-import * as React from "react";
+import React from "react";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Header from "@/components/header";
 import Hero from "@/components/hero";
 import Footer from "@/components/footer";
 import Projects from "@/components/projects";
-
-const myAvatar = () => {
-  return (
-    <Avatar>
-      <AvatarImage
-        className="p-2"
-        src="https://media.licdn.com/dms/image/v2/D5603AQGY44q-fvXzZg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1674422223964?e=1737590400&v=beta&t=50OGreyb7Hl0Kh5G6YasEoiWJCa204kgc5Uv_EH4DIg"
-      />
-      <AvatarFallback>NM</AvatarFallback>
-    </Avatar>
-  );
-};
 
 export default function Home() {
   return (
@@ -27,6 +12,8 @@ export default function Home() {
         <Header />
         <div className="scroller">
           <Hero />
+        </div>
+        <div className="scroller">
           <Projects />
         </div>
         <Footer></Footer>
