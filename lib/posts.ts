@@ -13,8 +13,9 @@ export function getSortedPostsData() {
     const matterResult = matter(fileContents);
     console.log("hi");
     return {
-      id,
-      ...matterResult.data,
+      id: id,
+      title: matterResult.data.title,
+      date: matterResult.data.date,
     };
   });
   return allPostsData.sort((a, b) => {
@@ -35,12 +36,14 @@ export function getAllPostIds() {
   });
 }
 
-export function getPostById(id) {
+export function getPostById(id: string) {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const matterResult = matter(fileContents);
   return {
     content: matterResult.content,
-    ...matterResult.data,
+    id: matterResult.data.id,
+    title: matterResult.data.title,
+    date: matterResult.data.date,
   };
 }
