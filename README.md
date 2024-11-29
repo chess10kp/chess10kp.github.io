@@ -1,1 +1,1 @@
-# Portfolio website, built with Next.js and [Shadcn](https://ui.shadcn.com/) 
+# Built with Next.js and [Shadcn](https://ui.shadcn.com/) 
