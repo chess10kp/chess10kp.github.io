@@ -3,6 +3,7 @@ import BlogPosts from "@/components/blogPosts";
 import { getSortedPostsData } from "@/lib/posts";
 
 const Blog = () => {
+    console.log("hi")
   const posts = getSortedPostsData();
   return (
     <section>
