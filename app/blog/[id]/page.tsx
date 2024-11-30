@@ -1,21 +1,32 @@
 import { getPostById } from "@/lib/posts";
+import "./post.css";
+
 export default async function Page({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const { content, title, date } = getPostById(id);
+  const { content, title, date } = await getPostById(id);
   return (
-    <div>
+    <div className="flex items-stretch justify-center min-h-[80vh]">
       {title ? (
         <div>
-          <h1>{title}</h1>
-          <h1>{date}</h1>
-          <p>{content}</p>
+          <div className="flex flex-col text-center">
+            <h1 className="font-bold text-6xl ">{title}</h1>
+            <p className="text-md">{date.toString().slice(0, 10)}</p>
+          </div>
+          <div className="mx-10 p-0 min-w-[80vw]">
+            <div
+              className="post"
+              dangerouslySetInnerHTML={{
+                __html: content ? content : "No post found",
+              }}
+            ></div>
+          </div>
         </div>
       ) : (
-        <div className="text-center justify-center  min-h-[80vh] flex">
+        <div className="text-center justify-center  flex">
           <div className="my-auto flex items-center">
             <h1 className="border-r leading-loose align-top mx-8 px-8 border-r-foreground text-4xl">
               404
