@@ -26,6 +26,10 @@ const NavLink = (props: any) => {
 };
 
 const Header = () => {
+  const navItems = [
+    { name: "Blog", link: "/blog" },
+    { name: "About", link: "/about" },
+  ];
   return (
     <Menubar className="backdrop-blur-screen m-2 bg-accent/10 rounded-xl flex flex-row justify-between text-foreground">
       <div>
@@ -33,11 +37,11 @@ const Header = () => {
       </div>
       <NavigationMenu>
         <NavigationMenuList>
-          <NavigationMenuItem >
-            <NavLink className="" href="/blog">
-              Blog
-            </NavLink>
-          </NavigationMenuItem>
+          {navItems.map((item) => (
+            <NavigationMenuItem>
+              <NavLink href={`${item.link}`} className="">{item.name}</NavLink>
+            </NavigationMenuItem>
+          ))}
           <NavigationMenuItem className="">
             <ModeToggle />
           </NavigationMenuItem>
