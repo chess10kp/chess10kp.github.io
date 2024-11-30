@@ -21,7 +21,7 @@ export type Project = {
 
 const ProjectCard = ({ project }: { project: Project }) => {
   return (
-    <Card className="text-center backdrop-blur-screen m-2 bg-accent/10 rounded-lg">
+    <Card className="text-center backdrop-blur-screen m-2 bg-accent/10 rounded-lg transition duration-500 hover:scale-105 ">
       <CardHeader>
         <CardTitle>{project.name}</CardTitle>
       </CardHeader>
