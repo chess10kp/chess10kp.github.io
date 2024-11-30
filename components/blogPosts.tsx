@@ -6,19 +6,25 @@ type Props = {
 };
 
 const BlogPosts = ({ posts }: Props) => {
-    console.log(posts)
+  console.log(posts);
   return (
-    <ul>
-      {posts && posts.map(({ id, date, title }) => {
-        return (
-          <li>
-            <Link href={`/blog/${id}`}>{id}</Link>
-            <h1>{date}</h1>
-            <h1>{title}</h1>
-          </li>
-        );
-      })}
-    </ul>
+    <div className="min-h-[80vh] mt-6">
+      <ul>
+        {posts &&
+          posts.map(({ id, date, title }) => {
+            return (
+              <li className="flex flex-col">
+                <p className="text-balance text-sm leading-loose text-muted-foreground md:text-left">
+                  {date}
+                </p>
+                <Link href={`/blog/${id}`}>
+                  <h3 className="text-2xl font-bold">{title}</h3>
+                </Link>
+              </li>
+            );
+          })}
+      </ul>
+    </div>
   );
 };
 

@@ -16,7 +16,7 @@ export default function Home() {
         <div className="scroller">
           <Projects />
         </div>
-        <Footer></Footer>
+        <Footer />
       </main>
     </ThemeProvider>
   );

@@ -6,8 +6,7 @@ const Blog = () => {
     console.log("hi")
   const posts = getSortedPostsData();
   return (
-    <section>
-      <h2>Blog</h2>
+    <section className="flex flex-col items-center">
       <BlogPosts posts={posts} />
     </section>
   );
