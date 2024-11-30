@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import {marked} from "marked"
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
@@ -36,14 +37,18 @@ export function getAllPostIds() {
   });
 }
 
-export function getPostById(id: string) {
+export async function getPostById(id: string) {
   const fullPath = path.join(postsDirectory, `${id}.md`);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
-  const matterResult = matter(fileContents);
-  return {
-    content: matterResult.content,
-    id: matterResult.data.id,
-    title: matterResult.data.title,
-    date: matterResult.data.date,
-  };
+  try {
+    const fileContents = fs.readFileSync(fullPath, "utf8");
+    const matterResult = matter(fileContents);
+    return {
+      content: marked(matterResult.content),
+      id: matterResult.data.id,
+      title: matterResult.data.title,
+      date: matterResult.data.date,
+    };
+  } catch (error) {
+    return { content: null, id: null, title: null, date: null };
+  }
 }

@@ -7,7 +7,7 @@ const Blog = () => {
   const posts = getSortedPostsData();
   return (
     <section>
-      <h2>Blogg</h2>
+      <h2>Blog</h2>
       <BlogPosts posts={posts} />
     </section>
   );
