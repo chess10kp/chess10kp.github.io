@@ -20,7 +20,25 @@ const About = () => {
 };
 
 const Intro = () => {
-  return <></>;
+  return (
+    <>
+      <div className="flex flex-col items-center gap-4  mx-10">
+        <p className="text-md text-center">
+          When I'm not using the {" "} 
+          <a
+            href="https://gnu.org/software/emacs"
+            className="underline underline-offset-2"
+          >
+            one true editor
+          </a>, I'm probably writing Java, or training ML models in Jupyter.
+          <br/> 
+          I'm a a decent chess player (USCF 2100+), send me a challenge!
+          <br />
+        </p>
+      </div>
+      <div className="flex flex-col items-center gap-4"></div>
+    </>
+  );
 };
 
 const SelfInfo = () => {
