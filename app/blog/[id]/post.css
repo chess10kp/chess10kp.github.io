@@ -1,0 +1,13 @@
+.post h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.post pre {
+  background-color: hsl(var(--secondary));
+  text-color: hsl(var(--secondary-foreground));
+  max-width: fit-content;
+  margin: 1rem 0 auto 0;
+  padding: 1rem 1rem 1rem 1rem;
+}
+
