@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import { useState } from "react";
 import Link from "next/link";
@@ -26,25 +26,16 @@ const NavLink = (props: any) => {
 };
 
 const Header = () => {
-  const [isOpen, setisOpen] = useState(false);
   return (
-    <Menubar className="m-2 bg-background rounded-xl flex flex-row justify-between text-foreground">
+    <Menubar className="backdrop-blur-screen m-2 bg-accent/10 rounded-xl flex flex-row justify-between text-foreground">
       <div>
         <li className="dark:text-foreground font-bold">NM</li>
       </div>
       <NavigationMenu>
         <NavigationMenuList>
-          <NavigationMenuItem>
-            <NavLink href="/blog">Blog</NavLink>
-          </NavigationMenuItem>
-          <NavigationMenuItem className="md:hidden px-0">
-            <NavLink href="/" className="px-0">
-              <Button
-                className="m-0 p-0 dark:bg-background dark:text-foreground"
-                onClick={() => setisOpen(!isOpen)}
-              >
-                <Menu className="px-0" />
-              </Button>
+          <NavigationMenuItem >
+            <NavLink className="" href="/blog">
+              Blog
             </NavLink>
           </NavigationMenuItem>
           <NavigationMenuItem className="">
