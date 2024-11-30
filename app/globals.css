@@ -88,6 +88,10 @@
   font-style: normal;
 }
 
+h1 {
+  font-size: 3rem;
+}
+
 * {
   font-family: "Inter", sans-serif;
   font-weight: 300;
