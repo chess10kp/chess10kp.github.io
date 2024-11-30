@@ -1,16 +1,3 @@
-import React from "react";
-import {
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
-import Image from "next/image";
-
-import { HoverCardTrigger, HoverCardContent, HoverCard } from "./ui/hover-card";
-
 import cppSvg from "../assets/images/CPP.svg";
 import nasmSvg from "../assets/images/Nasm.svg";
 import pythonSvg from "../assets/images/Python.svg";
@@ -19,8 +6,9 @@ import reactSvg from "../assets/images/React.svg";
 import nextSvg from "../assets/images/next.svg";
 import fastAPISvg from "../assets/images/fastapi.svg";
 import typescriptSvg from "../assets/images/Typescript.svg";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import javaSvg from "../assets/images/Java.svg";
+import ProjectCard from "@/components/projectCard";
+import {Project} from "@/components/projectCard";
 
 const Projects = () => {
   const projects: Project[] = [
@@ -36,7 +24,8 @@ const Projects = () => {
     },
     {
       name: "Socraticoin",
-      description: "An educational cryptocurrency",
+      description:
+        "An educational tool to understand how cryptocurrencies work",
       stack: [
         [typescriptSvg, "typescript"],
         [reactSvg, "react"],
@@ -58,7 +47,7 @@ const Projects = () => {
     },
     {
       name: "Snip",
-      description: "A programming language written in C++",
+      description: "A C-style programming language",
       stack: [
         [cppSvg, "cpp"],
         [nasmSvg, "nasm"],
@@ -67,7 +56,7 @@ const Projects = () => {
     },
     {
       name: "Evalyn",
-      description: "An interpreter for a subset of Scheme",
+      description: "The scheme interpreter with scripting potential",
       stack: [[haskellSvg, "haskell"]],
       href: "https://github.com/chess10kp/evalyn",
     },
@@ -75,58 +64,14 @@ const Projects = () => {
   return (
     <section>
       <div className="flex flex-col mx-16">
-        <h2 className="font-light text-center text-4xl my-4">
-          Projects
-        </h2>
-        <div className="grid gap-1 grid-cols-0 lg:gap-4 lg:grid-cols-3 md:gap-4 md:gap-cols-3">
-          {projects.map((project) => {
-            return <ProjectCard project={project} />;
+        <h2 className="font-light text-center text-5xl mb-14">Projects</h2>
+        <div className="grid gap-4 cursor-pointer grid-cols-0 my-10 auto-rows-[1fr] lg:gap-4 lg:grid-cols-3 md:gap-4 md:gap-cols-3">
+          {projects.map((project, i) => {
+            return <ProjectCard key={i} project={project} />;
           })}
         </div>
       </div>
     </section>
-  );
-};
-
-type Project = {
-  name: string;
-  description: string;
-  stack: [StaticImport, string][];
-  href: string;
-};
-
-const ProjectCard = ({ project }: { project: Project }) => {
-  return (
-    <Card className="text-center">
-      <CardHeader>
-        <CardTitle>{project.name}</CardTitle>
-      </CardHeader>
-      <CardDescription>{project.description}</CardDescription>
-      <CardContent>
-        <CardDescription className="flex text-bold">
-          <p>Built with</p>
-          <div className="flex flex-1 px-2 space-x-2">
-            {project.stack.map((tech) => {
-              return (
-                <HoverCard>
-                  <HoverCardTrigger>
-                    <Image
-                      src={tech[0]}
-                      width="20"
-                      height="20"
-                      alt="svg icon"
-                    />
-                  </HoverCardTrigger>
-                  <HoverCardContent className="p-0 m-0 w-fit">
-                    {tech[1]}
-                  </HoverCardContent>
-                </HoverCard>
-              );
-            })}
-          </div>
-        </CardDescription>
-      </CardContent>
-    </Card>
   );
 };
 
