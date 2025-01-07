@@ -1,5 +1,12 @@
-import { getPostById } from "@/lib/posts";
+import { getPostById, getAllPostIds } from "@/lib/posts";
 import "./post.css";
+
+export async function generateStaticParams() {
+  const posts = getAllPostIds();
+  return posts.map((post) => post.params); // Format: { id: "post-id" }
+}
+
+export const dynamicParams = false;
 
 export default async function Page({
   params,
