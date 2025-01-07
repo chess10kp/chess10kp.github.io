@@ -6,7 +6,9 @@ import Footer from "@/components/footer";
 import Projects from "@/components/projects";
 
 export default function Home() {
+
   return (
+    
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
       <main className="bg-background">
         <Header />
