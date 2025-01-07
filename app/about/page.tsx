@@ -1,10 +1,22 @@
 import info from "@/siteConfig";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Github, Linkedin, Mail } from "@geist-ui/icons";
+import { Github, Linkedin, Mail,  } from "@geist-ui/icons";
+import leetCodeSvg from "@/assets/images/leetcode-svgrepo-com.svg";
 import Image from "next/image";
-import Pawn from "@/assets/images/pawn.svg";
-import Knight from "@/assets/images/knight.svg";
-import Link from "next/link";
+
+const Leetcode = () => {
+  return (
+    <div>
+      <Image
+        src={leetCodeSvg}
+        width={20}
+        height={20}
+        layout="fixed"
+        alt="Exercism"
+      />
+    </div>
+  );
+};
 
 const About = () => {
   return (
@@ -24,14 +36,15 @@ const Intro = () => {
     <>
       <div className="flex flex-col items-center gap-4  mx-10">
         <p className="text-md text-center">
-          When I'm not using the {" "} 
+          When I'm not using the{" "}
           <a
             href="https://gnu.org/software/emacs"
             className="underline underline-offset-2"
           >
             one true editor
-          </a>, I'm probably writing Java, or training ML models in Jupyter.
-          <br/> 
+          </a>
+          , I'm probably writing Java, or training ML models in Jupyter.
+          <br />
           I'm a a decent chess player (USCF 2100+), send me a challenge!
           <br />
         </p>
@@ -72,6 +85,7 @@ const ContactInfo = () => {
     { name: <Github />, link: info.links.github },
     { name: <Linkedin />, link: info.links.linkedin },
     { name: <Mail />, link: info.links.email },
+    { name: <Leetcode />, link: info.links.leetcode },
   ];
   return (
     <div className="flex justify-center gap-4 items-evenly">
