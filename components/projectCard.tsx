@@ -7,7 +7,12 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import Image from "next/image";
-import { HoverCardTrigger, HoverCardContent, HoverCard } from "./ui/hover-card";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Github } from "@geist-ui/icons";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Link from "next/link";
@@ -34,18 +39,25 @@ const ProjectCard = ({ project }: { project: Project }) => {
       <CardFooter>
         <p className="p-2">Built with</p>
         <div className="flex flex-1 space-x-2  w-fit p-2">
-          {project.stack.map((tech, i) => {
-            return (
-              <HoverCard key={i}>
-                <HoverCardTrigger>
-                  <Image src={tech[0]} width="20" height="20" alt="svg icon" />
-                </HoverCardTrigger>
-                <HoverCardContent className="p-0 m-0 w-fit">
-                  {tech[1]}
-                </HoverCardContent>
-              </HoverCard>
-            );
-          })}
+          <TooltipProvider delayDuration={100}>
+            {project.stack.map((tech, i) => {
+              return (
+                <Tooltip key={i}>
+                  <TooltipTrigger>
+                    <Image
+                      src={tech[0]}
+                      width="20"
+                      height="20"
+                      alt="svg icon"
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent className="p-0 m-0 w-fit">
+                    {tech[1]}
+                  </TooltipContent>
+                </Tooltip>
+              );
+            })}
+          </TooltipProvider>
         </div>
         <Link href={project.href}>
           <Github width="20" height="20"></Github>

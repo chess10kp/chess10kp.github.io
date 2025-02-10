@@ -8,7 +8,7 @@ import fastAPISvg from "../assets/images/fastapi.svg";
 import typescriptSvg from "../assets/images/Typescript.svg";
 import javaSvg from "../assets/images/Java.svg";
 import ProjectCard from "@/components/projectCard";
-import {Project} from "@/components/projectCard";
+import { Project } from "@/components/projectCard";
 
 const Projects = () => {
   const projects: Project[] = [
@@ -16,7 +16,7 @@ const Projects = () => {
       name: "HD3",
       description: "A cross platform app for UM Dearborn's HackDearborn 3",
       stack: [
-        [typescriptSvg, "typescript"],
+        [typescriptSvg, "Typescript"],
         [reactSvg, "react native"],
         [javaSvg, "java"],
       ],
@@ -27,10 +27,10 @@ const Projects = () => {
       description:
         "An educational tool to understand how cryptocurrencies work",
       stack: [
-        [typescriptSvg, "typescript"],
-        [reactSvg, "react"],
-        [pythonSvg, "python"],
-        [fastAPISvg, "fastAPI"],
+        [typescriptSvg, "Typescript"],
+        [reactSvg, "React"],
+        [pythonSvg, "Python"],
+        [fastAPISvg, "FastAPI"],
       ],
       href: "https://github.com/chess10kp/socraticoin",
     },
@@ -38,10 +38,10 @@ const Projects = () => {
       name: "GitGraft",
       description: "An expense tracker",
       stack: [
-        [typescriptSvg, "typescript"],
-        [reactSvg, "react"],
-        [pythonSvg, "python"],
-        [fastAPISvg, "fastAPI"],
+        [typescriptSvg, "Typescript"],
+        [reactSvg, "React"],
+        [pythonSvg, "Python"],
+        [fastAPISvg, "FastAPI"],
       ],
       href: "https://github.com/chess10kp/graft",
     },
@@ -49,8 +49,8 @@ const Projects = () => {
       name: "Snip",
       description: "A C-style programming language",
       stack: [
-        [cppSvg, "cpp"],
-        [nasmSvg, "nasm"],
+        [cppSvg, "C++"],
+        [nasmSvg, "NASM"],
       ],
       href: "https://github.com/snip-lang/snip",
     },

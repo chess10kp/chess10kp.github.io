@@ -45,8 +45,6 @@ const Intro = () => {
           </a>
           , I'm probably writing Java, or training ML models in Jupyter.
           <br />
-          I'm a a decent chess player (USCF 2100+), send me a challenge!
-          <br />
         </p>
       </div>
       <div className="flex flex-col items-center gap-4"></div>
@@ -59,7 +57,7 @@ const SelfInfo = () => {
     <>
       <Avatar className="w-20 h-20">
         <AvatarImage
-          src="https://media.licdn.com/dms/image/v2/D5603AQGY44q-fvXzZg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1674422223964?e=1738195200&v=beta&t=hgUdYVJ7SwiFz415DOKJkJGXhHkIKxWN1tqrgSD1aUw"
+          src="/1674422223964.jpg"
           alt="@nitinmadhu"
         />
         <AvatarFallback>NM</AvatarFallback>
@@ -89,8 +87,8 @@ const ContactInfo = () => {
   ];
   return (
     <div className="flex justify-center gap-4 items-evenly">
-      {personal_links.map((link) => (
-        <a href={link.link}>{link.name}</a>
+      {personal_links.map((link, idx) => (
+        <a href={link.link} key={idx}>{link.name}</a>
       ))}
       <a href={info.links.chess}>
         <svg
