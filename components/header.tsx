@@ -31,14 +31,14 @@ const Header = () => {
     { name: "About", link: "/about" },
   ];
   return (
-    <Menubar className="backdrop-blur-screen m-2 bg-accent/10 rounded-xl flex flex-row justify-between text-foreground">
+    <Menubar className="backdrop-blur-screen m-2 rounded-xl flex flex-row justify-between text-foreground">
       <div>
           <Link href="/" className="dark:text-foreground list-none font-bold">NM</Link>
       </div>
       <NavigationMenu>
         <NavigationMenuList>
-          {navItems.map((item) => (
-            <NavigationMenuItem>
+          {navItems.map((item, idx) => (
+            <NavigationMenuItem key={idx}>
               <NavLink href={`${item.link}`} className="">
                 {item.name}
               </NavLink>
