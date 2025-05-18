@@ -28,7 +28,6 @@ const NavLink = (props: any) => {
 const Header = () => {
   const navItems = [
     { name: "Blog", link: "/blog" },
-    { name: "About", link: "/about" },
   ];
   return (
     <Menubar className="backdrop-blur-screen m-2 rounded-xl flex flex-row justify-between text-foreground">
@@ -45,7 +44,6 @@ const Header = () => {
             </NavigationMenuItem>
           ))}
           <NavigationMenuItem className="">
-            <ModeToggle />
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>

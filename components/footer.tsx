@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="py-6 dark:border-border text-end">
       <div className="container items-center justify-between gap-4 md:flex-row">
-        <p className="text-balance text-sm leading-loose text-muted-foreground">
+        <p className="text-balance inter text-sm leading-loose text-muted-foreground">
           Built by{" "}
           <a
             href={siteConfig.links.linkedin}

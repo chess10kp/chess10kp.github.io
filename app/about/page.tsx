@@ -43,7 +43,7 @@ const Intro = () => {
           >
             one true editor
           </a>
-          , I'm probably writing Java, or training ML models in Jupyter.
+          , I'm probably writing C#, or training ML models in Jupyter.
           <br />
         </p>
       </div>
