@@ -20,13 +20,13 @@ import Link from "next/link";
 export type Project = {
   name: string;
   description: string;
-  stack: [StaticImport, string][];
+  stack: [StaticImport, string, boolean?][];
   href: string;
 };
 
 const ProjectCard = ({ project }: { project: Project }) => {
   return (
-    <Card className="text-center backdrop-blur-screen m-2 bg-accent/10 rounded-lg transition duration-500 hover:scale-105 ">
+    <Card className="text-center border-0 backdrop-blur-screen m-2 bg-accent/10 rounded-lg transition duration-500 hover:scale-105 ">
       <CardHeader>
         <CardTitle>{project.name}</CardTitle>
       </CardHeader>
@@ -37,7 +37,6 @@ const ProjectCard = ({ project }: { project: Project }) => {
         <CardDescription className="flex text-bold" />
       </CardContent>
       <CardFooter>
-        <p className="p-2">Built with</p>
         <div className="flex flex-1 space-x-2  w-fit p-2">
           <TooltipProvider delayDuration={100}>
             {project.stack.map((tech, i) => {
@@ -49,9 +48,10 @@ const ProjectCard = ({ project }: { project: Project }) => {
                       width="20"
                       height="20"
                       alt="svg icon"
+                      className={`${tech[2] == true ? "dark:invert" : ""}`}
                     />
                   </TooltipTrigger>
-                  <TooltipContent className="p-0 m-0 w-fit">
+                  <TooltipContent className={`p-0 m-0 w-fit `}>
                     {tech[1]}
                   </TooltipContent>
                 </Tooltip>
