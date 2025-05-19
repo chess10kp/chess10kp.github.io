@@ -28,9 +28,9 @@ const ProjectCard = ({ project }: { project: Project }) => {
   return (
     <Card className="text-center border-0 backdrop-blur-screen m-2 bg-accent/10 rounded-lg transition duration-500 hover:scale-105 ">
       <CardHeader>
-        <CardTitle>{project.name}</CardTitle>
+        <CardTitle className="mono">{project.name}</CardTitle>
       </CardHeader>
-      <CardDescription className="text-left mx-8">
+      <CardDescription className="text-left inter text-lg text-zinc-400 mx-8">
         {project.description}
       </CardDescription>
       <CardContent>

@@ -25,20 +25,23 @@ const NavLink = (props: any) => {
   );
 };
 
-const Header = () => {
-  const navItems = [
+const Header = (props: any) => {
+  const navItems : {name:string, link:string}[] = props.navItems == null ?  [
     { name: "Blog", link: "/blog" },
-  ];
+    { name: "Experience", link: "#experience" },
+    { name: "Projects", link: "#projects" },
+  ] : props.navItems;
+
   return (
-    <Menubar className="backdrop-blur-screen m-2 rounded-xl flex flex-row justify-between text-foreground">
+    <Menubar className="backdrop-blur-screen sticky m-2 flex flex-row justify-between text-foreground">
       <div>
-          <Link href="/" className="dark:text-foreground list-none font-bold">NM</Link>
+          <Link href="/" className="dark:text-foreground list-none md:text-xl font-bold">NM</Link>
       </div>
       <NavigationMenu>
         <NavigationMenuList>
           {navItems.map((item, idx) => (
             <NavigationMenuItem key={idx}>
-              <NavLink href={`${item.link}`} className="">
+              <NavLink href={`${item.link}`} className="md:text-lg inter">
                 {item.name}
               </NavLink>
             </NavigationMenuItem>

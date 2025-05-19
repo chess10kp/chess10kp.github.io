@@ -3,9 +3,9 @@ import siteConfig from "@/siteConfig"
 
 const Footer = () => {
   return (
-    <footer className="py-6 dark:border-border text-end">
+    <footer className="py-6 dark:border-border bg-accent/10 text-end">
       <div className="container items-center justify-between gap-4 md:flex-row">
-        <p className="text-balance inter text-sm leading-loose text-muted-foreground">
+        <p className="text-balance inter text-center text-sm leading-loose text-muted-foreground">
           Built by{" "}
           <a
             href={siteConfig.links.linkedin}
@@ -14,7 +14,8 @@ const Footer = () => {
             className="font-medium underline underline-offset-4"
           >
             {siteConfig.personal.name}
-          </a>
+          </a>. 
+          The source is on <a className='underline underline-offset-4' href="https://github.com/chess10kp/chess10kp.github.io">Github</a>
         </p>
       </div>
     </footer>

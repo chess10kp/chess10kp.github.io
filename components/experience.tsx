@@ -68,7 +68,7 @@ export function Experience() {
     },
   ];
   return (
-    <div className="mx-16 lg:mx-32 text-center w-fit flex-col items-center m-auto">
+    <div id="experience" className="text-center w-fit flex-col mt-16 items-center m-auto">
       <h2 className="mono text-2xl text-left my-4">Experience</h2>
       <div className="text-center w-fit">
         {experiences.map((exp) => (
