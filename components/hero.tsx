@@ -12,7 +12,7 @@ const Hero = () => {
       <div>
         <h2 className="mono text-2xl my-4  mt-16">About</h2>
         <div className="roboto leading-2 text-xl text-zinc-400 spacing text-muted-foreground">
-          I'm a senior (graduation Apr 2026) at
+          I'm a senior (graduating Apr 2026) at
           UofM-Dearborn studying Computer science and Machine Learning. I build
           modern applications and websites powered by large language models,
           with an emphasis on applying Machine Learning to real problems with a focus on user extensibility.

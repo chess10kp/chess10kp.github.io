@@ -68,7 +68,7 @@ const Projects = () => {
     <section className="my-16" id="projects">
       <div className="flex flex-col ">
         <h2 className="font-medium md:text-left text-xl text-center md:text-2xl mono">Projects I've worked on</h2>
-        <div className="grid gap-4 cursor-pointer grid-cols-1  md:grid-cols-2  my-4 auto-rows-[1fr] lg:gap-4 lg:grid-cols-4 md:gap-4 md:gap-cols-2">
+        <div className="grid gap-4 cursor-pointer grid-cols-1  md:grid-cols-2  my-4 auto-rows-[1fr] lg:gap-4 lg:grid-cols-3 md:gap-4 md:gap-cols-2">
           {projects.map((project, i) => {
             return <ProjectCard key={i} project={project} />;
           })}

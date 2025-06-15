@@ -46,7 +46,7 @@ export function Experience() {
       employer: "Ancor Automotive",
       employer_link: "ancorinfo.com",
       description: "Incoming Summer 2025 Intern",
-      tech: ["Next.js", "ASP.NET"],
+      tech: ["Next.js", "React Native", "RAG"],
     },
     {
       position: "Research Assistant",
