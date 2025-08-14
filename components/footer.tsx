@@ -3,9 +3,9 @@ import siteConfig from "@/siteConfig"
 
 const Footer = () => {
   return (
-    <footer className="py-6 dark:border-border bg-accent/10 text-end">
+    <footer className="py-6 dark:border-border bg-transparent text-end">
       <div className="container items-center justify-between gap-4 md:flex-row">
-        <p className="text-balance inter text-center text-sm leading-loose text-muted-foreground">
+        <p className="text-balance geist text-center text-sm leading-loose text-muted-foreground">
           Built by{" "}
           <a
             href={siteConfig.links.linkedin}

@@ -16,8 +16,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { motion } from "framer-motion";
 
-// Define the form schema with validation rules
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -34,7 +34,6 @@ type FormValues = z.infer<typeof formSchema>;
 export function ContactForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Initialize the form with react-hook-form and zod validation
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,11 +47,9 @@ export function ContactForm() {
   async function onSubmit(data: FormValues) {
     setTimeout(async () => {
       const formData = new FormData();
-
       Object.entries(data).forEach(([key, value]) => {
         formData.append(key, value);
       });
-
       formData.append("access_key", "bb0d6658-d0e2-4b80-93b7-7345582a9b01");
 
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -60,117 +57,104 @@ export function ContactForm() {
         body: formData,
       });
 
-      console.log(response);
       const result = await response.json();
-
       if (result.success) {
+        setIsSubmitted(true);
       } else {
         console.error("Submission failed:", result.message);
-        // Handle error case
       }
-      console.log(result.success);
-
-      setIsSubmitted(true);
     }, 1000);
   }
 
   if (isSubmitted) {
     return (
-      <div className="flex my-16 flex-col items-center justify-center p-6">
-        <h4 className="text-lg font-medium mb-2">Message Sent!</h4>
-        <p className="text-sm text-center text-zinc-400 mb-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex my-16 flex-col items-center justify-center p-6 bg-card/50 rounded-lg"
+      >
+        <h4 className="text-xl font-medium mb-2 geist">Message Sent!</h4>
+        <p className="text-sm text-center text-muted-foreground mb-4 geist">
           Thanks for reaching out. I'll get back to you as soon as possible.
         </p>
         <Button variant="outline" onClick={() => setIsSubmitted(false)}>
           Send Another Message
         </Button>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="my-16">
-      <h2 className="mono mb-4 text-2xl">Get in Touch</h2>
+    <motion.div
+      id="contact"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.2 }}
+    >
+      <h2 className="geist text-3xl font-bold text-left my-4">Get in Touch</h2>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-400">Name</FormLabel>
+                  <FormLabel className="geist text-muted-foreground">Name</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Your name"
-                      className="bg-zinc-800/50 border-zinc-700 focus:border-cyan-500"
-                      {...field}
-                    />
+                    <Input placeholder="Your name" {...field} />
                   </FormControl>
-                  <FormMessage className="text-xs text-red-500" />
+                  <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-400">Email</FormLabel>
+                  <FormLabel className="geist text-muted-foreground">Email</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
                       placeholder="your.email@example.com"
-                      className="bg-zinc-800/50 border-zinc-700 focus:border-cyan-500"
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage className="text-xs text-red-500" />
+                  <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-
           <FormField
             control={form.control}
             name="subject"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-zinc-400">Subject</FormLabel>
+                <FormLabel className="geist text-muted-foreground">Subject</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="What is this regarding?"
-                    className="bg-zinc-800/50 border-zinc-700 focus:border-cyan-500"
-                    {...field}
-                  />
+                  <Input placeholder="What is this regarding?" {...field} />
                 </FormControl>
-                <FormMessage className="text-xs text-red-500" />
+                <FormMessage />
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="message"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-zinc-400">Message</FormLabel>
+                <FormLabel className="geist text-muted-foreground">Message</FormLabel>
                 <FormControl>
-                  <Textarea
-                    placeholder="Your message"
-                    className="bg-zinc-800/50 border-zinc-700 focus:border-cyan-500 min-h-[120px]"
-                    {...field}
-                  />
+                  <Textarea placeholder="Your message" {...field} />
                 </FormControl>
-                <FormMessage className="text-xs text-red-500" />
+                <FormMessage />
               </FormItem>
             )}
           />
-
           <Button
             type="submit"
-            className="w-full bg-gradient-to-r "
+            className="w-full"
             disabled={form.formState.isSubmitting}
           >
             {form.formState.isSubmitting ? (
@@ -187,6 +171,6 @@ export function ContactForm() {
           </Button>
         </form>
       </Form>
-    </div>
+    </motion.div>
   );
 }

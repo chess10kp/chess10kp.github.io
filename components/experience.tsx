@@ -1,6 +1,7 @@
-import { AnimatedSection } from "./animated-section";
+"use client";
 import { Badge } from "./ui/badge";
-import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
+import { Card, CardContent, CardHeader } from "./ui/card";
+import { motion } from "framer-motion";
 
 type ExperienceCardType = {
   timeline: string;
@@ -9,37 +10,39 @@ type ExperienceCardType = {
   employer_link: string;
   description: string;
   tech: string[];
-  delay?: number;
+};
+
+const experienceVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
 };
 
 const ExperienceCard = ({
   timeline,
   position,
   employer,
-  employer_link,
   description,
   tech,
-  delay,
 }: ExperienceCardType) => {
   return (
-    <AnimatedSection delay={delay} forceAnimate={true}>
-      <Card className="grid border-0 md:grid-flow-row md:grid-cols-2 ">
-        <CardHeader className="text-slate-500 text-left p-0 my-2">
+    <motion.div variants={experienceVariants}>
+      <Card className="grid border-0 md:grid-cols-4 bg-transparent mb-8">
+        <CardHeader className="text-muted-foreground text-left p-0 my-2 geist md:col-span-1">
           {timeline}
         </CardHeader>
-        <CardContent className="my-2 mx-0 px-0 space-y-4 text-left">
-          <div className="text-xl">
+        <CardContent className="my-2 mx-0 px-0 space-y-4 text-left md:col-span-3">
+          <div className="text-xl geist text-foreground">
             {position} @ {employer}
           </div>
-          <div className="text-left wrap">{description}</div>
-          <div className="float-start flex">
+          <div className="text-left wrap text-muted-foreground geist">{description}</div>
+          <div className="flex flex-wrap gap-2">
             {tech.map((tech) => (
-              <Badge className="ml-2">{tech}</Badge>
+              <Badge key={tech} variant="secondary">{tech}</Badge>
             ))}
           </div>
         </CardContent>
       </Card>
-    </AnimatedSection>
+    </motion.div>
   );
 };
 
@@ -74,26 +77,25 @@ export function Experience() {
     },
   ];
   return (
-    <div
-      id="experience"
-      className="text-center w-fit flex-col mt-16 items-center m-auto"
-    >
-      <AnimatedSection delay={100} forceAnimate={true}>
-        <h2 className="mono text-2xl text-left my-4">Experience</h2>
-      </AnimatedSection>
-      <div className="text-center w-fit">
+    <div id="experience">
+      <h2 className="geist text-3xl font-bold text-left my-4">Experience</h2>
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        transition={{ staggerChildren: 0.2 }}
+      >
         {experiences.map((exp, i) => (
           <ExperienceCard
+            key={i}
             tech={exp.tech}
             position={exp.position}
             timeline={exp.timeline}
             employer={exp.employer}
             employer_link={exp.employer_link}
             description={exp.description}
-            delay={100 +  i * 100}
           />
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }

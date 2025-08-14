@@ -1,3 +1,4 @@
+"use client";
 import cppSvg from "../assets/images/CPP.svg";
 import nasmSvg from "../assets/images/Nasm.svg";
 import pythonSvg from "../assets/images/Python.svg";
@@ -8,13 +9,12 @@ import geminiSvg from "../assets/images/gemini.svg";
 import fastAPISvg from "../assets/images/fastapi.svg";
 import typescriptSvg from "../assets/images/Typescript.svg";
 import javaSvg from "../assets/images/Java.svg";
-import rustSvg from "../assets/images/rust.svg"
+import rustSvg from "../assets/images/rust.svg";
 import ProjectCard from "@/components/projectCard";
 import { Project } from "@/components/projectCard";
-import { AnimationProvider } from "@/contexts/animation-context";
+import { motion } from "framer-motion";
 
-const Projects = () => {
-  const projects: Project[] = [
+const projectsList: Project[] = [
     {
       name: "OPilot",
       description:
@@ -65,23 +65,36 @@ const Projects = () => {
       href: "https://github.com/chess10kp/evalyn",
     },
   ];
+
+const containerVariants = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const Projects = () => {
   return (
-    
-      <section className="my-16" id="projects">
-        <div className="flex flex-col ">
-          <h2 className="font-medium md:text-left text-xl text-center md:text-2xl mono">
-            Projects I've worked on
-          </h2>
-          <div className="grid gap-4 cursor-pointer grid-cols-1  md:grid-cols-2  my-4 auto-rows-[1fr] lg:gap-4 lg:grid-cols-3 md:gap-4 md:gap-cols-2">
-            {projects.map((project, i) => {
-              return (
-                <ProjectCard key={i} delay={50 + i * 100} project={project} />
-              );
-            })}
-          </div>
-        </div>
-      </section>
-    
+    <section id="projects">
+      <div className="flex flex-col">
+        <h2 className="geist text-3xl font-bold text-left my-4">
+          Projects I've worked on
+        </h2>
+        <motion.div
+          className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {projectsList.map((project, i) => {
+            return <ProjectCard key={i} project={project} />;
+          })}
+        </motion.div>
+      </div>
+    </section>
   );
 };
 

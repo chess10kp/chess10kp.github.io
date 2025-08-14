@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/header";
@@ -9,31 +10,40 @@ import { Experience } from "@/components/experience";
 import { ContactSidebar } from "@/components/ContactSidebar";
 import "./page.css";
 import { ContactForm } from "@/components/contact-form";
-import { AnimationProvider } from "@/contexts/animation-context";
+import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <AnimationProvider>
-      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-        <Header></Header>
-        <main className="relative">
-          <ContactSidebar />
-          <div className="mx-16 lg:mx-32">
-            <div className="scroller">
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+      <Header />
+      <motion.main
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="relative"
+      >
+        <ContactSidebar />
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="py-16">
               <Hero />
+            </div>
+            <div className="py-16">
               <Experience />
             </div>
-            <div className="scroller" id="projects">
+            <div className="py-16" id="projects">
               <Projects />
-              <Skills></Skills>
             </div>
-            <div>
-              <ContactForm></ContactForm>
+            <div className="py-16">
+              <Skills />
+            </div>
+            <div className="py-16">
+              <ContactForm />
             </div>
           </div>
-        </main>
-        <Footer />
-      </ThemeProvider>
-    </AnimationProvider>
+        </div>
+      </motion.main>
+      <Footer />
+    </ThemeProvider>
   );
 }

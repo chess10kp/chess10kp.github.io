@@ -16,8 +16,7 @@ import {
 import { Github } from "@geist-ui/icons";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Link from "next/link";
-import { AnimationProvider, useAnimation } from "@/contexts/animation-context";
-import { AnimatedSection } from "./animated-section";
+import { motion } from "framer-motion";
 
 export type Project = {
   name: string;
@@ -26,27 +25,33 @@ export type Project = {
   href: string;
 };
 
-const ProjectCard = ({
-  project,
-  delay,
-}: {
-  project: Project;
-  delay: number;
-}) => {
+const cardVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
+
+const ProjectCard = ({ project }: { project: Project }) => {
   return (
-    <AnimatedSection delay={delay} forceAnimate={true}>
-      <Card className="text-center border-0 backdrop-blur-screen m-2 bg-accent/10 rounded-lg transition duration-500 hover:scale-105 ">
+    <motion.div
+      variants={cardVariants}
+      whileHover={{ y: -5 }}
+      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+    >
+      <Card className="h-full text-center border-0 backdrop-blur-screen bg-card/50 rounded-lg transition duration-500 hover:bg-card/90 flex flex-col">
         <CardHeader>
-          <CardTitle className="mono">{project.name}</CardTitle>
+          <CardTitle className="geist">{project.name}</CardTitle>
         </CardHeader>
-        <CardDescription className="text-left inter text-lg text-zinc-400 mx-8">
+        <CardDescription className="text-left geist text-lg text-muted-foreground mx-8">
           {project.description}
         </CardDescription>
-        <CardContent>
-          <CardDescription className="flex text-bold" />
+        <CardContent className="flex-grow">
+          {/* This will take up the remaining space */}
         </CardContent>
         <CardFooter>
-          <div className="flex flex-1 space-x-2  w-fit p-2">
+          <div className="flex flex-1 space-x-2 w-fit p-2">
             <TooltipProvider delayDuration={100}>
               {project.stack.map((tech, i) => {
                 return (
@@ -73,7 +78,7 @@ const ProjectCard = ({
           </Link>
         </CardFooter>
       </Card>
-    </AnimatedSection>
+    </motion.div>
   );
 };
 

@@ -1,45 +1,79 @@
-type SkillsProps = {};
-import { AnimatedSection } from "./animated-section";
-import { CodeIcon } from "lucide-react";
-import { CardContent, Card } from "@/components/ui/card";
-import { SkillTag } from "./skill-tag";
+"use client";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import siteConfig from "@/siteConfig";
-import { AnimationProvider } from "@/contexts/animation-context";
+import { motion } from "framer-motion";
 
-const SkillTagComponent = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div className="px-2 py-1 bg-zinc-800 rounded-full text-xs font-medium text-zinc-400">
-      {children}
-    </div>
-  );
+const containerVariants = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const badgeVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
 };
 
 const Skills = () => {
   return (
-    <div>
-      <Card className="border-0">
+    <div id="skills">
+      <h2 className="geist text-3xl font-bold text-left my-4">
+        Technical Skills
+      </h2>
+      <Card className="border-0 bg-transparent">
         <CardContent className="p-0">
-          <div className=" mb-4">
-            <h3 className="text-2xl font-medium mono">Technical Skills</h3>
-          </div>
-          <div className="grid grid-cols-1  md:grid-cols-2 gap-4 sm:gap-6">
-            <div className="space-y-3">
-              <h4 className="text-sm font-medium text-zinc-400">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold text-foreground geist">
                 Machine Learning
-              </h4>
-              <div className="flex flex-wrap gap-2">
+              </h3>
+              <motion.div
+                className="flex flex-wrap gap-2"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+              >
                 {siteConfig.skills.ml.map((skill, index) => (
-                  <SkillTagComponent key={index}>{skill}</SkillTagComponent>
+                  <motion.div
+                    key={index}
+                    variants={badgeVariants}
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    <Badge variant="secondary">{skill}</Badge>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
-            <div className="space-y-3">
-              <h4 className="text-sm font-medium text-zinc-400">Development</h4>
-              <div className="flex flex-wrap gap-2">
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold text-foreground geist">
+                Development
+              </h3>
+              <motion.div
+                className="flex flex-wrap gap-2"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+              >
                 {siteConfig.skills.software.map((skill, index: number) => (
-                  <SkillTagComponent key={index}>{skill}</SkillTagComponent>
+                  <motion.div
+                    key={index}
+                    variants={badgeVariants}
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    <Badge variant="secondary">{skill}</Badge>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
           </div>
         </CardContent>
