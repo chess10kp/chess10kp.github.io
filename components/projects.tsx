@@ -78,13 +78,13 @@ const containerVariants = {
 
 const Projects = () => {
   return (
-    <section id="projects">
+    <section id="projects" className="py-16">
       <div className="flex flex-col">
-        <h2 className="geist text-3xl font-bold text-left my-4">
-          Projects I've worked on
+        <h2 className="geist text-3xl font-bold text-left my-8">
+          Projects I've Worked On
         </h2>
         <motion.div
-          className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
           variants={containerVariants}
           initial="hidden"
           animate="visible"

@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { Menubar } from "@/components/ui/menubar";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 import {
   NavigationMenu,
@@ -16,7 +17,7 @@ const NavLink = (props: any) => {
   return (
     <Link {...props} legacyBehavior passHref>
       <motion.div whileHover={{ scale: 1.1 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+        <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "geist")}>
           {props.children}
         </NavigationMenuLink>
       </motion.div>
@@ -45,7 +46,7 @@ const Header = (props: any) => {
         <NavigationMenuList>
           {navItems.map((item, idx) => (
             <NavigationMenuItem key={idx}>
-              <NavLink href={`${item.link}`} className="md:text-lg geist">
+              <NavLink href={`${item.link}`} className="md:text-lg">
                 {item.name}
               </NavLink>
             </NavigationMenuItem>

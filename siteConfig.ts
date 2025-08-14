@@ -37,5 +37,6 @@ export default {
       "Javascript",
     ],
     ml: ["Python", "Pytorch", "Tensorflow", "NumPy", "Pandas", "Tailwind"],
+    llm: ["LangChain", "Hugging Face", "Vector Databases"],
   },
 };

@@ -49,10 +49,10 @@ const ExperienceCard = ({
 export function Experience() {
   const experiences: ExperienceCardType[] = [
     {
-      position: "Software Engineer Intern",
-      timeline: "Jun — Aug 2025",
-      employer: "Ancor Automotive",
-      employer_link: "ancorinfo.com",
+      position: "Software Innovation Intern",
+      timeline: "Jun — Present",
+      employer: "Ancor",
+      employer_link: "weareancor.com",
       description:
         "Developed a React Native app to track 10k auto parts in 3 warehouses and manage inventory. Built a RAG and GPT powered chatbot to query inventory to answer questions about parts availability",
       tech: ["Next.js", "React Native", "RAG"],
