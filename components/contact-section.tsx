@@ -64,7 +64,6 @@ export function ContactSection() {
 
               <div className="pt-4">
                 <h4 className="font-medium mb-3">Connect with me</h4>
-                <SocialLinks />
               </div>
             </div>
           </div>

@@ -16,12 +16,14 @@ export default async function Page({
   const { id } = await params;
   const { content, title, date } = await getPostById(id);
   return (
-    <div className="flex items-stretch justify-center min-h-[80vh]">
+    <div className="flex items-stretch mx-16 lg:mx-32  justify-center min-h-[80vh]">
       {title ? (
-        <div>
+        <div className="md:my-16">
           <div className="flex flex-col text-center">
-            <h1 className="font-bold text-6xl ">{title}</h1>
-            <p className="text-md">{date.toString().slice(0, 10)}</p>
+            <h1 className="font-bold text-4xl mono ">{title}</h1>
+            <p className="text-md text-zinc-400">
+              {date.toString().slice(0, 10)}
+            </p>
           </div>
           <div className="mx-10 p-0 min-w-[80vw]">
             <div

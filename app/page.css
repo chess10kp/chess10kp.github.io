@@ -1,0 +1,11 @@
+.background {
+  background-image: url("/back.svg");
+  background-repeat: repeat;
+  background-size: 30px;
+}
+
+.darkBackground {
+  background-image: url("/darkBack.svg");
+  background-repeat: repeat;
+  background-size: 30px;
+}

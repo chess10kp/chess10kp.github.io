@@ -18,7 +18,7 @@ const BlogPosts = ({ posts }: Props) => {
                   {date}
                 </p>
                 <Link href={`/blog/${id}`}>
-                  <h3 className="text-2xl font-bold">{title}</h3>
+                  <h1 className="text-1xl mono font-bold">{title}</h1>
                 </Link>
               </li>
             );

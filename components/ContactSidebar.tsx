@@ -47,7 +47,7 @@ export const ContactSidebar = () => {
   ];
 
   return (
-    <div className="flex line hidden md:block  bottom-2 fixed flex-col m-2 justify-center gap-4 items-evenly ">
+    <div className="flex line md:block  bottom-2 fixed flex-col m-2 justify-center gap-4 items-evenly ">
       <div className=" flex-col items-evenly flex gap-4 relative after:content-[''] after:absolute after:left-1/2 after:top-full after:h-24 after:w-px after:bg-gray-300 after:translate-y-[-50%] after:text-muted-foreground">
         {personal_links.map((link, idx) => (
           <a className="text-muted-foreground hover:text-white transition-colors duration-200" href={link.link} key={idx}>

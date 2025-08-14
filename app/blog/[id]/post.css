@@ -1,13 +1,25 @@
+@import '../../globals.css';
+
 .post h1 {
-  font-size: 3rem;
-  font-weight: bold;
+  @apply underline underline-offset-4 font-semibold my-8 text-4xl;
+  font-family: "Victor Mono", sans-serif;
+}
+
+.post blockquote {
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+
+.post p {
+  @apply text-xl;
+  font-family: "Inter";
+  color: hsl(var(--muted-foreground));
 }
 
 .post pre {
-  background-color: hsl(var(--secondary));
-  text-color: hsl(var(--secondary-foreground));
-  max-width: fit-content;
-  margin: 1rem 0 auto 0;
-  padding: 1rem 1rem 1rem 1rem;
+  @apply bg-accent/20;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
 }
-
