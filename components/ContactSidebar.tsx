@@ -2,6 +2,7 @@
 import info from "@/siteConfig";
 import { Github, Linkedin, Mail } from "@geist-ui/icons";
 import { motion } from "framer-motion";
+import siteConfig from "@/siteConfig";
 
 const ChessSvg = (props: any) => (
   <svg
@@ -50,35 +51,267 @@ const itemVariants = {
   },
 };
 
-export const ContactSidebar = () => {
-  const personal_links = [
-    { name: <Github size={20} />, link: info.links.github },
-    { name: <Linkedin size={20} />, link: info.links.linkedin },
-    { name: <Mail size={20} />, link: info.links.email },
-    { name: <Leetcode style={{ width: 20, height: 20 }} />, link: info.links.leetcode },
-    { name: <ChessSvg />, link: info.links.chess },
+import React, { useState, useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
+import {
+  ArrowUp,
+  MessageCircle,
+  ExternalLink,
+  Copy,
+  Check,
+} from "lucide-react";
+
+const ContactSidebar = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [activeTooltip, setActiveTooltip] = useState<number | null>(null);
+
+  const socialLinks = [
+    {
+      icon: Github,
+      href: "https://github.com/chess10kp",
+      label: "GitHub",
+      color: "hover:text-gray-400",
+      username: "@chess10kp",
+    },
+    {
+      icon: Linkedin,
+      href: siteConfig.links.linkedin,
+      label: "LinkedIn",
+      color: "hover:text-blue-500",
+      username: "Nitin Shankar Madhu",
+    },
+    {
+      icon: Mail,
+      href: "mailto:" + siteConfig.links.email,
+      label: "Email",
+      color: "hover:text-green-500",
+      username: siteConfig.links.email,
+      copyable: true,
+    },
+    {
+      icon: ChessSvg,
+      href: siteConfig.links.chess,
+      label: "Chess",
+      color: "hover:text-yellow-500",
+      username: "chess10kp",
+    },
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsVisible(window.scrollY > 100);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const scrollToContact = () => {
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleCopyEmail = async (email: string) => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopiedEmail(true);
+      setTimeout(() => setCopiedEmail(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy email:", err);
+    }
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0 },
+  };
+
   return (
-    <motion.div
-      className="fixed bottom-0 left-4 z-10 hidden md:flex flex-col items-center gap-4"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
-      {personal_links.map((link, idx) => (
-        <motion.a
-          key={idx}
-          href={link.link}
-          variants={itemVariants}
-          className="text-muted-foreground hover:text-foreground transition-colors duration-300"
-          whileHover={{ scale: 1.2 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-        >
-          {link.name}
-        </motion.a>
-      ))}
-      <div className="h-24 w-px bg-muted-foreground/50 mt-4" />
-    </motion.div>
+    <>
+      {/* Social Links Sidebar */}
+      <motion.div
+        className="fixed left-6 bottom-0 z-40 hidden lg:flex flex-col items-center"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <div className="flex flex-col items-center gap-4 p-4 bg-card/80 backdrop-blur-xl rounded-t-lg border border-border/50 border-b-0">
+          {socialLinks.map((link, idx) => (
+            <motion.div
+              key={idx}
+              variants={itemVariants}
+              className="relative group"
+              onMouseEnter={() => setActiveTooltip(idx)}
+              onMouseLeave={() => setActiveTooltip(null)}
+            >
+              <motion.button
+                onClick={
+                  link.copyable
+                    ? () => handleCopyEmail(link.username)
+                    : undefined
+                }
+                className={`p-3 text-muted-foreground transition-all duration-300 rounded-lg hover:bg-card/50 ${link.color}`}
+                whileHover={{ scale: 1.1, x: 5 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label={link.label}
+              >
+                {link.copyable && copiedEmail && link.username.includes("@") ? (
+                  <Check size={18} className="text-green-500" />
+                ) : link.icon === ChessSvg ? (
+                  <ChessSvg />
+                ) : (
+                  <link.icon size={18} />
+                )}
+              </motion.button>
+
+              <AnimatePresence>
+                {activeTooltip === idx && (
+                  <motion.div
+                    initial={{ opacity: 0, x: -10, scale: 0.9 }}
+                    animate={{ opacity: 1, x: 0, scale: 1 }}
+                    exit={{ opacity: 0, x: -10, scale: 0.9 }}
+                    className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-3 py-2 bg-popover text-popover-foreground rounded-lg shadow-lg border border-border whitespace-nowrap z-50"
+                  >
+                    <div className="text-sm font-medium">{link.label}</div>
+                    <div className="text-xs text-muted-foreground">
+                      {link.username}
+                    </div>
+                    {link.copyable && (
+                      <div className="text-xs text-blue-500 mt-1">
+                        Click to copy
+                      </div>
+                    )}
+                    {!link.copyable && (
+                      <ExternalLink size={12} className="inline ml-1" />
+                    )}
+
+                    {/* Tooltip Arrow */}
+                    <div className="absolute right-full top-1/2 -translate-y-1/2 w-2 h-2 bg-popover border-l border-t border-border rotate-45" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* External link handler */}
+              {!link.copyable && (
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute inset-0"
+                  aria-label={`Visit ${link.label}`}
+                />
+              )}
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Connecting Line */}
+        <motion.div
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+          className="w-px h-20 bg-gradient-to-b from-muted-foreground/50 to-transparent"
+        />
+      </motion.div>
+
+      {/* Floating Action Buttons, remove on mobile */}
+      <div className="hidden lg:block">
+        <AnimatePresence>
+          {isVisible && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.8, y: 20 }}
+              className="fixed right-6 bottom-6 z-40 flex flex-col gap-3"
+            >
+              <motion.button
+                onClick={scrollToContact}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="p-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group relative overflow-hidden"
+                aria-label="Contact me"
+              >
+                <motion.div
+                  initial={{ rotate: 0 }}
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <MessageCircle size={24} />
+                </motion.div>
+
+                <motion.div
+                  className="absolute inset-0 bg-white/20 rounded-full scale-0 group-hover:scale-100"
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileHover={{ scale: 1, opacity: [0, 1, 0] }}
+                  transition={{ duration: 0.6 }}
+                />
+
+                <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-3 py-2 bg-popover text-popover-foreground rounded-lg shadow-lg border border-border whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                  <div className="text-sm font-medium">Let's talk!</div>
+                  <div className="absolute left-full top-1/2 -translate-y-1/2 w-2 h-2 bg-popover border-r border-b border-border rotate-45" />
+                </div>
+              </motion.button>
+
+              {/* Back to Top Button */}
+              <motion.button
+                onClick={scrollToTop}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="p-3 bg-card/80 backdrop-blur-xl text-muted-foreground hover:text-foreground rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border border-border/50 group relative overflow-hidden"
+                aria-label="Back to top"
+              >
+                <motion.div
+                  animate={{ y: [0, -2, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <ArrowUp size={20} />
+                </motion.div>
+
+                {/* Tooltip */}
+                <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-3 py-2 bg-popover text-popover-foreground rounded-lg shadow-lg border border-border whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                  <div className="text-sm">Back to top</div>
+                  <div className="absolute left-full top-1/2 -translate-y-1/2 w-2 h-2 bg-popover border-r border-b border-border rotate-45" />
+                </div>
+              </motion.button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Success Toast for Email Copy */}
+      <AnimatePresence>
+        {copiedEmail && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.9 }}
+            className="fixed bottom-20 left-6 z-50 bg-green-500/10 border border-green-500/20 text-green-500 px-4 py-3 rounded-lg backdrop-blur-xl flex items-center gap-2"
+          >
+            <Check size={18} />
+            <span className="text-sm font-medium">
+              Email copied to clipboard!
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
+
+export { ContactSidebar };

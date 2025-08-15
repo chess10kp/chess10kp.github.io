@@ -1,60 +1,157 @@
 "use client";
-import React from "react";
-import Link from "next/link";
-import { Menubar } from "@/components/ui/menubar";
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import React, { useState, useEffect } from "react";
+import { Moon, Sun, Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
 
-import {
-  NavigationMenu,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuItem,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
+const Header = () => {
+  const [isDark, setIsDark] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const router = useRouter()
 
-const NavLink = (props: any) => {
-  return (
-    <Link {...props} legacyBehavior passHref>
-      <motion.div whileHover={{ scale: 1.1 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-        <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "geist")}>
-          {props.children}
-        </NavigationMenuLink>
-      </motion.div>
-    </Link>
-  );
-};
+  const navItems = [
+    { name: "About", link: "#about" },
+    { name: "Experience", link: "#experience" },
+    { name: "Projects", link: "#projects" },
+    { name: "Skills", link: "#skills" },
+    { name: "Contact", link: "#contact" },
+  ];
 
-const Header = (props: any) => {
-  const navItems: { name: string; link: string }[] =
-    props.navItems == null
-      ? [
-          { name: "Blog", link: "/blog" },
-          { name: "Experience", link: "#experience" },
-          { name: "Projects", link: "#projects" },
-        ]
-      : props.navItems;
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToSection = (sectionId) => {
+    const element = document.querySelector(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-screen-2xl items-center justify-between">
-        <Link href="/" className="dark:text-foreground list-none md:text-xl font-bold geist">
-          NM
-        </Link>
-      <NavigationMenu>
-        <NavigationMenuList>
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
+        isScrolled
+          ? "bg-background/80 backdrop-blur-xl border-b border-border/40 shadow-lg"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="container flex h-16 max-w-screen-2xl items-center justify-between px-4">
+        {/* Logo */}
+        <motion.div whileHover={{ scale: 1.05 }} className="relative">
+          <div className="text-2xl font-bold bg-gradient-to-r bg-foreground bg-clip-text text-transparent cursor-pointer">
+            NM
+          </div>
+        </motion.div>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-8">
           {navItems.map((item, idx) => (
-            <NavigationMenuItem key={idx}>
-              <NavLink href={`${item.link}`} className="md:text-lg">
-                {item.name}
-              </NavLink>
-            </NavigationMenuItem>
+            <motion.button
+              key={idx}
+              onClick={() => scrollToSection(item.link)}
+              className="relative text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
+              whileHover={{ scale: 1.1 }}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.1 }}
+            >
+              {item.name}
+              <motion.div
+                className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600"
+                whileHover={{ width: "100%" }}
+                transition={{ duration: 0.2 }}
+              />
+            </motion.button>
           ))}
-          <NavigationMenuItem className=""></NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
+          <motion.button
+            onClick={() => router.push("/blog")}
+            className="relative text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
+            whileHover={{ scale: 1.1 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1 * 0.1 }}
+          >
+            Blog
+            <motion.div
+              className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600"
+              whileHover={{ width: "100%" }}
+              transition={{ duration: 0.2 }}
+            />
+          </motion.button>
+        </nav>
+
+        <div className="flex items-center gap-4">
+          <motion.button
+            className="md:hidden p-2 rounded-lg bg-card/50 hover:bg-card/80 transition-colors"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <AnimatePresence mode="wait">
+              {isMobileMenuOpen ? (
+                <motion.div
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                >
+                  <X size={20} />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                >
+                  <Menu size={20} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.button>
+        </div>
       </div>
-    </header>
+
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border/40"
+          >
+            <div className="container px-4 py-6">
+              <nav className="flex flex-col gap-4">
+                {navItems.map((item, idx) => (
+                  <motion.button
+                    key={idx}
+                    onClick={() => {
+                      scrollToSection(item.link);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="text-left text-lg font-medium text-muted-foreground hover:text-foreground transition-colors py-2"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.1 }}
+                    whileHover={{ x: 10 }}
+                  >
+                    {item.name}
+                  </motion.button>
+                ))}
+              </nav>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 };
 

@@ -18,6 +18,7 @@ export function getSortedPostsData() {
       id: id,
       title: matterResult.data.title,
       date: matterResult.data.date,
+      tags: matterResult.data.tags || [],
     };
   });
   return allPostsData.sort((a, b) => {
@@ -48,8 +49,9 @@ export async function getPostById(id: string) {
       id: matterResult.data.id,
       title: matterResult.data.title,
       date: matterResult.data.date,
+      tags: matterResult.data.tags || [],
     };
   } catch (error) {
-    return { content: null, id: null, title: null, date: null };
+    return { content: null, id: null, title: null, date: null, tags: [] };
   }
 }

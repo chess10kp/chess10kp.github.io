@@ -19,10 +19,23 @@ const textVariants = {
   },
 };
 
+const loadingBarVariants = {
+  hidden: { width: 0 },
+  visible: {
+    width: "100%",
+    transition: {
+      duration: 1.5,
+      ease: "easeInOut",
+      repeat: Infinity,
+      repeatType: "reverse",
+    },
+  },
+};
+
 const Loader = () => {
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-background"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
       variants={loaderVariants as Variants}
       initial="hidden"
       animate="visible"
@@ -34,6 +47,12 @@ const Loader = () => {
       >
         N M
       </motion.h1>
+      <div className="w-24 h-1 mt-4 bg-muted rounded-full overflow-hidden">
+        <motion.div
+          className="h-full bg-primary"
+          variants={loadingBarVariants}
+        />
+      </div>
     </motion.div>
   );
 };

@@ -40,7 +40,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
       whileHover={{ y: -5 }}
       transition={{ type: "spring", stiffness: 400, damping: 10 }}
     >
-      <Card className="h-full text-center border-0 backdrop-blur-screen bg-card/50 rounded-lg transition duration-500 hover:bg-card/90 flex flex-col">
+      <Card className="h-full text-center border-0 backdrop-blur-xl bg-card/50 rounded-lg transition duration-500 hover:bg-card/90 flex flex-col">
         <CardHeader>
           <CardTitle className="geist">{project.name}</CardTitle>
         </CardHeader>

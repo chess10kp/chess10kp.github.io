@@ -3,7 +3,7 @@ import siteConfig from "@/siteConfig"
 
 const Footer = () => {
   return (
-    <footer className="py-6 dark:border-border bg-transparent text-end">
+    <footer className="py-6 dark:border-border bg-transparent text-end backdrop-blur-xl">
       <div className="container items-center justify-between gap-4 md:flex-row">
         <p className="text-balance geist text-center text-sm leading-loose text-muted-foreground">
           Built by{" "}
