@@ -1,5 +1,6 @@
 import { getPostById, getAllPostIds } from "@/lib/posts";
 import "./post.css";
+import { Badge } from "@/components/ui/badge";
 
 export async function generateStaticParams() {
   const posts = getAllPostIds();
@@ -14,7 +15,7 @@ export default async function Page({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const { content, title, date } = await getPostById(id);
+  const { content, title, date, tags } = await getPostById(id);
   return (
     <div className="flex items-stretch mx-16 lg:mx-32  justify-center min-h-[80vh]">
       {title ? (
@@ -24,6 +25,11 @@ export default async function Page({
             <p className="text-md text-zinc-400">
               {date.toString().slice(0, 10)}
             </p>
+            <div className="flex space-x-2 mt-2 justify-center">
+              {tags.map((tag: string) => (
+                <Badge key={tag} variant="secondary">{tag}</Badge>
+              ))}
+            </div>
           </div>
           <div className="mx-10 p-0 min-w-[80vw]">
             <div
