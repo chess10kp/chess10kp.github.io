@@ -28,15 +28,9 @@ export default {
     major: "CS",
   },
   skills: {
-    software: [
-      "Next.js",
-      "React",
-      "ASP.NET",
-      "HTML/CSS",
-      "Typescript",
-      "Javascript",
-    ],
-    ml: ["Python", "Pytorch", "Tensorflow", "NumPy", "Pandas", "Tailwind"],
-    llm: ["LangChain", "Hugging Face", "Vector Databases"],
+    software: ["Next.js", "React", "Typescript", "C#", "ASP.NET", "HTML/CSS"],
+    ml: ["Python", "Pytorch", "Tensorflow", "NumPy", "Pandas"],
+    llm: ["LangChain"],
   },
 };
+

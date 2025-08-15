@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 const loaderVariants = {
   hidden: { opacity: 0 },
@@ -23,16 +23,16 @@ const Loader = () => {
   return (
     <motion.div
       className="fixed inset-0 z-50 flex items-center justify-center bg-background"
-      variants={loaderVariants}
+      variants={loaderVariants as Variants}
       initial="hidden"
       animate="visible"
       exit="exit"
     >
       <motion.h1
         className="geist text-4xl font-bold text-foreground"
-        variants={textVariants}
+        variants={textVariants as Variants}
       >
-        NM
+        N M
       </motion.h1>
     </motion.div>
   );

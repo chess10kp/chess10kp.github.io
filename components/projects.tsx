@@ -13,58 +13,58 @@ import rustSvg from "../assets/images/rust.svg";
 import ProjectCard from "@/components/projectCard";
 import { Project } from "@/components/projectCard";
 import { motion } from "framer-motion";
+import supabase from "@/assets/images/supabase.svg";
+import cs from "@/assets/images/CS.svg"
 
 const projectsList: Project[] = [
-    {
-      name: "OPilot",
-      description:
-        "A smart desktop AI assistant for automating your daily tasks",
-      stack: [
-        [typescriptSvg, "Typescript"],
-        [nextSvg, "Next.js", true],
-        [geminiSvg, "Google Gemini", true],
-        [rustSvg, "Rust", true],
-      ],
-      href: "https://github.com/chess10kp/opilot",
-    },
-    {
-      name: "HD3",
-      description:
-        "A cross platform mobile app for UM Dearborn's HackDearborn 3",
-      stack: [
-        [typescriptSvg, "Typescript"],
-        [reactSvg, "React Native"],
-        [javaSvg, "Java"],
-      ],
-      href: "https://play.google.com/store/apps/details?id=org.hackdearborn.hackdearbornapp&pli=1",
-    },
-    {
-      name: "Socraticoin",
-      description: "An educational tool to simulate cryptocurrencies",
-      stack: [
-        [typescriptSvg, "Typescript"],
-        [reactSvg, "React"],
-        [pythonSvg, "Python"],
-        [fastAPISvg, "FastAPI"],
-      ],
-      href: "https://github.com/chess10kp/socraticoin",
-    },
-    {
-      name: "Snip",
-      description: "A C-style interpreted programming language",
-      stack: [
-        [cppSvg, "C++"],
-        [nasmSvg, "NASM"],
-      ],
-      href: "https://github.com/snip-lang/snip",
-    },
-    {
-      name: "Evalyn",
-      description: "A scheme interpreter written with Haskell and Parsec",
-      stack: [[haskellSvg, "haskell"]],
-      href: "https://github.com/chess10kp/evalyn",
-    },
-  ];
+  {
+    name: "OPilot",
+    description: "A smart desktop AI assistant for automating your daily tasks",
+    stack: [
+      [typescriptSvg, "Typescript"],
+      [nextSvg, "Next.js", true],
+      [geminiSvg, "Google Gemini", true],
+      [rustSvg, "Rust", true],
+    ],
+    href: "https://github.com/chess10kp/opilot",
+  },
+  {
+    name: "HD4",
+    description: "A cross platform mobile app for UM Dearborn's HackDearborn 4",
+    stack: [
+      [typescriptSvg, "Typescript"],
+      [reactSvg, "React Native"],
+      [javaSvg, "Java"],
+      [supabase, "Supabase"],
+    ],
+    href: "https://play.google.com/store/apps/details?id=org.hackdearborn.hackdearbornapp&pli=1",
+  },
+  {
+    name: "Socraticoin",
+    description: "An educational tool to simulate cryptocurrencies",
+    stack: [
+      [typescriptSvg, "Typescript"],
+      [reactSvg, "React"],
+      [pythonSvg, "Python"],
+      [fastAPISvg, "FastAPI"],
+    ],
+    href: "https://github.com/chess10kp/socraticoin",
+  },
+  {
+    name: "Snip",
+    description: "A C-style interpreted programming language",
+    stack: [
+      [cs, "C#"],
+    ],
+    href: "https://github.com/snip-lang/snip",
+  },
+  // {
+  //   name: "Evalyn",
+  //   description: "A scheme interpreter written with Haskell and Parsec",
+  //   stack: [[haskellSvg, "haskell"]],
+  //   href: "https://github.com/chess10kp/evalyn",
+  // },
+];
 
 const containerVariants = {
   hidden: { opacity: 1 },
