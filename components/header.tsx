@@ -36,12 +36,11 @@ const Header = (props: any) => {
       : props.navItems;
 
   return (
-    <Menubar className="backdrop-blur-screen sticky m-2 flex flex-row justify-between text-foreground bg-transparent">
-      <div>
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-14 max-w-screen-2xl items-center justify-between">
         <Link href="/" className="dark:text-foreground list-none md:text-xl font-bold geist">
           NM
         </Link>
-      </div>
       <NavigationMenu>
         <NavigationMenuList>
           {navItems.map((item, idx) => (
@@ -54,7 +53,8 @@ const Header = (props: any) => {
           <NavigationMenuItem className=""></NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-    </Menubar>
+      </div>
+    </header>
   );
 };
 
