@@ -1,3 +1,18 @@
+import { Project } from "@/components/projectCard";
+import supabase from "@/assets/images/supabase.svg";
+import cs from "@/assets/images/CS.svg";
+import cppSvg from "@/assets/images/CPP.svg";
+import nasmSvg from "@/assets/images/Nasm.svg";
+import pythonSvg from "@/assets/images/Python.svg";
+import haskellSvg from "@/assets/images/Haskell.svg";
+import reactSvg from "@/assets/images/React.svg";
+import nextSvg from "@/assets/images/nextjs.svg";
+import geminiSvg from "@/assets/images/gemini.svg";
+import fastAPISvg from "@/assets/images/fastapi.svg";
+import typescriptSvg from "@/assets/images/Typescript.svg";
+import javaSvg from "@/assets/images/Java.svg";
+import rustSvg from "@/assets/images/rust.svg";
+
 export default {
   currentStanding: () => {
     switch (new Date().getFullYear() - 2022) {
@@ -32,5 +47,63 @@ export default {
     ml: ["Python", "Pytorch", "Tensorflow", "NumPy", "Pandas"],
     llm: ["LangChain"],
   },
+  projects: [
+    {
+      name: "OPilot",
+      description:
+        "A smart desktop AI assistant for automating your daily tasks",
+      stack: [
+        [typescriptSvg, "Typescript"],
+        [nextSvg, "Next.js", true],
+        [geminiSvg, "Google Gemini", true],
+        [rustSvg, "Rust", true],
+      ],
+      href: "https://github.com/chess10kp/opilot",
+      demo: "",
+      image: "",
+    },
+    {
+      name: "HD4",
+      demo: "",
+      image: "",
+      description:
+        "A cross platform mobile app for UM Dearborn's HackDearborn 4",
+      stack: [
+        [typescriptSvg, "Typescript"],
+        [reactSvg, "React Native"],
+        [javaSvg, "Java"],
+        [supabase, "Supabase"],
+      ],
+      href: "https://play.google.com/store/apps/details?id=org.hackdearborn.hackdearbornapp&pli=1",
+    },
+    {
+      name: "Socraticoin",
+      demo: "",
+      image: "",
+      description: "An educational tool to simulate cryptocurrencies",
+      stack: [
+        [typescriptSvg, "Typescript"],
+        [reactSvg, "React"],
+        [pythonSvg, "Python"],
+        [fastAPISvg, "FastAPI"],
+      ],
+      href: "https://github.com/chess10kp/socraticoin",
+    },
+    {
+      name: "Snip",
+      demo: "",
+      image: "",
+      description: "A C-style interpreted programming language",
+      stack: [[cs, "C#"]],
+      href: "https://github.com/snip-lang/snip",
+    },
+  ] as Project[],
+  hiddenProjects: [
+    {
+      name: "Evalyn",
+      description: "A scheme interpreter written with Haskell and Parsec",
+      stack: [[haskellSvg, "haskell"]],
+      href: "https://github.com/chess10kp/evalyn",
+    },
+  ],
 };
-

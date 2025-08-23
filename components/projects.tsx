@@ -14,7 +14,7 @@ import ProjectCard from "@/components/projectCard";
 import { Project } from "@/components/projectCard";
 import { motion } from "framer-motion";
 import supabase from "@/assets/images/supabase.svg";
-import cs from "@/assets/images/CS.svg"
+import cs from "@/assets/images/CS.svg";
 
 const projectsList: Project[] = [
   {
@@ -27,6 +27,8 @@ const projectsList: Project[] = [
       [rustSvg, "Rust", true],
     ],
     href: "https://github.com/chess10kp/opilot",
+    demo: "",
+    image: "",
   },
   {
     name: "HD4",
@@ -38,6 +40,8 @@ const projectsList: Project[] = [
       [supabase, "Supabase"],
     ],
     href: "https://play.google.com/store/apps/details?id=org.hackdearborn.hackdearbornapp&pli=1",
+    demo: "",
+    image: "",
   },
   {
     name: "Socraticoin",
@@ -49,14 +53,27 @@ const projectsList: Project[] = [
       [fastAPISvg, "FastAPI"],
     ],
     href: "https://github.com/chess10kp/socraticoin",
+    demo: "",
+    image: "",
   },
   {
     name: "Snip",
-    description: "A C-style interpreted programming language",
-    stack: [
-      [cs, "C#"],
-    ],
+    description: "A typescript interpreter written in C#",
+    stack: [[cs, "C#"]],
     href: "https://github.com/snip-lang/snip",
+    demo: "",
+    image: "",
+  },
+  {
+    name: "PCFMB",
+    description: "A mobile app to get you our of awkward meetings",
+    stack: [
+      [typescriptSvg, "Typescript"],
+      [reactSvg, "React Native"],
+    ],
+    href: "https://github.com/chess10kp/pcfmb",
+    demo: "",
+    image: "",
   },
   // {
   //   name: "Evalyn",
@@ -90,7 +107,7 @@ const Projects = () => {
           animate="visible"
         >
           {projectsList.map((project, i) => {
-            return <ProjectCard key={i} project={project} />;
+            return <ProjectCard onClick={() => {}} key={i} project={project} />;
           })}
         </motion.div>
       </div>

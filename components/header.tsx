@@ -3,19 +3,21 @@ import React, { useState, useEffect } from "react";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 const Header = () => {
   const [isDark, setIsDark] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
+  const currentPathName = usePathname();
 
   const navItems = [
-    { name: "About", link: "#about" },
-    { name: "Experience", link: "#experience" },
-    { name: "Projects", link: "#projects" },
-    { name: "Skills", link: "#skills" },
-    { name: "Contact", link: "#contact" },
+    { name: "About", link: "/#about" },
+    { name: "Experience", link: "/#experience" },
+    { name: "Projects", link: "/#projects" },
+    { name: "Skills", link: "/#skills" },
+    { name: "Contact", link: "/#contact" },
   ];
 
   useEffect(() => {
@@ -26,10 +28,21 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId) => {
-    const element = document.querySelector(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+  const scrollToSection = (link: string) => {
+    const [pathname, id] = link.split("#");
+    const currentPath = currentPathName;
+    const element = document.querySelector(id);
+
+    console.log(pathname, currentPath);
+
+    if (pathname === "/" && currentPath === "/" && id) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      router.push(link);
+      element?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -51,7 +64,6 @@ const Header = () => {
           </div>
         </motion.div>
 
-        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
           {navItems.map((item, idx) => (
             <motion.button

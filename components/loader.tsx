@@ -4,7 +4,7 @@ import { motion, Variants } from "framer-motion";
 const loaderVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
-  exit: { opacity: 0, transition: { duration: 0.5, ease: "easeInOut" } },
+  exit: { opacity: 0, transition: { duration: 0.0, ease: "easeInOut" } },
 };
 
 const textVariants = {
@@ -13,7 +13,7 @@ const textVariants = {
     y: 0,
     opacity: 1,
     transition: {
-      duration: 0.8,
+      duration: 0.2,
       ease: "easeOut",
     },
   },
@@ -24,9 +24,9 @@ const loadingBarVariants = {
   visible: {
     width: "100%",
     transition: {
-      duration: 1.5,
+      duration: 0.2,
       ease: "easeInOut",
-      repeat: Infinity,
+      repeat: 0,
       repeatType: "reverse",
     },
   },
@@ -47,10 +47,10 @@ const Loader = () => {
       >
         N M
       </motion.h1>
-      <div className="w-24 h-1 mt-4 bg-muted rounded-full overflow-hidden">
+      <div className="w-32 h-1 mt-4 bg-muted rounded-full overflow-hidden">
         <motion.div
           className="h-full bg-primary"
-          variants={loadingBarVariants}
+          variants={loadingBarVariants as Variants}
         />
       </div>
     </motion.div>

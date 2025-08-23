@@ -19,10 +19,12 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 export type Project = {
+  image: string;
   name: string;
   description: string;
   stack: [StaticImport, string, boolean?][];
   href: string;
+  demo: string;
 };
 
 const cardVariants = {
@@ -33,7 +35,13 @@ const cardVariants = {
   },
 };
 
-const ProjectCard = ({ project }: { project: Project }) => {
+const ProjectCard = ({
+  project,
+  onClick,
+}: {
+  project: Project;
+  onClick: () => void;
+}) => {
   return (
     <motion.div
       variants={cardVariants}
