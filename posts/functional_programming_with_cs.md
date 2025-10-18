@@ -62,3 +62,7 @@ This means that node traversal in the OOP version is dependent on each previous 
 This contrast in a relatively simple program is a good example of the difference between OOP and functional programming. By expressing a solution as a series of function compositions instead of a series of statements, we get a more predictable way of reasoning about our program. 
 <br> 
 It might not be obvious why this is useful, so a look at some of the characteristics of functional programming is required.
+
+# Lazy Evaluation 
+
+# Pure functions;

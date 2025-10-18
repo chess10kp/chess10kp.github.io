@@ -57,26 +57,6 @@ const Skills = () => {
       <div className="space-y-8">
         <div>
           <h3 className="geist text-2xl font-semibold text-left my-4">
-            Software Development
-          </h3>
-          <motion.div
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            {siteConfig.skills.software.map((skill) => (
-              <SkillCard
-                key={skill}
-                name={skill}
-                icon={iconMap[skill] as StaticImageData}
-              />
-            ))}
-          </motion.div>
-        </div>
-
-        <div>
-          <h3 className="geist text-2xl font-semibold text-left my-4">
             ML/LLM
           </h3>
           <motion.div
@@ -93,6 +73,26 @@ const Skills = () => {
               />
             ))}
             {siteConfig.skills.llm.map((skill) => (
+              <SkillCard
+                key={skill}
+                name={skill}
+                icon={iconMap[skill] as StaticImageData}
+              />
+            ))}
+          </motion.div>
+        </div>
+
+        <div>
+          <h3 className="geist text-2xl font-semibold text-left my-4">
+            Software Development
+          </h3>
+          <motion.div
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {siteConfig.skills.software.map((skill) => (
               <SkillCard
                 key={skill}
                 name={skill}
