@@ -12,6 +12,7 @@ import fastAPISvg from "@/assets/images/fastapi.svg";
 import typescriptSvg from "@/assets/images/Typescript.svg";
 import javaSvg from "@/assets/images/Java.svg";
 import rustSvg from "@/assets/images/rust.svg";
+import langChainSvg from "@/assets/images/langchain.svg";
 
 export default {
   currentStanding: () => {
@@ -44,10 +45,24 @@ export default {
   },
   skills: {
     software: ["Next.js", "React", "Typescript", "C#", "ASP.NET", "HTML/CSS"],
-    ml: ["Python", "Pytorch", "Tensorflow", "NumPy", "Pandas"],
+    ml: ["Pytorch", "Tensorflow", "NumPy", "Pandas"],
     llm: ["LangChain"],
   },
   projects: [
+    {
+      name: "BabbleFish",
+      description:
+        "Multi-agent extension powered by Gemini 2.5 that collaboratively translates and summarizes messages across Discord, Slack, and WhatsApp.",
+      stack: [
+        [typescriptSvg, "Typescript"],
+        [geminiSvg, "Google Gemini", true],
+        [fastAPISvg, "FastAPI", true],
+        [langChainSvg, "LangChain", true],
+      ],
+      href: "https://devpost.com/software/babelfetch",
+      demo: "https://devpost.com/software/babelfetch",
+      image: "",
+    },
     {
       name: "OPilot",
       description:
@@ -80,7 +95,7 @@ export default {
       name: "Socraticoin",
       demo: "",
       image: "",
-      description: "An educational tool to simulate cryptocurrencies",
+      description: "An interactive blockchain simulation platform that implements core cryptocurrency protocols and consensus mechanisms",
       stack: [
         [typescriptSvg, "Typescript"],
         [reactSvg, "React"],

@@ -56,7 +56,7 @@ const Header = () => {
           : "bg-transparent"
       }`}
     >
-      <div className="container flex h-16 max-w-screen-2xl items-center justify-between px-4">
+      <div className="container flex h-16 max-w-full items-center justify-between px-4">
         {/* Logo */}
         <motion.div whileHover={{ scale: 1.05 }} className="relative">
           <div className="text-2xl font-bold bg-gradient-to-r bg-foreground bg-clip-text text-transparent cursor-pointer">

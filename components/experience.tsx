@@ -34,10 +34,14 @@ const ExperienceCard = ({
           <div className="text-xl geist text-foreground">
             {position} @ {employer}
           </div>
-          <div className="text-left wrap text-muted-foreground geist">{description}</div>
+          <div className="text-left wrap text-muted-foreground geist">
+            {description}
+          </div>
           <div className="flex flex-wrap gap-2">
             {tech.map((tech) => (
-              <Badge key={tech} variant="secondary">{tech}</Badge>
+              <Badge key={tech} variant="secondary">
+                {tech}
+              </Badge>
             ))}
           </div>
         </CardContent>
@@ -54,16 +58,16 @@ export function Experience() {
       employer: "Ancor",
       employer_link: "weareancor.com",
       description:
-        "Developed a React Native app to track 10k auto parts in 3 warehouses and manage inventory. Built a RAG and GPT powered chatbot to query inventory to answer questions about parts availability",
+        "Developed a React Native app to track 10k auto parts in 3 auto warehouses and manage inventory through wireless RFID scanning. Sold to client for a 5 figure annual license. Currently working on RAG and AI chatbots.",
       tech: ["Next.js", "React Native", "RAG"],
     },
     {
       position: "Research Assistant",
       timeline: "Jan —  Apr 2025",
       employer: "UofM",
-      employer_link: "https://www.michiganmedicine.org",
+      employer_link: "https://github.com/chess10kp/compass",
       description:
-        "Trained a machine learning model with Torch to detect bias inmate sentencing classification systems. Developed fairness-aware algorithms to compensate for bias in predictive models",
+        "Trained ML models to detect bias in inmate sentencing classification systems. Developed fairness-aware algorithms to compensate for bias in predictive models",
       tech: ["Python", "PyTorch", "Numpy", "Tensorflow"],
     },
     {

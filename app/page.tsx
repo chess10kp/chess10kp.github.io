@@ -54,9 +54,6 @@ export default function Home() {
                 <div className="py-16">
                   <Skills />
                 </div>
-                <div className="py-16">
-                  <ContactForm />
-                </div>
               </div>
             </div>
           </motion.main>
