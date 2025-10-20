@@ -144,7 +144,6 @@ const ContactSidebar = () => {
 
   return (
     <>
-      {/* Social Links Sidebar */}
       <motion.div
         className="fixed left-6 bottom-0 z-40 hidden lg:flex flex-col items-center"
         variants={containerVariants}
@@ -230,71 +229,7 @@ const ContactSidebar = () => {
         />
       </motion.div>
 
-      {/* Floating Action Buttons, remove on mobile */}
-      <div className="hidden lg:block">
-        <AnimatePresence>
-          {isVisible && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.8, y: 20 }}
-              className="fixed right-6 bottom-6 z-40 flex flex-col gap-3"
-            >
-              <motion.button
-                onClick={scrollToContact}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className="p-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group relative overflow-hidden"
-                aria-label="Contact me"
-              >
-                <motion.div
-                  initial={{ rotate: 0 }}
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <MessageCircle size={24} />
-                </motion.div>
-
-                <motion.div
-                  className="absolute inset-0 bg-white/20 rounded-full scale-0 group-hover:scale-100"
-                  initial={{ scale: 0, opacity: 0 }}
-                  whileHover={{ scale: 1, opacity: [0, 1, 0] }}
-                  transition={{ duration: 0.6 }}
-                />
-
-                <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-3 py-2 bg-popover text-popover-foreground rounded-lg shadow-lg border border-border whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                  <div className="text-sm font-medium">Let's talk!</div>
-                  <div className="absolute left-full top-1/2 -translate-y-1/2 w-2 h-2 bg-popover border-r border-b border-border rotate-45" />
-                </div>
-              </motion.button>
-
-              {/* Back to Top Button */}
-              <motion.button
-                onClick={scrollToTop}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className="p-3 bg-card/80 backdrop-blur-xl text-muted-foreground hover:text-foreground rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border border-border/50 group relative overflow-hidden"
-                aria-label="Back to top"
-              >
-                <motion.div
-                  animate={{ y: [0, -2, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  <ArrowUp size={20} />
-                </motion.div>
-
-                {/* Tooltip */}
-                <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-3 py-2 bg-popover text-popover-foreground rounded-lg shadow-lg border border-border whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                  <div className="text-sm">Back to top</div>
-                  <div className="absolute left-full top-1/2 -translate-y-1/2 w-2 h-2 bg-popover border-r border-b border-border rotate-45" />
-                </div>
-              </motion.button>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
-      {/* Success Toast for Email Copy */}
+            {/* Success Toast for Email Copy */}
       <AnimatePresence>
         {copiedEmail && (
           <motion.div
