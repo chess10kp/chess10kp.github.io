@@ -1,4 +1,4 @@
-import { Project } from "@/components/projectCard";
+import { Project } from "@/lib/types";
 import supabase from "@/assets/images/supabase.svg";
 import cs from "@/assets/images/CS.svg";
 import cppSvg from "@/assets/images/CPP.svg";

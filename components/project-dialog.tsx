@@ -1,5 +1,4 @@
-import {Project} from "@/components/projectCard"
-
+import { Project } from "@/lib/types";
 import {
   Dialog,
   DialogContent,
