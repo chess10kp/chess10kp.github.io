@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 
-export type EasingFunction = "linear" | "ease" | "ease-in" | "ease-out" | "ease-in-out"
+export type EasingFunction = "linear" | "ease" | "ease-in" | "ease-out" | "ease-in-out" | "spring"
 export type AnimationPreset = "subtle" | "moderate" | "playful" | "dramatic" | "none"
 
 interface AnimationSettings {
@@ -12,6 +12,8 @@ interface AnimationSettings {
   intensity: number // scale factor for animations (0-1)
   enabled: boolean
   preset: AnimationPreset
+  stiffness?: number // for spring animations
+  damping?: number // for spring animations
 }
 
 interface AnimationContextType {
@@ -21,38 +23,48 @@ interface AnimationContextType {
 }
 
 const defaultSettings: AnimationSettings = {
-  duration: 700,
-  delay: 100,
-  easing: "ease-out",
+  duration: 300,
+  delay: 50,
+  easing: "spring",
   intensity: 0.5,
   enabled: true,
   preset: "moderate",
+  stiffness: 400,
+  damping: 25,
 }
 
 const presets: Record<AnimationPreset, Partial<AnimationSettings>> = {
   subtle: {
-    duration: 500,
-    delay: 50,
-    easing: "ease-out",
+    duration: 200,
+    delay: 25,
+    easing: "spring",
     intensity: 0.3,
+    stiffness: 300,
+    damping: 30,
   },
   moderate: {
-    duration: 700,
-    delay: 100,
-    easing: "ease-out",
+    duration: 300,
+    delay: 50,
+    easing: "spring",
     intensity: 0.5,
+    stiffness: 400,
+    damping: 25,
   },
   playful: {
-    duration: 800,
-    delay: 150,
-    easing: "ease-in-out",
+    duration: 400,
+    delay: 75,
+    easing: "spring",
     intensity: 0.7,
+    stiffness: 500,
+    damping: 20,
   },
   dramatic: {
-    duration: 1000,
-    delay: 200,
-    easing: "ease-in-out",
+    duration: 500,
+    delay: 100,
+    easing: "spring",
     intensity: 1,
+    stiffness: 600,
+    damping: 15,
   },
   none: {
     enabled: false,

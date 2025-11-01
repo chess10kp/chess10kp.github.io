@@ -42,66 +42,39 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.03,
     },
   },
 };
 
 const Skills = () => {
+  // Combine all skills into one array
+  const allSkills = [
+    ...siteConfig.skills.software,
+    ...siteConfig.skills.ml,
+    ...siteConfig.skills.llm,
+  ];
+
   return (
-    <div id="skills">
-      <h2 className="geist text-3xl font-bold text-left my-8">
-        What I'm good at
+    <div id="skills" className="mb-12">
+      <h2 className="geist text-2xl font-bold text-left my-6">
+        Skills & Technologies
       </h2>
 
-      <div className="space-y-8">
-        <div>
-          <h3 className="geist text-2xl font-semibold text-left my-4">
-            ML/LLM
-          </h3>
-          <motion.div
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            {siteConfig.skills.ml.map((skill) => (
-              <SkillCard
-                key={skill}
-                name={skill}
-                icon={iconMap[skill] as StaticImageData}
-              />
-            ))}
-            {siteConfig.skills.llm.map((skill) => (
-              <SkillCard
-                key={skill}
-                name={skill}
-                icon={iconMap[skill] as StaticImageData}
-              />
-            ))}
-          </motion.div>
-        </div>
-
-        <div>
-          <h3 className="geist text-2xl font-semibold text-left my-4">
-            Software Development
-          </h3>
-          <motion.div
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            {siteConfig.skills.software.map((skill) => (
-              <SkillCard
-                key={skill}
-                name={skill}
-                icon={iconMap[skill] as StaticImageData}
-              />
-            ))}
-          </motion.div>
-        </div>
-      </div>
+      <motion.div
+        className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        {allSkills.map((skill) => (
+          <SkillCard
+            key={skill}
+            name={skill}
+            icon={iconMap[skill] as StaticImageData}
+          />
+        ))}
+      </motion.div>
     </div>
   );
 };

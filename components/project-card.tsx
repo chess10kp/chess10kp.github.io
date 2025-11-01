@@ -17,6 +17,8 @@ import {
 import { Github } from "@geist-ui/icons";
 import Link from "next/link";
 import { Project } from "@/lib/types";
+import { motion } from "framer-motion";
+import { useId } from "react";
 
 const ProjectCard = ({
   project,
@@ -25,15 +27,27 @@ const ProjectCard = ({
   project: Project;
   onClick: (project: Project) => void;
 }) => {
+  const id = useId();
+  
   return (
-    <div onClick={() => onClick(project)}>
-      <Card className="h-full text-center border-0 backdrop-blur-xl bg-card/50 rounded-lg transition duration-500 hover:bg-card/90 flex flex-col">
+    <motion.div 
+      layoutId={`project-card-${project.name}-${id}`}
+      onClick={() => onClick(project)}
+      whileHover={{ y: -4, scale: 1.02 }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      className="h-full"
+    >
+      <Card className="h-full text-center border-0 backdrop-blur-xl bg-card/50 rounded-lg hover:bg-card/90 flex flex-col cursor-pointer">
         <CardHeader>
-          <CardTitle className="geist">{project.name}</CardTitle>
+          <motion.div layoutId={`project-title-${project.name}-${id}`}>
+            <CardTitle className="geist">{project.name}</CardTitle>
+          </motion.div>
         </CardHeader>
-        <CardDescription className="text-left geist text-lg text-muted-foreground mx-8">
-          {project.description}
-        </CardDescription>
+        <motion.div layoutId={`project-description-${project.name}-${id}`}>
+          <CardDescription className="text-left geist text-lg text-muted-foreground mx-8">
+            {project.description}
+          </CardDescription>
+        </motion.div>
         <CardContent className="flex-grow">
           {/* This will take up the remaining space */}
         </CardContent>
@@ -60,12 +74,14 @@ const ProjectCard = ({
               })}
             </TooltipProvider>
           </div>
-          <Link href={project.href}>
-            <Github width="20" height="20"></Github>
-          </Link>
+          <motion.div layoutId={`project-github-${project.name}-${id}`}>
+            <Link href={project.href}>
+              <Github width="20" height="20"></Github>
+            </Link>
+          </motion.div>
         </CardFooter>
       </Card>
-    </div>
+    </motion.div>
   );
 };
 

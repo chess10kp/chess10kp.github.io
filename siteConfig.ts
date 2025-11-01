@@ -108,7 +108,7 @@ export default {
       name: "Snip",
       demo: "",
       image: "",
-      description: "A C-style interpreted programming language",
+      description: "A JS-style interpreted programming language",
       stack: [[cs, "C#"]],
       href: "https://github.com/snip-lang/snip",
     },

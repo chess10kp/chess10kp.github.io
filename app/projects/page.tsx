@@ -1,21 +1,22 @@
 "use client";
-import ProjectCard from "@/components/projectCard";
-import { Project } from "@/components/projectCard";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import ProjectCard from "@/components/project-card";
+import { Project } from "@/lib/types";
 import Header from "@/components/header";
 import siteConfig from "@/siteConfig";
-
-const containerVariants = {
-  hidden: { opacity: 1 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
+import ProjectDialog from "@/components/project-dialog";
 
 export default function ProjectsPage() {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  const handleProjectClick = (project: Project) => {
+    setSelectedProject(project);
+  };
+
+  const handleCloseDialog = () => {
+    setSelectedProject(null);
+  };
+
   return (
     <div>
       <Header />
@@ -24,18 +25,22 @@ export default function ProjectsPage() {
           <h1 className="geist text-5xl font-bold text-center my-8">
             All Projects
           </h1>
-          <motion.div
-            className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
+          <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {siteConfig.projects.map((project, i) => {
-              return <ProjectCard onClick={() => {}} key={i} project={project} />;
+              return (
+                <ProjectCard
+                  onClick={() => handleProjectClick(project)}
+                  key={i}
+                  project={project}
+                />
+              );
             })}
-          </motion.div>
+          </div>
         </div>
       </section>
+      {selectedProject && (
+        <ProjectDialog project={selectedProject} onClose={handleCloseDialog} />
+      )}
     </div>
   );
 }

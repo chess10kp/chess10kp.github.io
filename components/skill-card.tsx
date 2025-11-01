@@ -10,7 +10,7 @@ interface SkillCardProps {
 }
 
 const cardVariants = {
-  hidden: { y: 20, opacity: 0 },
+  hidden: { y: 10, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
@@ -21,23 +21,23 @@ const SkillCard = ({ name, icon }: SkillCardProps) => {
   return (
     <motion.div
       variants={cardVariants}
-      whileHover={{ y: -5, scale: 1.05 }}
-      transition={{ type: "spring", stiffness: 300, damping: 15 }}
+      whileHover={{ y: -2, scale: 1.05 }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
     >
-      <Card className="h-full bg-card/50 hover:bg-card/90 transition-colors duration-300 flex flex-col items-center justify-center p-6">
-        <CardHeader className="p-0 flex-col items-center gap-4">
+      <Card className="h-full bg-card/50 hover:bg-card/90 flex flex-col items-center justify-center p-3">
+        <CardHeader className="p-0 flex-col items-center gap-2">
           {icon ? (
             <Image
               src={icon}
-              width={40}
-              height={40}
+              width={24}
+              height={24}
               alt={`${name} icon`}
               className="dark:invert-0"
             />
           ) : (
-            <Code className="w-10 h-10 text-muted-foreground" />
+            <Code className="w-6 h-6 text-muted-foreground" />
           )}
-          <CardTitle className="geist text-lg font-medium text-center">
+          <CardTitle className="geist text-xs font-medium text-center leading-tight">
             {name}
           </CardTitle>
         </CardHeader>
