@@ -1,6 +1,7 @@
 import { getPostById, getAllPostIds } from "@/lib/posts";
 import "./post.css";
 import { Badge } from "@/components/ui/badge";
+import CodeBlockCopy from "@/components/code-block-copy";
 
 export async function generateStaticParams() {
   const posts = getAllPostIds();
@@ -17,9 +18,9 @@ export default async function Page({
   const { id } = await params;
   const { content, title, date, tags } = await getPostById(id);
   return (
-    <div className="flex items-stretch mx-16 lg:mx-32  justify-center min-h-[80vh]">
+    <div className="flex items-stretch mx-2 sm:mx-4 md:mx-8 lg:mx-16 xl:mx-32 justify-center min-h-screen px-2 sm:px-4">
       {title ? (
-        <div className="md:my-16">
+        <div className="my-8 sm:my-12 md:my-16 w-full max-w-full">
           <div className="flex flex-col text-center">
             <h1 className="font-bold text-4xl mono ">{title}</h1>
             <p className="text-md text-zinc-400">
@@ -31,7 +32,7 @@ export default async function Page({
               ))}
             </div>
           </div>
-          <div className="mx-10 p-0 min-w-[80vw]">
+          <div className="mx-2 sm:mx-4 md:mx-6 lg:mx-10 p-0 w-full max-w-none">
             <div
               className="post"
               dangerouslySetInnerHTML={{
@@ -50,6 +51,7 @@ export default async function Page({
           </div>
         </div>
       )}
+      <CodeBlockCopy />
     </div>
   );
 }

@@ -3,8 +3,30 @@ import path from "path";
 import matter from "gray-matter";
 import {marked} from "marked";
 import markedKatex from "marked-katex-extension";
+import { markedHighlight } from "marked-highlight";
+import Prism from "prismjs";
+
+// Load additional language support
+import "prismjs/components/prism-csharp";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-css";
+import "prismjs/components/prism-json";
+import "prismjs/components/prism-bash";
+import "prismjs/components/prism-sql";
+import "prismjs/components/prism-haskell";
 
 marked.use(markedKatex());
+marked.use(markedHighlight({
+  langPrefix: 'language-',
+  highlight(code, lang) {
+    if (Prism.languages[lang]) {
+      return Prism.highlight(code, Prism.languages[lang], lang);
+    }
+    return code;
+  }
+}));
 
 const postsDirectory = path.join(process.cwd(), "posts");
 

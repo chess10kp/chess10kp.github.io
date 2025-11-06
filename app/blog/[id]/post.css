@@ -1,29 +1,191 @@
 @import "../../globals.css";
+@import "prismjs/themes/prism-tomorrow.css";
 
 .post h1 {
-  @apply underline underline-offset-4 font-semibold my-8 text-4xl;
+  @apply underline underline-offset-4 font-semibold my-8 text-4xl text-foreground;
+  font-family: "Syne", sans-serif;
+}
+
+.post h2 {
+  @apply font-semibold my-6 text-3xl text-foreground;
+  font-family: "Syne", sans-serif;
+}
+
+.post h3 {
+  @apply font-semibold my-4 text-2xl text-foreground;
+  font-family: "Syne", sans-serif;
+}
+
+.post h4 {
+  @apply font-semibold my-3 text-xl text-foreground;
+  font-family: "Syne", sans-serif;
+}
+
+.post h5 {
+  @apply font-medium my-2 text-lg text-foreground;
+  font-family: "Syne", sans-serif;
+}
+
+.post h6 {
+  @apply font-medium my-2 text-base text-foreground;
   font-family: "Syne", sans-serif;
 }
 
 .post blockquote {
-  border-left: 10px solid #ccc;
-  margin: 1.5em 10px;
-  padding: 0.5em 10px;
+  border-left: 4px solid hsl(var(--border));
+  margin: 1.5em 0;
+  padding: 0.5em 1em;
   quotes: "\201C" "\201D" "\2018" "\2019";
+  color: hsl(var(--muted-foreground));
+  font-style: italic;
 }
 
 .post p {
-  @apply text-xl;
+  @apply text-lg sm:text-xl text-foreground;
   font-family: "Inter";
-  color: hsl(var(--muted-foreground));
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .post pre {
-  @apply bg-card/20;
-  font-family: "Victor Mono", sans-serif;
-  @apply border-card-foreground;
-  @apply p-4;
-  border: 1px solid;
-  margin: 1.5em 10px;
-  padding: 0.5em 10px;
+  @apply bg-card border-border rounded-lg my-6 overflow-x-auto;
+  font-family: "Victor Mono", monospace;
+  border: 1px solid hsl(var(--border));
+  position: relative;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  max-width: 100%;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.post pre::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: hsl(var(--muted));
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.post pre code {
+  @apply block p-4 text-sm leading-relaxed;
+  color: hsl(var(--foreground));
+  tab-size: 2;
+  background: transparent !important;
+}
+
+/* Override Prism theme colors to match your design */
+.post pre[class*="language-"] {
+  background: hsl(var(--card)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+}
+
+.post code[class*="language-"] {
+  color: hsl(var(--foreground)) !important;
+  font-family: "Victor Mono", monospace !important;
+}
+
+/* Syntax highlighting colors that match your theme */
+.post .token.comment,
+.post .token.prolog,
+.post .token.doctype,
+.post .token.cdata {
+  color: hsl(var(--muted-foreground)) !important;
+}
+
+.post .token.punctuation {
+  color: hsl(var(--foreground)) !important;
+}
+
+.post .token.property,
+.post .token.tag,
+.post .token.boolean,
+.post .token.number,
+.post .token.constant,
+.post .token.symbol,
+.post .token.deleted {
+  color: hsl(var(--chart-4)) !important;
+}
+
+.post .token.selector,
+.post .token.attr-name,
+.post .token.string,
+.post .token.char,
+.post .token.builtin,
+.post .token.inserted {
+  color: hsl(var(--chart-2)) !important;
+}
+
+.post .token.operator,
+.post .token.entity,
+.post .token.url,
+.post .language-css .token.string,
+.post .style .token.string {
+  color: hsl(var(--accent)) !important;
+}
+
+.post .token.atrule,
+.post .token.attr-value,
+.post .token.keyword {
+  color: hsl(var(--primary)) !important;
+}
+
+.post .token.function,
+.post .token.class-name {
+  color: hsl(var(--chart-5)) !important;
+}
+
+/* Copy button styling */
+.copy-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground));
+  border: 1px solid hsl(var(--border));
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+  z-index: 10;
+}
+
+.copy-button:hover {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.copy-button.copied {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  opacity: 1;
+}
+
+.copy-button:active {
+  transform: translateY(0);
+}
+
+/* Inline code styling */
+.post p code, .post li code {
+  @apply bg-muted/50 text-foreground px-2 py-0.5 rounded-md text-sm font-mono;
+  border: 1px solid hsl(var(--border)/50);
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  transition: all 0.15s ease;
+}
+
+.post p code:hover, .post li code:hover {
+  @apply bg-muted/80;
+  border-color: hsl(var(--border));
+  transform: translateY(-0.5px);
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.1);
 }
