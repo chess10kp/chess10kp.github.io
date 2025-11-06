@@ -8,7 +8,17 @@ import { Github } from "@geist-ui/icons";
 
 const projectsList = config.projects;
 
-const tween = { duration: 0.05, type: "tween" };
+const spring = {
+  type: "spring" as const,
+  stiffness: 400,
+  damping: 30,
+};
+
+const contentSpring = {
+  type: "spring" as const,
+  stiffness: 300,
+  damping: 25,
+};
 
 const Projects = () => {
   const [active, setActive] = useState<
@@ -46,11 +56,12 @@ const Projects = () => {
         <AnimatePresence>
           {active && typeof active === "object" && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+              animate={{ opacity: 1, backdropFilter: "blur(8px)" }}
               exit={{
                 opacity: 0,
-                transition: { duration: 0.05, type: "tween" },
+                backdropFilter: "blur(0px)",
+                transition: { duration: 0.2 },
               }}
               className="fixed inset-0 bg-black/20 h-full w-full z-10"
             />
@@ -63,9 +74,9 @@ const Projects = () => {
               <motion.button
                 key={`button-${active.name}-${id}`}
                 layout
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0, transition: { duration: 0.05 } }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.2 } }}
                 className="flex absolute top-2 right-2 lg:hidden items-center justify-center bg-white rounded-full h-6 w-6"
                 onClick={() => setActive(null)}
               >
@@ -73,16 +84,26 @@ const Projects = () => {
               </motion.button>
               <motion.div
                 layoutId={`card-${active.name}-${id}`}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={spring}
                 ref={ref}
                 className="w-full max-w-[400px] h-full md:h-fit md:max-h-[90%] flex flex-col border-0 backdrop-blur-xl bg-card/50 rounded-lg sm:rounded-3xl overflow-hidden transition duration-200 hover:bg-card/90"
               >
                 <div>
                   <div className="flex justify-between items-start p-4">
                     <div>
-                      <motion.h3 className="geist font-bold text-lg">
+                      <motion.h3 
+                        layoutId={`title-${active.name}-${id}`}
+                        className="geist font-bold text-lg"
+                      >
                         {active.name}
                       </motion.h3>
-                      <motion.p className="text-left geist text-lg text-muted-foreground">
+                      <motion.p 
+                        layoutId={`description-${active.name}-${id}`}
+                        className="text-left geist text-lg text-muted-foreground"
+                      >
                         {active.description}
                       </motion.p>
                     </div>
@@ -90,6 +111,7 @@ const Projects = () => {
                     <div className="flex gap-2">
                       {active.href && (
                         <motion.a
+                          layoutId={`github-${active.name}-${id}`}
                           href={active.href}
                           target="_blank"
                           className="p-2 rounded-full bg-gray-800 text-white hover:bg-gray-700"
@@ -101,24 +123,31 @@ const Projects = () => {
                   </div>
                   <div className="pt-4 relative px-4">
                     <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{
-                        opacity: 0,
-                        transition: { duration: 0.05, type: "tween" },
-                      }}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={contentSpring}
                       className="text-neutral-600 text-xs md:text-sm lg:text-base h-40 md:h-fit pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
                     >
                       <div className="flex flex-wrap gap-1">
                         {active.stack.map((tech, i) => (
-                          <Image
+                          <motion.div
                             key={i}
-                            src={tech[0]}
-                            width="20"
-                            height="20"
-                            alt="svg icon"
-                            className={`${tech[2] == true ? "dark:invert" : ""}`}
-                          />
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ 
+                              delay: i * 0.05, 
+                              ...contentSpring 
+                            }}
+                          >
+                            <Image
+                              src={tech[0]}
+                              width="20"
+                              height="20"
+                              alt="svg icon"
+                              className={`${tech[2] == true ? "dark:invert" : ""}`}
+                            />
+                          </motion.div>
                         ))}
                       </div>
                     </motion.div>
@@ -138,11 +167,17 @@ const Projects = () => {
               className="h-full text-center border-0 backdrop-blur-xl bg-card/50 rounded-lg transition duration- hover:bg-card/90 flex flex-col cursor-pointer"
             >
               <div className="flex flex-col h-full p-6">
-                <motion.h3 className="geist font-bold text-lg mb-2">
+                <motion.h3 
+                  layoutId={`title-${project.name}-${id}`}
+                  className="geist font-bold text-lg mb-2"
+                >
                   {project.name}
                 </motion.h3>
 
-                <motion.p className="text-left geist text-lg text-muted-foreground mb-4 flex-grow">
+                <motion.p 
+                  layoutId={`description-${project.name}-${id}`}
+                  className="text-left geist text-lg text-muted-foreground mb-4 flex-grow"
+                >
                   {project.description}
                 </motion.p>
 
@@ -168,6 +203,7 @@ const Projects = () => {
                   <div className="flex gap-2">
                     {project.href && (
                       <motion.a
+                        layoutId={`github-${project.name}-${id}`}
                         href={project.href}
                         target="_blank"
                         onClick={(e) => e.stopPropagation()}
@@ -190,12 +226,10 @@ const Projects = () => {
 export const CloseIcon = () => {
   return (
     <motion.svg
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{
-        opacity: 0,
-        transition: { duration: 0.05, type: "tween", ease: "linear" },
-      }}
+      initial={{ opacity: 0, rotate: -90, scale: 0.8 }}
+      animate={{ opacity: 1, rotate: 0, scale: 1 }}
+      exit={{ opacity: 0, rotate: 90, scale: 0.8 }}
+      transition={contentSpring}
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"

@@ -6,7 +6,7 @@ tags: ["csharp", "functional-programming"]
 
 # Introduction
 
-This post is an attempt at writing C# with as much functional programming concepts as possible. Yes, I know F# exists, but the point is to keep using an OOP language where it is useful, while using a functional approach to make transformations more expressive.
+This post is an attempt at writing C# as if it were a functional language. Yes, I know F# exists, but the point is to keep using an OOP language where it is useful, while using a functional approach to make transformations more expressive.
 
 # What is Functional Programming?
 
@@ -61,8 +61,15 @@ This means that node traversal in the OOP version is dependent on each previous 
 <br>
 This contrast in a relatively simple program is a good example of the difference between OOP and functional programming. By expressing a solution as a series of function compositions instead of a series of statements, we get a more predictable way of reasoning about our program. 
 <br> 
-It might not be obvious why this is useful, so a look at some of the characteristics of functional programming is required.
+	It might not be obvious why this is useful, so a look at some of the characteristics of functional programming is required. And honestly, I wouldn't say it is useful, as much as it being fun to write. React did very well with its functional components and hooks architecture, so I see no reason to not see if something like this might work well in other languages.
 
 # Lazy Evaluation 
 
-# Pure functions;
+Lazy Evaluation is a model of computation where expressions are not evaluated unless explicitly required. This is useful because it doesn't perform any computation that isn't explicitly needed. 
+
+# Pure functions
+
+Here's a math equation: $$ \sum_{i=1}^{n} i = \frac{n(n+1)}{2} $$
+
+And inline: $E = mc^2$
+
