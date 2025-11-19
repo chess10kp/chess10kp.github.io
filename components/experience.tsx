@@ -63,6 +63,15 @@ export function Experience() {
     },
     {
       position: "Research Assistant",
+      timeline: "Nov - Present",
+      employer: "UofM",
+      employer_link: "https://github.com/chess10kp/cobas",
+      description:
+        "Currently working on wireless battery sensing with Deep Neural Networks",
+      tech: ["Python", "PyTorch", "Numpy"],
+    },
+    {
+      position: "Research Assistant",
       timeline: "Jan —  Apr 2025",
       employer: "UofM",
       employer_link: "https://github.com/chess10kp/compass",
