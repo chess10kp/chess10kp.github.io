@@ -9,17 +9,17 @@ type Props = {
 const BlogPosts = ({ posts }: Props) => {
   console.log(posts);
   return (
-    <div className="min-h-[80vh] mt-6">
+    <div className="min-h-[80vh] pt-20">
       <ul>
         {posts &&
           posts.map(({ id, date, title, tags }) => {
             return (
-              <li className="flex flex-col my-4">
+              <li className="flex flex-col my-4 mono">
                 <p className="text-balance text-sm leading-loose text-muted-foreground md:text-left">
                   {date}
                 </p>
                 <Link href={`/blog/${id}`}>
-                  <h1 className="text-1xl mono font-bold">{title}</h1>
+                  <h1 className="text-xl mono font-bold">{title}</h1>
                 </Link>
                 <div className="flex space-x-2 mt-2">
                   {tags.map((tag) => (

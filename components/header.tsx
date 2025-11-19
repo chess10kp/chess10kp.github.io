@@ -19,6 +19,8 @@ const Header = () => {
     { name: "Skills", link: "/#skills" },
   ];
 
+  const isBlogPage = currentPathName.startsWith("/blog");
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -50,7 +52,7 @@ const Header = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        isScrolled
+        isScrolled || isBlogPage
           ? "bg-background/80 backdrop-blur-xl border-b border-border/40 shadow-lg"
           : "bg-transparent"
       }`}
@@ -63,7 +65,7 @@ const Header = () => {
           </div>
         </motion.div>
 
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex md:absolute md:left-1/2 md:-translate-x-1/2 md:transform items-center gap-8">
           {navItems.map((item, idx) => (
             <motion.button
               key={idx}

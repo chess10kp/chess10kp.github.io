@@ -18,7 +18,7 @@ export default async function Page({
   const { id } = await params;
   const { content, title, date, tags } = await getPostById(id);
   return (
-    <div className="flex items-stretch mx-2 sm:mx-4 md:mx-8 lg:mx-16 xl:mx-32 justify-center min-h-screen px-2 sm:px-4">
+    <div className="flex items-stretch justify-center min-h-screen px-4">
       {title ? (
         <div className="my-8 sm:my-12 md:my-16 w-full max-w-full">
           <div className="flex flex-col text-center">
@@ -32,7 +32,7 @@ export default async function Page({
               ))}
             </div>
           </div>
-          <div className="mx-2 sm:mx-4 md:mx-6 lg:mx-10 p-0 w-full max-w-none">
+          <div className="p-0 w-full max-w-none">
             <div
               className="post"
               dangerouslySetInnerHTML={{

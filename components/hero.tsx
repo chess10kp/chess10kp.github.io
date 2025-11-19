@@ -8,7 +8,7 @@ const Hero = () => {
     <section className="flex flex-col space-y-4">
       <AnimatedText
         text={siteConfig.personal.name}
-        className="text-5xl md:text-7xl font-bold mono"
+        className="text-5xl md:text-7xl font-bold mono text-accent"
       />
       <p className="text-xl md:text-2xl text-muted-foreground mono">
         Software Developer
@@ -23,7 +23,7 @@ const Hero = () => {
             When I'm not designing software, I enjoy reading about type theory
             and lambda calculus. I also love playing{" "}
             <a
-              className="underline hover:text-foreground transition-colors"
+              className="underline hover:text-accent transition-colors"
               href="https://lichess.org/chess10kp"
             >
               chess online
@@ -33,7 +33,7 @@ const Hero = () => {
           <p>
             Get in touch through my{" "}
             <a
-              className="underline hover:text-foreground transition-colors"
+              className="underline hover:text-accent transition-colors"
               href={info.links.email}
             >
               email
