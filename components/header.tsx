@@ -78,7 +78,7 @@ const Header = () => {
             >
               {item.name}
               <motion.div
-                className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600"
+                className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent"
                 whileHover={{ width: "100%" }}
                 transition={{ duration: 0.2 }}
               />
@@ -94,7 +94,7 @@ const Header = () => {
           >
             Blog
             <motion.div
-              className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600"
+              className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent"
               whileHover={{ width: "100%" }}
               transition={{ duration: 0.2 }}
             />

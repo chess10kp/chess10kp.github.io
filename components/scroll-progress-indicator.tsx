@@ -27,7 +27,7 @@ export function ScrollProgressIndicator() {
   return (
     <div className="fixed top-0 left-0 right-0 h-1 bg-zinc-800 z-50">
       <div
-        className="h-full bg-gradient-to-r from-cyan-500 to-blue-500"
+        className="h-full bg-accent"
         style={{ width: `${scrollProgress * 100}%`, transition: "width 0.1s" }}
         role="progressbar"
         aria-valuenow={scrollProgress * 100}

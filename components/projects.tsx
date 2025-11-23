@@ -49,7 +49,7 @@ const Projects = () => {
   return (
     <section id="projects" className="py-16">
       <div className="flex flex-col">
-        <h2 className="geist text-3xl font-bold text-left my-8">
+        <h2 className="geist text-3xl font-bold text-left my-8 text-accent">
           Stuff I've made
         </h2>
 
@@ -114,7 +114,7 @@ const Projects = () => {
                           layoutId={`github-${active.name}-${id}`}
                           href={active.href}
                           target="_blank"
-                          className="p-2 rounded-full bg-gray-800 text-white hover:bg-gray-700"
+                        className="p-2 rounded-full bg-accent/30 text-accent hover:bg-accent/40 transition-colors"
                         >
                           <Github width="16" height="16" />
                         </motion.a>
@@ -164,12 +164,12 @@ const Projects = () => {
               layoutId={`card-${project.name}-${id}`}
               key={project.name}
               onClick={() => setActive(project)}
-              className="h-full text-center border-0 backdrop-blur-xl bg-card/50 rounded-lg transition duration- hover:bg-card/90 flex flex-col cursor-pointer"
+              className="h-full text-center border-0 backdrop-blur-xl bg-card/50 rounded-lg transition duration- hover:bg-card/90 hover:border-accent/40 border-transparent flex flex-col cursor-pointer"
             >
               <div className="flex flex-col h-full p-6">
                 <motion.h3 
                   layoutId={`title-${project.name}-${id}`}
-                  className="geist font-bold text-lg mb-2"
+                  className="geist font-bold text-lg mb-2 text-accent"
                 >
                   {project.name}
                 </motion.h3>

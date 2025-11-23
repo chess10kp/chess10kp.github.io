@@ -55,13 +55,13 @@ const Footer = () => {
               href={siteConfig.links.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="font-medium underline underline-offset-4 hover:text-foreground transition-colors"
+              className="font-medium underline underline-offset-4 text-accent hover:text-accent/80 transition-colors"
             >
               {siteConfig.personal.name}
             </a>
             . The source is on{" "}
             <a
-              className="underline underline-offset-4 hover:text-foreground transition-colors"
+              className="underline underline-offset-4 text-accent hover:text-accent/80 transition-colors"
               href="https://github.com/chess10kp/chess10kp.github.io"
               target="_blank"
               rel="noreferrer"
@@ -79,9 +79,9 @@ const Footer = () => {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-card/50 transition-all duration-200 group"
+                className="flex items-center gap-3 p-3 rounded-lg hover:bg-card/50 hover:border-accent/40 border border-transparent transition-all duration-200 group"
               >
-                <div className="flex-shrink-0 text-muted-foreground group-hover:text-foreground transition-colors">
+                <div                 className="flex-shrink-0 text-muted-foreground group-hover:text-accent transition-colors">
                   {link.icon === ChessSvg ? (
                     <ChessSvg />
                   ) : (

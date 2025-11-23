@@ -123,7 +123,7 @@ export default function ProjectDialog({ project, onClose }: ProjectDialogProps) 
                     href={project.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2 px-4 py-2 text-sm rounded-full font-bold bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-black dark:text-white"
+                    className="flex items-center space-x-2 px-4 py-2 text-sm rounded-full font-bold bg-gray-100 hover:bg-accent/20 dark:bg-gray-800 dark:hover:bg-accent/20 text-black dark:text-white hover:text-accent transition-colors"
                   >
                     <Github width="16" height="16" />
                     <span>GitHub</span>
@@ -135,7 +135,7 @@ export default function ProjectDialog({ project, onClose }: ProjectDialogProps) 
                   href={project.demo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 text-sm rounded-full font-bold bg-green-500 hover:bg-green-600 text-white"
+                  className="px-4 py-2 text-sm rounded-full font-bold bg-accent/30 hover:bg-accent/40 text-accent"
                 >
                   Live Demo
                 </a>

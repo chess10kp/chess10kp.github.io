@@ -37,7 +37,7 @@ const ProjectCard = ({
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
       className="h-full"
     >
-      <Card className="h-full text-center border-0 backdrop-blur-xl bg-card/50 rounded-lg hover:bg-card/90 flex flex-col cursor-pointer">
+      <Card className="h-full text-center border-0 backdrop-blur-xl bg-card/50 rounded-lg hover:bg-card/90 hover:border-accent/40 border-transparent transition-all duration-300 flex flex-col cursor-pointer">
         <CardHeader>
           <motion.div layoutId={`project-title-${project.name}-${id}`}>
             <CardTitle className="geist">{project.name}</CardTitle>
@@ -75,7 +75,7 @@ const ProjectCard = ({
             </TooltipProvider>
           </div>
           <motion.div layoutId={`project-github-${project.name}-${id}`}>
-            <Link href={project.href}>
+            <Link href={project.href} className="hover:text-accent transition-colors duration-200">
               <Github width="20" height="20"></Github>
             </Link>
           </motion.div>

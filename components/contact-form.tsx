@@ -71,13 +71,13 @@ export function ContactForm() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex my-16 flex-col items-center justify-center p-6 bg-card/50 rounded-lg"
+        className="flex my-16 flex-col items-center justify-center p-6 bg-card/50 rounded-lg border border-accent/30"
       >
         <h4 className="text-xl font-medium mb-2 geist">Message Sent!</h4>
         <p className="text-sm text-center text-muted-foreground mb-4 geist">
           Thanks for reaching out. I'll get back to you as soon as possible.
         </p>
-        <Button variant="outline" onClick={() => setIsSubmitted(false)}>
+        <Button variant="outline" onClick={() => setIsSubmitted(false)} className="border-accent/50 text-accent hover:bg-accent/20 hover:text-accent-foreground">
           Send Another Message
         </Button>
       </motion.div>
@@ -154,7 +154,7 @@ export function ContactForm() {
           />
           <Button
             type="submit"
-            className="w-full"
+            className="w-full bg-accent/40 hover:bg-accent/50 text-accent-foreground border border-accent/50"
             disabled={form.formState.isSubmitting}
           >
             {form.formState.isSubmitting ? (

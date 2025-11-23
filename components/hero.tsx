@@ -11,7 +11,7 @@ const Hero = () => {
         className="text-5xl md:text-7xl font-bold mono text-accent"
       />
       <p className="text-xl md:text-2xl text-muted-foreground mono">
-        Software Developer
+        <span className="text-accent">Software</span> Developer
       </p>
       <div className="pt-8">
         <div className="geist text-lg md:text-xl text-muted-foreground space-y-6">
@@ -23,7 +23,7 @@ const Hero = () => {
             When I'm not designing software, I enjoy reading about type theory
             and lambda calculus. I also love playing{" "}
             <a
-              className="underline hover:text-accent transition-colors"
+              className="underline text-accent hover:text-accent/80 transition-colors font-medium"
               href="https://lichess.org/chess10kp"
             >
               chess online
@@ -33,7 +33,7 @@ const Hero = () => {
           <p>
             Get in touch through my{" "}
             <a
-              className="underline hover:text-accent transition-colors"
+              className="underline text-accent hover:text-accent/80 transition-colors font-medium"
               href={info.links.email}
             >
               email

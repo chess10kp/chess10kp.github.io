@@ -26,20 +26,20 @@ const ExperienceCard = ({
 }: ExperienceCardType) => {
   return (
     <motion.div variants={experienceVariants}>
-      <Card className="grid border-0 md:grid-cols-4 bg-transparent mb-8">
+      <Card className="grid border-0 md:grid-cols-4 bg-transparent mb-8 hover:bg-accent/20 transition-colors duration-300 rounded-lg p-4">
         <CardHeader className="text-muted-foreground text-left p-0 my-2 geist md:col-span-1">
           {timeline}
         </CardHeader>
         <CardContent className="my-2 mx-0 px-0 space-y-4 text-left md:col-span-3">
-          <div className="text-xl geist text-foreground">
-            {position} @ {employer}
+          <div className="text-xl geist">
+            <span className="text-accent">{position}</span> @ <span className="text-foreground">{employer}</span>
           </div>
           <div className="text-left wrap text-muted-foreground geist">
             {description}
           </div>
           <div className="flex flex-wrap gap-2">
             {tech.map((tech) => (
-              <Badge key={tech} variant="secondary">
+              <Badge key={tech} variant="secondary" className="hover:bg-accent/20 hover:text-accent transition-colors">
                 {tech}
               </Badge>
             ))}
@@ -91,7 +91,9 @@ export function Experience() {
   ];
   return (
     <div id="experience">
-      <h2 className="geist text-3xl font-bold text-left my-4">Experience</h2>
+      <h2 className="geist text-3xl font-bold text-left my-4 text-accent">
+        Experience
+      </h2>
       <motion.div
         initial="hidden"
         animate="visible"

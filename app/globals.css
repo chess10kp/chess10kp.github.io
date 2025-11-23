@@ -123,3 +123,44 @@ h1 {
     background-size: 20px 20px;
   }
 }
+
+.copy-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: hsl(var(--accent) / 0.4);
+  color: hsl(var(--accent));
+  border: 1px solid hsl(var(--accent) / 0.6);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+.copy-button:hover {
+  opacity: 1;
+  background: hsl(var(--accent) / 0.5);
+  border-color: hsl(var(--accent) / 0.8);
+}
+
+.copy-button.copied {
+  background: hsl(var(--primary) / 0.5);
+  color: hsl(var(--primary));
+  border-color: hsl(var(--primary) / 0.7);
+}
+
+/* Simplified accent effects */
+@keyframes accent-pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.accent-pulse {
+  animation: accent-pulse 3s ease-in-out infinite;
+}
