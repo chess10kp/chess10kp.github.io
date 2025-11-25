@@ -41,7 +41,7 @@ const HomeContent = ({ posts }: HomeContentProps) => {
       {!isLoading && (
         <>
           <Header />
-          <div className="relative flex w-full items-center justify-center bg-white dark:bg-[#0e1419]">
+          <div className="relative mx-auto flex w-screen items-center justify-center bg-white dark:bg-[#0e1419]">
             <div
               className={cn(
                 "absolute inset-0",

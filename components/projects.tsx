@@ -158,61 +158,61 @@ const Projects = () => {
           ) : null}
         </AnimatePresence>
 
-        <ul className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <ul className="space-y-4">
           {projectsList.map((project, _) => (
             <motion.div
               layoutId={`card-${project.name}-${id}`}
               key={project.name}
               onClick={() => setActive(project)}
-              className="h-full text-center border-0 backdrop-blur-xl bg-card/50 rounded-lg transition duration- hover:bg-card/90 hover:border-accent/40 border-transparent flex flex-col cursor-pointer"
+              className="border-0 backdrop-blur-xl bg-card/50 rounded-lg transition duration- hover:bg-card/90 hover:border-accent/40 border-transparent cursor-pointer p-4"
             >
-              <div className="flex flex-col h-full p-6">
-                <motion.h3 
-                  layoutId={`title-${project.name}-${id}`}
-                  className="geist font-bold text-lg mb-2 text-accent"
-                >
-                  {project.name}
-                </motion.h3>
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <motion.h3 
+                    layoutId={`title-${project.name}-${id}`}
+                    className="geist font-bold text-lg mb-1 text-accent"
+                  >
+                    {project.name}
+                  </motion.h3>
 
-                <motion.p 
-                  layoutId={`description-${project.name}-${id}`}
-                  className="text-left geist text-lg text-muted-foreground mb-4 flex-grow"
-                >
-                  {project.description}
-                </motion.p>
+                  <motion.p 
+                    layoutId={`description-${project.name}-${id}`}
+                    className="geist text-sm text-muted-foreground"
+                  >
+                    {project.description}
+                  </motion.p>
+                </div>
 
-                <div className="flex justify-between items-center mt-auto">
+                <div className="flex items-center gap-4">
                   <div className="flex flex-wrap gap-1">
-                    {project.stack.slice(0, 3).map((tech, i) => (
+                    {project.stack.slice(0, 4).map((tech, i) => (
                       <Image
                         key={i}
                         src={tech[0]}
-                        width="20"
-                        height="20"
+                        width="16"
+                        height="16"
                         alt="svg icon"
                         className={`${tech[2] == true ? "dark:invert" : ""}`}
                       />
                     ))}
-                    {project.stack.length > 3 && (
-                      <span className="text-xs text-muted-foreground">
-                        +{project.stack.length - 3}
+                    {project.stack.length > 4 && (
+                      <span className="text-xs text-muted-foreground ml-1">
+                        +{project.stack.length - 4}
                       </span>
                     )}
                   </div>
 
-                  <div className="flex gap-2">
-                    {project.href && (
-                      <motion.a
-                        layoutId={`github-${project.name}-${id}`}
-                        href={project.href}
-                        target="_blank"
-                        onClick={(e) => e.stopPropagation()}
-                        className="p-2 rounded-full bg-gray-800 text-white hover:bg-gray-700"
-                      >
-                        <Github width="16" height="16" />
-                      </motion.a>
-                    )}
-                  </div>
+                  {project.href && (
+                    <motion.a
+                      layoutId={`github-${project.name}-${id}`}
+                      href={project.href}
+                      target="_blank"
+                      onClick={(e) => e.stopPropagation()}
+                      className="p-2 rounded-full bg-gray-800 text-white hover:bg-gray-700"
+                    >
+                      <Github width="16" height="16" />
+                    </motion.a>
+                  )}
                 </div>
               </div>
             </motion.div>

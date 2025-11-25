@@ -7,4 +7,5 @@ export type Project = {
   stack: [StaticImport, string, boolean?][];
   href: string;
   demo: string;
+  blogId: string;
 };

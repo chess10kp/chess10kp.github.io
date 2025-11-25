@@ -6,39 +6,13 @@ import AnimatedText from "./animated-text";
 const Hero = () => {
   return (
     <section className="flex flex-col space-y-4">
-      <AnimatedText
-        text={siteConfig.personal.name}
-        className="text-5xl md:text-7xl font-bold mono text-accent"
-      />
       <p className="text-xl md:text-2xl text-muted-foreground mono">
-        <span className="text-accent">Software</span> Developer
+        Developing for fun. Thoroughly curious.
       </p>
       <div className="pt-8">
         <div className="geist text-lg md:text-xl text-muted-foreground space-y-6">
           <p>
-            Full Stack Developer with a focus on designing Agent based workflows
-            and intelligent apps.
-          </p>
-          <p>
-            When I'm not designing software, I enjoy reading about type theory
-            and lambda calculus. I also love playing{" "}
-            <a
-              className="underline text-accent hover:text-accent/80 transition-colors font-medium"
-              href="https://lichess.org/chess10kp"
-            >
-              chess online
-            </a>
-            .
-          </p>
-          <p>
-            Get in touch through my{" "}
-            <a
-              className="underline text-accent hover:text-accent/80 transition-colors font-medium"
-              href={info.links.email}
-            >
-              email
-            </a>
-            .
+            I'm a full stack developer and recent graduate focused on constant improvement in all aspects of my life. I've spent the last few summers teaching and building software, and the last few winters growing the next generation of engineers. Want to know even more about me?
           </p>
         </div>
       </div>

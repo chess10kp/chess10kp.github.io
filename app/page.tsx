@@ -1,5 +1,4 @@
 import { ThemeProvider } from "@/components/theme-provider";
-import Footer from "@/components/footer";
 import HomeContent from "@/components/home-content";
 import { getSortedPostsData } from "@/lib/posts";
 import "./page.css";

@@ -1,22 +1,8 @@
-"use client";
-import { useState } from "react";
 import ProjectCard from "@/components/project-card";
-import { Project } from "@/lib/types";
 import Header from "@/components/header";
 import siteConfig from "@/siteConfig";
-import ProjectDialog from "@/components/project-dialog";
 
 export default function ProjectsPage() {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-
-  const handleProjectClick = (project: Project) => {
-    setSelectedProject(project);
-  };
-
-  const handleCloseDialog = () => {
-    setSelectedProject(null);
-  };
-
   return (
     <div>
       <Header />
@@ -29,7 +15,6 @@ export default function ProjectsPage() {
             {siteConfig.projects.map((project, i) => {
               return (
                 <ProjectCard
-                  onClick={() => handleProjectClick(project)}
                   key={i}
                   project={project}
                 />
@@ -38,9 +23,6 @@ export default function ProjectsPage() {
           </div>
         </div>
       </section>
-      {selectedProject && (
-        <ProjectDialog project={selectedProject} onClose={handleCloseDialog} />
-      )}
     </div>
   );
 }

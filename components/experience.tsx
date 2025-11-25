@@ -26,7 +26,7 @@ const ExperienceCard = ({
 }: ExperienceCardType) => {
   return (
     <motion.div variants={experienceVariants}>
-      <Card className="grid border-0 md:grid-cols-4 bg-transparent mb-8 hover:bg-accent/20 transition-colors duration-300 rounded-lg p-4">
+      <Card className="grid border-0 md:grid-cols-4 bg-transparent mb-8 rounded-lg p-4">
         <CardHeader className="text-muted-foreground text-left p-0 my-2 geist md:col-span-1">
           {timeline}
         </CardHeader>
@@ -39,7 +39,7 @@ const ExperienceCard = ({
           </div>
           <div className="flex flex-wrap gap-2">
             {tech.map((tech) => (
-              <Badge key={tech} variant="secondary" className="hover:bg-accent/20 hover:text-accent transition-colors">
+              <Badge key={tech} variant="secondary">
                 {tech}
               </Badge>
             ))}

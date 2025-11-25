@@ -1,8 +1,6 @@
 import { Project } from "@/lib/types";
 import supabase from "@/assets/images/supabase.svg";
 import cs from "@/assets/images/CS.svg";
-import cppSvg from "@/assets/images/CPP.svg";
-import nasmSvg from "@/assets/images/Nasm.svg";
 import pythonSvg from "@/assets/images/Python.svg";
 import haskellSvg from "@/assets/images/Haskell.svg";
 import reactSvg from "@/assets/images/React.svg";
@@ -62,6 +60,7 @@ export default {
       href: "https://devpost.com/software/babelfetch",
       demo: "https://devpost.com/software/babelfetch",
       image: "",
+      blogId: "babblefish",
     },
     {
       name: "OPilot",
@@ -76,6 +75,7 @@ export default {
       href: "https://github.com/chess10kp/opilot",
       demo: "",
       image: "",
+      blogId: "opilot",
     },
     {
       name: "HD4",
@@ -90,6 +90,7 @@ export default {
         [supabase, "Supabase"],
       ],
       href: "https://play.google.com/store/apps/details?id=org.hackdearborn.hackdearbornapp&pli=1",
+      blogId: "hd4",
     },
     {
       name: "Socraticoin",
@@ -103,6 +104,7 @@ export default {
         [fastAPISvg, "FastAPI"],
       ],
       href: "https://github.com/chess10kp/socraticoin",
+      blogId: "socraticoin",
     },
     {
       name: "Snip",
@@ -111,6 +113,7 @@ export default {
       description: "A JS-style interpreted programming language",
       stack: [[cs, "C#"]],
       href: "https://github.com/snip-lang/snip",
+      blogId: "snip",
     },
   ] as Project[],
   hiddenProjects: [

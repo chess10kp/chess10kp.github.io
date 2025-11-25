@@ -1,12 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
+import config from "@/siteConfig";
 
 const Header = () => {
-  const [isDark, setIsDark] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
@@ -14,9 +14,7 @@ const Header = () => {
 
   const navItems = [
     { name: "About", link: "/#about" },
-    { name: "Experience", link: "/#experience" },
     { name: "Projects", link: "/#projects" },
-    { name: "Skills", link: "/#skills" },
   ];
 
   const isBlogPage = currentPathName.startsWith("/blog");
@@ -57,15 +55,14 @@ const Header = () => {
           : "bg-transparent"
       }`}
     >
-      <div className="container flex h-16 max-w-full items-center justify-between px-4">
-        {/* Logo */}
-        <motion.div whileHover={{ scale: 1.05 }} className="relative">
+      <div className="container flex h-16 max-w-full items-center justify-center px-4">
+        <motion.div whileHover={{ scale: 1.05 }} className="absolute left-4">
           <div className="text-2xl font-bold bg-gradient-to-r bg-foreground bg-clip-text text-transparent cursor-pointer">
-            NM
+            {config.personal.name}
           </div>
         </motion.div>
 
-        <nav className="hidden md:flex md:absolute md:left-1/2 md:-translate-x-1/2 md:transform items-center gap-8">
+        <nav className="hidden md:flex items-center gap-8">
           {navItems.map((item, idx) => (
             <motion.button
               key={idx}
@@ -90,7 +87,7 @@ const Header = () => {
             whileHover={{ scale: 1.1 }}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1 * 0.1 }}
+            transition={{ delay: 2 * 0.1 }}
           >
             Blog
             <motion.div
@@ -101,7 +98,7 @@ const Header = () => {
           </motion.button>
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 absolute right-4">
           <motion.button
             className="md:hidden p-2 rounded-lg bg-card/50 hover:bg-card/80 transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -159,6 +156,19 @@ const Header = () => {
                     {item.name}
                   </motion.button>
                 ))}
+                <motion.button
+                  onClick={() => {
+                    router.push("/blog");
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="text-left text-lg font-medium text-muted-foreground hover:text-foreground transition-colors py-2"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 2 * 0.1 }}
+                  whileHover={{ x: 10 }}
+                >
+                  Blog
+                </motion.button>
               </nav>
             </div>
           </motion.div>

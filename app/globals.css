@@ -88,6 +88,7 @@
 
 * {
   scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
   /* Hide scrollbar for Chrome, Safari and Opera */
   &::-webkit-scrollbar {
     display: none;
@@ -95,6 +96,18 @@
   /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
+}
+
+body {
+  scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 h1 {
