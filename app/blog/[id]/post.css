@@ -1,37 +1,40 @@
 @import "../../globals.css";
 @import "prismjs/themes/prism-tomorrow.css";
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap");
 
 .post h1 {
-  @apply underline underline-offset-4 font-semibold my-6 text-4xl text-foreground;
-  font-family: "Victor Mono", sans-serif;
+  @apply underline-offset-4 font-semibold my-6 text-4xl text-foreground;
+  font-family: var(--font-mono);
 }
 
 .post h2 {
   @apply font-semibold my-4 text-3xl text-foreground;
-  font-family: "Victor Mono", sans-serif;
+  font-family: var(--font-mono);
 }
 
 .post h3 {
   @apply font-semibold my-3 text-2xl text-foreground;
-  font-family: "Victor Mono", sans-serif;
+  font-family: var(--font-mono);
 }
 
 .post h4 {
   @apply font-semibold my-2 text-xl text-foreground;
-  font-family: "Victor Mono", sans-serif;
+  font-family: var(--font-mono);
 }
 
 .post h5 {
   @apply font-medium my-2 text-lg text-foreground;
-  font-family: "Victor Mono", sans-serif;
+  font-family: var(--font-mono);
 }
 
 .post h6 {
   @apply font-medium my-2 text-base text-foreground;
-  font-family: "Victor Mono", sans-serif;
+  font-family: var(--font-mono);
 }
 
+.post {
+  font-family: var(--font-geist);
+}
 
 .post blockquote {
   border-left: 4px solid hsl(var(--border));
@@ -44,17 +47,19 @@
 
 .post p {
   @apply text-lg sm:text-xl text-foreground mt-4;
-  font-family: "Inter";
+  font-family: var(--font-geist);
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
 .post pre {
   @apply bg-card border-border rounded-lg my-6 overflow-x-auto;
-  font-family: "Victor Mono", monospace;
+  font-family: var(--font-mono);
   border: 1px solid hsl(var(--border));
   position: relative;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  box-shadow:
+    0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
   max-width: 100%;
   word-wrap: break-word;
   white-space: pre-wrap;
@@ -62,7 +67,7 @@
 }
 
 .post pre::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -87,7 +92,7 @@
 
 .post code[class*="language-"] {
   color: hsl(var(--foreground)) !important;
-  font-family: "Victor Mono", monospace !important;
+  font-family: var(--font-mono) !important;
 }
 
 /* Syntax highlighting colors that match your theme */
@@ -151,7 +156,7 @@
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 12px;
-  font-family: "Open Sans", sans-serif;
+  font-family: var(--font-geist);
   cursor: pointer;
   transition: all 0.2s ease;
   opacity: 0.7;
@@ -175,16 +180,18 @@
   transform: translateY(0);
 }
 
-.post p code, .post li code {
+.post p code,
+.post li code {
   @apply bg-muted/50 text-foreground px-2 py-0.5 rounded-md text-sm font-mono;
-  border: 1px solid hsl(var(--border)/50);
+  border: 1px solid hsl(var(--border) / 50);
   font-weight: 500;
   letter-spacing: 0.025em;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   transition: all 0.15s ease;
 }
 
-.post p code:hover, .post li code:hover {
+.post p code:hover,
+.post li code:hover {
   @apply bg-muted/80;
   border-color: hsl(var(--border));
   transform: translateY(-0.5px);
@@ -192,10 +199,35 @@
 }
 
 body::webkit-scrollbar {
-    display: none;
+  display: none;
+}
+
+/* Image styles */
+.post img {
+  @apply rounded-lg shadow-md my-6;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid hsl(var(--border));
+  transition: all 0.2s ease;
+}
+
+.post img:hover {
+  @apply shadow-lg;
+  transform: scale(1.02);
+}
+
+/* Responsive images */
+@media (max-width: 640px) {
+  .post img {
+    @apply rounded-md;
+    margin: 1rem 0;
+  }
 }
 
 body {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

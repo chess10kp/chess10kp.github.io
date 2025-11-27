@@ -8,7 +8,7 @@ export default function ProjectsPage() {
       <Header />
       <section id="projects" className="py-16">
         <div className="container mx-auto px-4">
-          <h1 className="geist text-5xl font-bold text-center my-8">
+          <h1 className="text-5xl font-bold text-center my-8">
             All Projects
           </h1>
           <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">

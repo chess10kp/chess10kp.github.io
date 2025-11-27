@@ -6,9 +6,7 @@ import markedKatex from "marked-katex-extension";
 import { markedHighlight } from "marked-highlight";
 import Prism from "prismjs";
 
-import "prismjs/components/prism-csharp";
 import "prismjs/components/prism-python";
-import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-css";
 import "prismjs/components/prism-json";
@@ -27,12 +25,21 @@ marked.use(markedHighlight({
   }
 }));
 
+// Custom renderer for images with lazy loading
+(marked.use as any)({
+  renderer: {
+    image(href: string, title: string | null, text: string) {
+      return `<img src="${href}" alt="${text || ''}" title="${title || text || ''}" loading="lazy">`;
+    }
+  }
+});
+
 const postsDirectory = path.join(process.cwd(), "posts");
 
 export function getSortedPostsData() {
   const fileNames = fs.readdirSync(postsDirectory);
   const allPostsData = fileNames.filter((filename) => {
-    return filename.endsWith(".md")
+    return filename.endsWith(".md") && !filename.startsWith(".")
   }).map((fileName) => {
     const id = fileName.replace(/\.md$/, "");
     const fullPath = path.join(postsDirectory, fileName);
@@ -54,7 +61,9 @@ export function getSortedPostsData() {
 
 export function getAllPostIds() {
   const fileNames = fs.readdirSync(postsDirectory);
-  return fileNames.map((fileName) => {
+  return fileNames.filter((filename) => {
+    return filename.endsWith(".md") && !filename.startsWith(".")
+  }).map((fileName) => {
     return {
       params: {
         id: fileName.replace(/\.md$/, ""),

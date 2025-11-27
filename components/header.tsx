@@ -4,7 +4,7 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import config from "@/siteConfig";
+import siteConfig from "@/siteConfig";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -13,7 +13,7 @@ const Header = () => {
   const currentPathName = usePathname();
 
   const navItems = [
-    { name: "About", link: "/#about" },
+    { name: "About", link: "/about" },
     { name: "Projects", link: "/#projects" },
   ];
 
@@ -55,10 +55,10 @@ const Header = () => {
           : "bg-transparent"
       }`}
     >
-      <div className="container flex h-16 max-w-full items-center justify-center px-4">
+      <div className="container flex h-16 max-w-full items-space-evenly justify-center px-4">
         <motion.div whileHover={{ scale: 1.05 }} className="absolute left-4">
-          <div className="text-2xl font-bold bg-gradient-to-r bg-foreground bg-clip-text text-transparent cursor-pointer">
-            {config.personal.name}
+          <div className="text-2xl mono font-bold bg-gradient-to-r bg-foreground bg-clip-text text-transparent cursor-pointer">
+            {siteConfig.personal.name}
           </div>
         </motion.div>
 
@@ -67,7 +67,7 @@ const Header = () => {
             <motion.button
               key={idx}
               onClick={() => scrollToSection(item.link)}
-              className="relative text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
+              className="relative text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 mono"
               whileHover={{ scale: 1.1 }}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -83,7 +83,7 @@ const Header = () => {
           ))}
           <motion.button
             onClick={() => router.push("/blog")}
-            className="relative text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
+            className="relative text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 mono"
             whileHover={{ scale: 1.1 }}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -147,7 +147,7 @@ const Header = () => {
                       scrollToSection(item.link);
                       setIsMobileMenuOpen(false);
                     }}
-                    className="text-left text-lg font-medium text-muted-foreground hover:text-foreground transition-colors py-2"
+                    className="text-left text-lg font-medium text-muted-foreground hover:text-foreground transition-colors py-2 mono"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.1 }}
@@ -161,7 +161,7 @@ const Header = () => {
                     router.push("/blog");
                     setIsMobileMenuOpen(false);
                   }}
-                  className="text-left text-lg font-medium text-muted-foreground hover:text-foreground transition-colors py-2"
+                  className="text-left text-lg font-medium text-muted-foreground hover:text-foreground transition-colors py-2 mono"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 2 * 0.1 }}

@@ -14,7 +14,7 @@ const BlogPosts = ({ posts }: Props) => {
         {posts &&
           posts.map(({ id, date, title, tags }) => {
             return (
-              <li className="flex items-center justify-between p-3 rounded-lg bg-card/30 hover:bg-card/50 border border-transparent hover:border-accent/30 transition-all duration-300">
+               <li key={id} className="flex items-center justify-between p-3 rounded-lg bg-card/30 hover:bg-card/50 border border-transparent hover:border-accent/30 transition-all duration-300">
                 <div className="flex-1">
                   <p className="text-xs text-muted-foreground mb-1">
                     {date}
