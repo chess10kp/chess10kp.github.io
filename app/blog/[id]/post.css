@@ -175,7 +175,6 @@
   transform: translateY(0);
 }
 
-/* Inline code styling */
 .post p code, .post li code {
   @apply bg-muted/50 text-foreground px-2 py-0.5 rounded-md text-sm font-mono;
   border: 1px solid hsl(var(--border)/50);

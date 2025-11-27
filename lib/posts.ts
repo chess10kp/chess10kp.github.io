@@ -6,7 +6,6 @@ import markedKatex from "marked-katex-extension";
 import { markedHighlight } from "marked-highlight";
 import Prism from "prismjs";
 
-// Load additional language support
 import "prismjs/components/prism-csharp";
 import "prismjs/components/prism-python";
 import "prismjs/components/prism-javascript";

@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      <body className={`${inter.className} max-w-screen-md`}>
+      <body className={`${inter.className} `}>
         <SmoothScrollProvider>
           {children}
         </SmoothScrollProvider>
