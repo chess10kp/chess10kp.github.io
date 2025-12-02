@@ -18,9 +18,9 @@ export default async function Page({
   const { id } = await params;
   const { content, title, date, tags } = await getPostById(id);
   return (
-    <div className="flex lg:mx-96 md:mx-8 mx-4 justify-center min-h-screen px-4">
+    <div className="flex justify-center min-h-screen px-4 lg:px-96 md:px-8">
       {title ? (
-        <div className="my-8 sm:my-12 md:my-16 w-full">
+        <div className="my-8 sm:my-12 md:my-16 w-full max-w-4xl">
           <div className="flex flex-col">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
               <p className="text-md text-zinc-400 mb-2 sm:mb-0">

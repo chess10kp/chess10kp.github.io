@@ -52,4 +52,4 @@ The biggest surprise wasn't the language itself, it was how much TDD shaped the 
 
 A programming language is absolutely perfect to realize the effectiveness of comprehensive testing, showing me the elegance of TDD when a system has multiple moving parts.
 
-Snip didn't need to exist. I built it because making things let learn an unreasonable amount quickly. In my case, I ended up discovering how elegant TDD can be and learning C# deeply. It turns out making things for the sake of it is its own justification.
+Snip didn't need to exist. I built it because making things help me learn an unreasonable amount rapidly. In my case, I ended up discovering how elegant TDD can be and learning C# deeply. It turns out making things for the sake of it is its own justification.

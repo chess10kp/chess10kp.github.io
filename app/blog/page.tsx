@@ -7,8 +7,10 @@ const Blog = () => {
   const posts = getSortedPostsData();
   return (
     <AnimationProvider>
-      <section className="flex flex-col items-center my-10 md:mx-8 mx-4">
-        <BlogPosts posts={posts} />
+      <section className="flex flex-col items-center my-10 px-4 md:px-8 lg:px-96">
+        <div className="w-full max-w-4xl">
+          <BlogPosts posts={posts} />
+        </div>
       </section>
     </AnimationProvider>
   );
