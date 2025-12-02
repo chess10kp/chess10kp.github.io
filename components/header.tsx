@@ -162,6 +162,7 @@ const Header = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
             className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border/40"
           >
             <div className="container px-4 py-6">
@@ -180,7 +181,7 @@ const Header = () => {
                     }`}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.1 }}
+                    transition={{ delay: idx * 0.05, duration: 0.2 }}
                     whileHover={{ x: 10 }}
                   >
                     {item.name}
@@ -198,7 +199,7 @@ const Header = () => {
                   }`}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 2 * 0.1 }}
+                  transition={{ delay: 0.1, duration: 0.2 }}
                   whileHover={{ x: 10 }}
                 >
                   Blog
