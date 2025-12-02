@@ -48,7 +48,22 @@ export default {
   },
   projects: [
     {
-      name: "BabbleFish",
+      name: "Chatherine",
+      description:
+      "A multi client AI agent to support small business",
+      stack: [
+        [typescriptSvg, "Typescript"],
+        [nextSvg, "Next.js", true],
+        [geminiSvg, "Google Gemini", true],
+        [fastAPISvg, "FastAPI", true],
+      ],
+      href: "https://github.com/inkscribe-org/chatherine",
+      demo: "",
+      image: "",
+      blogId: "",
+    },
+    {
+      name: "BabelFish",
       description:
         "Multi-agent extension powered by Gemini 2.5 that collaboratively translates and summarizes messages across Discord, Slack, and WhatsApp.",
       stack: [
@@ -60,22 +75,7 @@ export default {
       href: "https://devpost.com/software/babelfetch",
       demo: "https://devpost.com/software/babelfetch",
       image: "",
-      blogId: "babblefish",
-    },
-    {
-      name: "OPilot",
-      description:
-        "A smart desktop AI assistant for automating your daily tasks",
-      stack: [
-        [typescriptSvg, "Typescript"],
-        [nextSvg, "Next.js", true],
-        [geminiSvg, "Google Gemini", true],
-        [rustSvg, "Rust", true],
-      ],
-      href: "https://github.com/chess10kp/opilot",
-      demo: "",
-      image: "",
-      blogId: "opilot",
+      blogId: "babelfish",
     },
     {
       name: "HD4",

@@ -2,8 +2,9 @@
 import React from "react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Calendar } from "lucide-react";
+import { Calendar, ArrowRight } from "lucide-react";
 
 type Post = {
   id: string;
@@ -35,8 +36,8 @@ const itemVariants = {
 };
 
 const LatestBlogPosts = ({ posts }: Props) => {
-  // Show all posts
-  const latestPosts = posts;
+  // Show only first 3 posts on home page
+  const latestPosts = posts.slice(0, 3);
 
   if (!latestPosts || latestPosts.length === 0) {
     return null;
@@ -44,12 +45,12 @@ const LatestBlogPosts = ({ posts }: Props) => {
 
   return (
     <div id="blog" className="py-16">
-      <h2 className="geist text-3xl font-bold text-left mb-8 text-accent">
-        Blog Posts
+      <h2 className="mono underline underline-offset-8 text-3xl font-bold text-left mb-8 text-accent">
+        Blog 
       </h2>
 
       <motion.div
-        className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+        className="grid gap-6 md:grid-cols-3"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -82,6 +83,17 @@ const LatestBlogPosts = ({ posts }: Props) => {
           </motion.div>
         ))}
       </motion.div>
+      
+      {posts.length > 3 && (
+        <div className="mt-8 text-center">
+          <Link href="/blog">
+            <Button variant="outline" className="group">
+              View All Posts
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

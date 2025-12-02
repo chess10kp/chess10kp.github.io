@@ -16,6 +16,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 
 const formSchema = z.object({
@@ -71,7 +72,7 @@ export function ContactForm() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex my-16 flex-col items-center justify-center p-6 bg-card/50 rounded-lg border border-accent/30"
+        className="flex my-16 flex-col items-center justify-center p-6 bg-card/50 backdrop-blur-xl rounded-lg border border-accent/30"
       >
         <h4 className="text-xl font-medium mb-2 geist">Message Sent!</h4>
         <p className="text-sm text-center text-muted-foreground mb-4 geist">
@@ -91,7 +92,6 @@ export function ContactForm() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
     >
-      <h2 className="geist text-3xl font-bold text-left my-4">Get in Touch</h2>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

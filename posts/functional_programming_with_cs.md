@@ -6,7 +6,7 @@ tags: ["csharp", "functional-programming", "lambda-calculus"]
 
 # Introduction
 
-This post is an attempt at writing C# as if it were Haskell, a [functional language](https://en.wikipedia.org/wiki/Functional_programming). Yes, I know [F#](https://fsharp.org) exists, but the point is to keep using an OOP language where it is useful, while using a functional approach to make transformations more expressive (the real reason is because it's fun).
+This post is an attempt at writing C# as if it were a [functional language](https://en.wikipedia.org/wiki/Functional_programming) like Haskell. Yes, I know [F#](https://fsharp.org) exists, but the point is to keep using an OOP language where it is useful, while using a functional approach to make transformations more expressive (the real reason is because it's fun).
 
 Consider this example of a depth-first search on a graph using an OOP approach:
 

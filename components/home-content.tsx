@@ -10,6 +10,8 @@ import { ContactSidebar } from "@/components/ContactSidebar";
 import Projects from "@/components/projects";
 import Skills from "@/components/Skills";
 import LatestBlogPosts from "@/components/latest-blog-posts";
+import { ContactSection } from "@/components/contact-section";
+import { getAllPostIds } from "@/lib/posts";
 import Footer from "@/components/footer";
 
 type Post = {
@@ -21,9 +23,10 @@ type Post = {
 
 interface HomeContentProps {
   posts: Post[];
+  availableBlogPosts: string[];
 }
 
-const HomeContent = ({ posts }: HomeContentProps) => {
+const HomeContent = ({ posts, availableBlogPosts }: HomeContentProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -36,7 +39,7 @@ const HomeContent = ({ posts }: HomeContentProps) => {
 
   return (
     <>
-      <AnimatePresence>{isLoading && <Loader />}</AnimatePresence>
+      {/* <AnimatePresence>{isLoading && <Loader />}</AnimatePresence> */}
 
       {!isLoading && (
         <>
@@ -67,13 +70,13 @@ const HomeContent = ({ posts }: HomeContentProps) => {
                     <Experience />
                   </div>
                   <div className="py-16" id="projects">
-                    <Projects />
-                  </div>
-                  <div className="py-16">
-                    <Skills />
+                    <Projects availableBlogPosts={availableBlogPosts} />
                   </div>
                   <div className="py-16">
                     <LatestBlogPosts posts={posts} />
+                  </div>
+                  <div className="py-16">
+                    <ContactSection />
                   </div>
                 </div>
               </div>

@@ -3,32 +3,32 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap");
 
 .post h1 {
-  @apply underline-offset-4 font-semibold my-6 text-4xl text-foreground;
+  @apply underline-offset-4 font-semibold my-8 text-4xl text-foreground;
   font-family: var(--font-mono);
 }
 
 .post h2 {
-  @apply font-semibold my-4 text-3xl text-foreground;
+  @apply font-semibold my-6 text-3xl text-foreground;
   font-family: var(--font-mono);
 }
 
 .post h3 {
-  @apply font-semibold my-3 text-2xl text-foreground;
+  @apply font-semibold my-5 text-2xl text-foreground;
   font-family: var(--font-mono);
 }
 
 .post h4 {
-  @apply font-semibold my-2 text-xl text-foreground;
+  @apply font-semibold my-4 text-xl text-foreground;
   font-family: var(--font-mono);
 }
 
 .post h5 {
-  @apply font-medium my-2 text-lg text-foreground;
+  @apply font-medium my-4 text-lg text-foreground;
   font-family: var(--font-mono);
 }
 
 .post h6 {
-  @apply font-medium my-2 text-base text-foreground;
+  @apply font-medium my-4 text-base text-foreground;
   font-family: var(--font-mono);
 }
 
@@ -48,8 +48,32 @@
 .post p {
   @apply text-lg sm:text-xl text-foreground mt-4;
   font-family: var(--font-geist);
+  line-height: 1.8 !important;
   word-wrap: break-word;
   overflow-wrap: break-word;
+}
+
+.post ul {
+  @apply text-lg sm:text-xl text-foreground mt-4;
+  font-family: var(--font-geist);
+  line-height: 1.8 !important;
+  list-style-type: disc;
+  padding-left: 2rem;
+}
+
+.post ol {
+  @apply text-lg sm:text-xl text-foreground mt-4;
+  font-family: var(--font-geist);
+  line-height: 1.8 !important;
+  list-style-type: decimal;
+  padding-left: 2rem;
+}
+
+.post li {
+  @apply text-lg sm:text-xl text-foreground;
+  font-family: var(--font-geist);
+  line-height: 1.8 !important;
+  margin-bottom: 0.5rem;
 }
 
 .post pre {

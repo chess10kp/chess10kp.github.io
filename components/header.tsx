@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import siteConfig from "@/siteConfig";
+import Link from "next/link";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,6 +19,16 @@ const Header = () => {
   ];
 
   const isBlogPage = currentPathName.startsWith("/blog");
+
+  const isActiveLink = (link: string) => {
+    if (link === "/about") {
+      return currentPathName === "/about";
+    }
+    if (link === "/#projects") {
+      return currentPathName === "/" || currentPathName === "/#projects";
+    }
+    return false;
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,51 +60,66 @@ const Header = () => {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
+      transition={{ duration: 0.3 }}
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
         isScrolled || isBlogPage
           ? "bg-background/80 backdrop-blur-xl border-b border-border/40 shadow-lg"
           : "bg-transparent"
       }`}
     >
-      <div className="container flex h-16 max-w-full items-space-evenly justify-center px-4">
-        <motion.div whileHover={{ scale: 1.05 }} className="absolute left-4">
-          <div className="text-2xl mono font-bold bg-gradient-to-r bg-foreground bg-clip-text text-transparent cursor-pointer">
-            {siteConfig.personal.name}
-          </div>
-        </motion.div>
+      <div className="container flex h-16 items-center max-w-full justify-evenly px-4">
+        <Link href="/">
+          <motion.div whileHover={{ scale: 1.05 }} className="">
+            <div className="text-2xl  mono font-bold bg-gradient-to-r bg-foreground bg-clip-text text-transparent cursor-pointer">
+              {siteConfig.personal.name}
+            </div>
+          </motion.div>
+        </Link>
 
         <nav className="hidden md:flex items-center gap-8">
           {navItems.map((item, idx) => (
             <motion.button
               key={idx}
               onClick={() => scrollToSection(item.link)}
-              className="relative text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 mono"
+              className={`relative text-sm font-medium transition-colors duration-200 mono ${
+                isActiveLink(item.link)
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
               whileHover={{ scale: 1.1 }}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
+              transition={{ delay: idx * 0.05, duration: 0.3 }}
             >
               {item.name}
               <motion.div
-                className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent"
+                className="absolute -bottom-1 left-0 h-0.5 bg-accent"
+                initial={isActiveLink(item.link) ? { width: "100%" } : { width: "0%" }}
+                animate={isActiveLink(item.link) ? { width: "100%" } : { width: "0%" }}
                 whileHover={{ width: "100%" }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.1 }}
               />
             </motion.button>
           ))}
           <motion.button
             onClick={() => router.push("/blog")}
-            className="relative text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 mono"
+            className={`relative text-sm font-medium transition-colors duration-200 mono ${
+              isBlogPage
+                ? "text-foreground"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
             whileHover={{ scale: 1.1 }}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2 * 0.1 }}
+            transition={{ delay: 0.1, duration: 0.3 }}
           >
             Blog
             <motion.div
-              className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent"
+              className="absolute -bottom-1 left-0 h-0.5 bg-accent"
+              initial={isBlogPage ? { width: "100%" } : { width: "0%" }}
+              animate={isBlogPage ? { width: "100%" } : { width: "0%" }}
               whileHover={{ width: "100%" }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.1 }}
             />
           </motion.button>
         </nav>
@@ -147,7 +173,11 @@ const Header = () => {
                       scrollToSection(item.link);
                       setIsMobileMenuOpen(false);
                     }}
-                    className="text-left text-lg font-medium text-muted-foreground hover:text-foreground transition-colors py-2 mono"
+                    className={`text-left text-lg font-medium transition-colors py-2 mono ${
+                      isActiveLink(item.link)
+                        ? "text-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.1 }}
@@ -161,7 +191,11 @@ const Header = () => {
                     router.push("/blog");
                     setIsMobileMenuOpen(false);
                   }}
-                  className="text-left text-lg font-medium text-muted-foreground hover:text-foreground transition-colors py-2 mono"
+                  className={`text-left text-lg font-medium transition-colors py-2 mono ${
+                    isBlogPage
+                      ? "text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 2 * 0.1 }}

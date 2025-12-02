@@ -18,19 +18,21 @@ export default async function Page({
   const { id } = await params;
   const { content, title, date, tags } = await getPostById(id);
   return (
-    <div className="flex lg:mx-96 md:mx-16 justify-center min-h-screen px-4">
+    <div className="flex lg:mx-96 md:mx-8 mx-4 justify-center min-h-screen px-4">
       {title ? (
         <div className="my-8 sm:my-12 md:my-16 w-full">
-          <div className="flex flex-col text-center">
-            <h1 className="font-bold text-4xl mono ">{title}</h1>
-            <p className="text-md text-zinc-400">
-              {date.toString().slice(0, 10)}
-            </p>
-            <div className="flex space-x-2 mt-2 justify-center">
-              {tags.map((tag: string) => (
-                <Badge key={tag} variant="secondary">{tag}</Badge>
-              ))}
+          <div className="flex flex-col">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+              <p className="text-md text-zinc-400 mb-2 sm:mb-0">
+                {date.toString().slice(0, 10)}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {tags.map((tag: string) => (
+                  <Badge key={tag} variant="secondary">{tag}</Badge>
+                ))}
+              </div>
             </div>
+            <h1 className="font-bold text-4xl mono text-left">{title}</h1>
           </div>
           <div className="items-center flex w-full">
             <div

@@ -1,205 +1,55 @@
 ---
-title: Snip - JS-Style Interpreted Programming Language
-date: "2025-11-24"
-tags: ["csharp", "programming-language", "interpreter", "compiler", "language-design"]
+title: Making things for the sake of it
+date: "2025-08-24"
+tags: ["csharp", "programming-language", "compiler"]
 ---
 
-# Snip: JS-Style Interpreted Programming Language
+In 2024, I hit the point in my life where I wanted to make my own programming language. The world didn't need another "JS-like programming language with  human readable syntax", but I decided what the world needed didn't matter. I named it [Snip](https://github.com/snip-lang/snip), because the goal was to *snip* compilation times down to 0 by just interpreting everything instead.
 
-Snip is a dynamically-typed, interpreted programming language inspired by JavaScript's syntax and philosophy, implemented in C# to explore language design principles and interpreter construction.
+I started off, as many do, with the [Dragon Book](https://en.wikipedia.org/wiki/Compilers:_Principles,_Techniques,_and_Tools). In retrospect, I should've jumped into implementing my language sooner, reaching out for the book only when I didn't quite understand what to do next. I learnt a lot faster through iterating through failed attempts than I ever did reading through pages of text.  
 
-## Overview
+Programming languages have a lot of moving components; Early Snip development taught me making even a toy language is difficult. The challenge comes in the form of tedious, repetitive patterns unavoidable when making a compiler. Adding a new keyword means updating the lexer which breaking parsing; modifying the evaluator to add more library functions needed changes to both the parser and lexer. Compilers are tightly composed of multiple modules, but this coupling meant any changes introduced in one module had unexpected bugs in another. The keyword table is a great example of this complexity
 
-Programming language design is both an art and a science. Snip serves as an educational and experimental platform for understanding how programming languages work under the hood, from lexical analysis through execution. While inspired by JavaScript, Snip incorporates unique features and design decisions that make it an interesting case study in language implementation.
-
-## Language Features
-
-### Dynamic Typing
-- **Runtime Type System**: Variables can hold any type at runtime
-- **Type Coercion**: Automatic type conversion in expressions
-- **Reflection**: Runtime inspection and modification of objects
-
-### JavaScript-Inspired Syntax
-- **Familiar Constructs**: Functions, objects, arrays, and control flow
-- **Prototype-Based**: Object-oriented programming without classes
-- **First-Class Functions**: Functions as values that can be passed around
-
-### Modern Additions
-- **Pattern Matching**: Advanced destructuring and conditional logic
-- **Async/Await**: Asynchronous programming support
-- **Modules**: Organized code structure and dependency management
-
-## Technical Architecture
-
-### Lexer (Lexical Analysis)
-- **Token Generation**: Converts source code into meaningful tokens
-- **Error Recovery**: Graceful handling of lexical errors
-- **Unicode Support**: Proper handling of international characters
-
-### Parser (Syntax Analysis)
-- **Recursive Descent**: Hand-written parser for precise control
-- **Abstract Syntax Tree**: Structured representation of program syntax
-- **Error Reporting**: Detailed syntax error messages with suggestions
-
-### Interpreter (Runtime Execution)
-- **Virtual Machine**: Custom runtime environment for Snip programs
-- **Garbage Collection**: Automatic memory management
-- **Call Stack**: Function call management and stack traces
-
-## Implementation Details
-
-### Core Components
-
-#### Token System
 ```csharp
-public enum TokenType {
-    // Literals
-    NUMBER, STRING, IDENTIFIER, TRUE, FALSE, NULL,
-    
-    // Operators
-    PLUS, MINUS, STAR, SLASH, EQUAL, EQUAL_EQUAL,
-    BANG, BANG_EQUAL, LESS, LESS_EQUAL, GREATER, GREATER_EQUAL,
-    
-    // Keywords
-    VAR, FUNCTION, IF, ELSE, WHILE, FOR, RETURN,
-    
-    // Punctuation
-    LEFT_PAREN, RIGHT_PAREN, LEFT_BRACE, RIGHT_BRACE,
-    COMMA, DOT, SEMICOLON, EOF
-}
+{ "try", TokenType.Try },
+{ "catch", TokenType.Catch },
+// (100 more lines)
+{ "protected", TokenType.Protected },
 ```
 
-#### AST Nodes
+I reached a breaking point when I was adding in array literals. What I thought was a simple feature took me days to implement. Regressions kept popping up, and I realized all the interactions were too much to keep in my head. 
+
+That's when I realized an interpreter was the perfect Test Driven Development (TDD) project because each feature was observable and verifiable. If I was to keep language development sustainable, I needed tests to catch regressions automatically.
+
+### TDD
+ When I started writing integration tests, the first surprise was the complexity involved with language testing. 
+- Representing ASTs was verbose, so I wrote utility functions to turn strings into ASTs
+- The evaluator produced nested values that needed to be compared structurally
+- I had to verify that error cases failing for the right purposes
+
+Even with the setup cost, the benefits were immediate. Adding new features was faster, and the tight feedback loops from the testing suite made it addictive to work on. Array literals, which previously took me an entire weekend to implement, was an hour's worth of programming, because any time anything broke, the tests pointed at the failing behavior.   
+
 ```csharp
-public abstract class Expr {
-    public abstract T Accept<T>(Visitor<T> visitor);
-}
-
-public class BinaryExpr : Expr {
-    public Expr Left { get; }
-    public Token Operator { get; }
-    public Expr Right { get; }
-    
-    public BinaryExpr(Expr left, Token op, Expr right) {
-        Left = left;
-        Operator = op;
-        Right = right;
-    }
-    
-    public override T Accept<T>(Visitor<T> visitor) => 
-        visitor.VisitBinaryExpr(this);
+[Test]
+public void ArrayLiteral_ShouldEvaluateContents() {
+    var result = Evaluate("[1, 2 + object.name]"); <- that breaks
+    Assert.AreEqual(new List<object> { 1, 4 }, result);
 }
 ```
 
-#### Runtime Values
-```csharp
-public abstract class RuntimeValue {
-    public abstract RuntimeType Type { get; }
-}
+TDD didn't just speed up development, it let the language become fully featured without collapsing under complexity.
 
-public class NumberValue : RuntimeValue {
-    public double Value { get; }
-    public override RuntimeType Type => RuntimeType.Number;
-    
-    public NumberValue(double value) => Value = value;
-}
-```
+Snip is now an interpreted dynamic language written in C#. One of its quirks being that `array` and `object` live in the standard library since I naively assumed that would make execution times faster for `Hello World!`. It also has a [large standard library](https://github.com/snip-lang/snip/blob/main/README.md) inspired by Go and Haskell. 
 
-### Execution Model
+Here's `Two Sum` solved in Snip
 
-#### Environment System
-- **Scope Management**: Lexical scoping for variable resolution
-- **Closure Support**: Functions capture their defining environment
-- **Global State**: Built-in functions and constants
+![TwoSum](/snip.png)
 
-#### Control Flow
-- **Statement Execution**: Sequential, conditional, and looping constructs
-- **Function Calls**: Parameter passing and return value handling
-- **Exception Handling**: Runtime error propagation and recovery
+The biggest surprise wasn't the language itself, it was how much TDD shaped the language design. Tests made development more robust by:
+- forcing me to define semantics for each feature
+- making language spec changes fast
+- revealing design flaws when I couldn't test it cleanly
 
-## Language Examples
+A programming language is absolutely perfect to realize the effectiveness of comprehensive testing, showing me the elegance of TDD when a system has multiple moving parts.
 
-### Basic Syntax
-```javascript
-// Variables and types
-var name = "Snip";
-var age = 25;
-var isActive = true;
-
-// Functions
-function greet(person) {
-    return "Hello, " + person + "!";
-}
-
-// Objects
-var user = {
-    name: "Alice",
-    age: 30,
-    greet: function() {
-        return "Hi, I'm " + this.name;
-    }
-};
-```
-
-### Advanced Features
-```javascript
-// Pattern matching
-match (value) {
-    case Number(n) when n > 10 => "Big number: " + n;
-    case String(s) => "String: " + s;
-    case Array(arr) => "Array with " + arr.length + " elements";
-    case _ => "Unknown type";
-}
-
-// Async functions
-async function fetchData(url) {
-    var response = await http.get(url);
-    return JSON.parse(response);
-}
-```
-
-## Educational Value
-
-### Language Design Principles
-- **Syntax Choices**: Why certain syntax decisions were made
-- **Trade-offs**: Performance vs. expressiveness considerations
-- **Extensibility**: How the language can be extended
-
-### Implementation Techniques
-- **Parsing Strategies**: Different approaches to syntax analysis
-- **Optimization**: Performance improvement techniques
-- **Testing**: Comprehensive test suites for language features
-
-### Compiler Theory
-- **Lexical Analysis**: Regular languages and finite automata
-- **Syntax Analysis**: Context-free grammars and parsing algorithms
-- **Semantic Analysis**: Type checking and symbol resolution
-
-## Challenges Overcome
-
-### Error Handling
-Designing meaningful error messages that help developers understand and fix issues.
-
-### Performance Optimization
-Balancing interpretation speed with implementation complexity.
-
-### Language Consistency
-Maintaining coherent design principles throughout the language specification.
-
-### Tooling Support
-Building development tools like debuggers, formatters, and package managers.
-
-## Future Enhancements
-
-- **JIT Compilation**: Just-in-time compilation for better performance
-- **Type System**: Optional static typing for larger programs
-- **Concurrency**: Built-in support for concurrent programming
-- **Web Integration**: Browser compatibility and DOM manipulation
-
-## Impact
-
-Snip serves as both a practical programming language and an educational tool for understanding language implementation. It has been used in computer science courses to teach compiler construction, language design, and programming language theory.
-
-The project demonstrates that building a programming language is an achievable goal that combines theory with practical engineering skills.
-
-[View on GitHub](https://github.com/snip-lang/snip)
+Snip didn't need to exist. I built it because making things let learn an unreasonable amount quickly. In my case, I ended up discovering how elegant TDD can be and learning C# deeply. It turns out making things for the sake of it is its own justification.

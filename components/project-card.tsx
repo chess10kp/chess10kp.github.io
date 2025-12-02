@@ -14,7 +14,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Github } from "@geist-ui/icons";
+import gitSvg from "@/assets/images/Git.svg";
 import Link from "next/link";
 import { Project } from "@/lib/types";
 import { motion } from "framer-motion";
@@ -74,7 +74,13 @@ const ProjectCard = ({
             </div>
             <motion.div layoutId={`project-github-${project.name}-${id}`}>
               <Link href={project.href} className="hover:text-accent transition-colors duration-200" onClick={(e) => e.stopPropagation()}>
-                <Github width="20" height="20"></Github>
+                <Image
+                  src={gitSvg}
+                  width="16"
+                  height="16"
+                  alt="GitHub repository"
+                  className="dark:invert"
+                />
               </Link>
             </motion.div>
           </CardFooter>

@@ -1,250 +1,137 @@
 "use client";
 import config from "@/siteConfig";
-import { useEffect, useId, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
-import { useOutsideClick } from "@/hooks/useOutsideClick";
+import { Badge } from "./ui/badge";
+import { Card, CardContent, CardHeader } from "./ui/card";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { Github } from "@geist-ui/icons";
+import gitSvg from "@/assets/images/Git.svg";
+import Link from "next/link";
 
-const projectsList = config.projects;
 
-const spring = {
-  type: "spring" as const,
-  stiffness: 400,
-  damping: 30,
+type ProjectCardType = {
+  name: string;
+  description: string;
+  stack: any[];
+  href: string;
+  blogId: string;
 };
 
-const contentSpring = {
-  type: "spring" as const,
-  stiffness: 300,
-  damping: 25,
+const projectVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
 };
 
-const Projects = () => {
-  const [active, setActive] = useState<
-    (typeof projectsList)[number] | boolean | null
-  >(null);
-  const ref = useRef<HTMLDivElement>(null);
-  const id = useId();
+const ProjectCard = ({
+  name,
+  description,
+  stack,
+  href,
+  blogId,
+  hasBlogPost,
+}: ProjectCardType & { hasBlogPost: boolean }) => {
+  const CardContent = (
+    <>
+      <div className="my-2 mx-0 px-0 space-y-4 text-left md:col-span-4">
+        <div className="text-xl mono">
+          <span className="text-accent">{name}</span>
+        </div>
+        <div className="text-left wrap text-muted-foreground geist">
+          {description}
+        </div>
+        <div className="flex items-center justify-between">
+          <div className="flex flex-wrap gap-1">
+            {stack.slice(0, 6).map((tech: any, i: number) => (
+              <Image
+                key={i}
+                src={tech[0]}
+                width="16"
+                height="16"
+                alt="svg icon"
+                className={`${tech[2] == true ? "dark:invert" : ""}`}
+              />
+            ))}
+            {stack.length > 6 && (
+              <span className="text-xs text-muted-foreground ml-1">
+                +{stack.length - 6}
+              </span>
+            )}
+          </div>
+          {href && (
+            <a
+              href={href}
+              target="_blank"
+              onClick={(e) => e.stopPropagation()}
+              className="hover:text-accent transition-colors duration-200"
+            >
+              <Image
+                src={gitSvg}
+                width="16"
+                height="16"
+                alt="GitHub repository"
+                className="dark:invert"
+              />
+            </a>
+          )}
+        </div>
+      </div>
+    </>
+  );
 
-  useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        setActive(false);
-      }
-    }
-
-    if (active && typeof active === "object") {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [active]);
-
-  useOutsideClick(ref, () => setActive(null));
+  if (hasBlogPost) {
+    return (
+      <motion.div variants={projectVariants}>
+        <Link href={`/blog/${blogId}`}>
+          <Card className="grid border-0 md:grid-cols-4 bg-card/50 backdrop-blur-xl mb-8 rounded-lg p-4 cursor-pointer hover:bg-card/90 transition-colors">
+            {CardContent}
+          </Card>
+        </Link>
+      </motion.div>
+    );
+  }
 
   return (
-    <section id="projects" className="py-16">
-      <div className="flex flex-col">
-        <h2 className="geist text-3xl font-bold text-left my-8 text-accent">
-          Stuff I've made
-        </h2>
-
-        <AnimatePresence>
-          {active && typeof active === "object" && (
-            <motion.div
-              initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
-              animate={{ opacity: 1, backdropFilter: "blur(8px)" }}
-              exit={{
-                opacity: 0,
-                backdropFilter: "blur(0px)",
-                transition: { duration: 0.2 },
-              }}
-              className="fixed inset-0 bg-black/20 h-full w-full z-10"
-            />
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence>
-          {active && typeof active === "object" ? (
-            <div className="fixed inset-0 grid place-items-center z-[100]">
-              <motion.button
-                key={`button-${active.name}-${id}`}
-                layout
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.2 } }}
-                className="flex absolute top-2 right-2 lg:hidden items-center justify-center bg-white rounded-full h-6 w-6"
-                onClick={() => setActive(null)}
-              >
-                <CloseIcon />
-              </motion.button>
-              <motion.div
-                layoutId={`card-${active.name}-${id}`}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={spring}
-                ref={ref}
-                className="w-full max-w-[400px] h-full md:h-fit md:max-h-[90%] flex flex-col border-0 backdrop-blur-xl bg-card/50 rounded-lg sm:rounded-3xl overflow-hidden transition duration-200 hover:bg-card/90"
-              >
-                <div>
-                  <div className="flex justify-between items-start p-4">
-                    <div>
-                      <motion.h3 
-                        layoutId={`title-${active.name}-${id}`}
-                        className="geist font-bold text-lg"
-                      >
-                        {active.name}
-                      </motion.h3>
-                      <motion.p 
-                        layoutId={`description-${active.name}-${id}`}
-                        className="text-left geist text-lg text-muted-foreground"
-                      >
-                        {active.description}
-                      </motion.p>
-                    </div>
-
-                    <div className="flex gap-2">
-                      {active.href && (
-                        <motion.a
-                          layoutId={`github-${active.name}-${id}`}
-                          href={active.href}
-                          target="_blank"
-                        className="p-2 rounded-full bg-accent/30 text-accent hover:bg-accent/40 transition-colors"
-                        >
-                          <Github width="16" height="16" />
-                        </motion.a>
-                      )}
-                    </div>
-                  </div>
-                  <div className="pt-4 relative px-4">
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={contentSpring}
-                      className="text-neutral-600 text-xs md:text-sm lg:text-base h-40 md:h-fit pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
-                    >
-                      <div className="flex flex-wrap gap-1">
-                        {active.stack.map((tech, i) => (
-                          <motion.div
-                            key={i}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ 
-                              delay: i * 0.05, 
-                              ...contentSpring 
-                            }}
-                          >
-                            <Image
-                              src={tech[0]}
-                              width="20"
-                              height="20"
-                              alt="svg icon"
-                              className={`${tech[2] == true ? "dark:invert" : ""}`}
-                            />
-                          </motion.div>
-                        ))}
-                      </div>
-                    </motion.div>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          ) : null}
-        </AnimatePresence>
-
-        <ul className="space-y-4">
-          {projectsList.map((project, _) => (
-            <motion.div
-              layoutId={`card-${project.name}-${id}`}
-              key={project.name}
-              onClick={() => setActive(project)}
-              className="border-0 backdrop-blur-xl bg-card/50 rounded-lg transition duration- hover:bg-card/90 hover:border-accent/40 border-transparent cursor-pointer p-4"
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <motion.h3 
-                    layoutId={`title-${project.name}-${id}`}
-                    className="geist font-bold text-lg mb-1 text-accent"
-                  >
-                    {project.name}
-                  </motion.h3>
-
-                  <motion.p 
-                    layoutId={`description-${project.name}-${id}`}
-                    className="geist text-sm text-muted-foreground"
-                  >
-                    {project.description}
-                  </motion.p>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <div className="flex flex-wrap gap-1">
-                    {project.stack.slice(0, 4).map((tech, i) => (
-                      <Image
-                        key={i}
-                        src={tech[0]}
-                        width="16"
-                        height="16"
-                        alt="svg icon"
-                        className={`${tech[2] == true ? "dark:invert" : ""}`}
-                      />
-                    ))}
-                    {project.stack.length > 4 && (
-                      <span className="text-xs text-muted-foreground ml-1">
-                        +{project.stack.length - 4}
-                      </span>
-                    )}
-                  </div>
-
-                  {project.href && (
-                    <motion.a
-                      layoutId={`github-${project.name}-${id}`}
-                      href={project.href}
-                      target="_blank"
-                      onClick={(e) => e.stopPropagation()}
-                      className="p-2 rounded-full bg-gray-800 text-white hover:bg-gray-700"
-                    >
-                      <Github width="16" height="16" />
-                    </motion.a>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </ul>
-      </div>
-    </section>
+    <motion.div variants={projectVariants}>
+      <Card className="grid border-0 md:grid-cols-4 bg-card/50 backdrop-blur-xl mb-8 rounded-lg p-4">
+        {CardContent}
+      </Card>
+    </motion.div>
   );
 };
 
-export const CloseIcon = () => {
-  return (
-    <motion.svg
-      initial={{ opacity: 0, rotate: -90, scale: 0.8 }}
-      animate={{ opacity: 1, rotate: 0, scale: 1 }}
-      exit={{ opacity: 0, rotate: 90, scale: 0.8 }}
-      transition={contentSpring}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="h-4 w-4 text-black"
-    >
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M18 6l-12 12" />
-      <path d="M6 6l12 12" />
-    </motion.svg>
+interface ProjectsProps {
+  availableBlogPosts?: string[];
+}
+
+const Projects = ({ availableBlogPosts = [] }: ProjectsProps) => {
+  const projectsList = config.projects;
+
+return (
+    <div id="projects">
+      <h2 className="text-3xl mono underline underline-offset-8 font-bold text-left my-4 text-accent">
+        Projects
+      </h2>
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        transition={{ staggerChildren: 0.2 }}
+      >
+        {projectsList.map((project, i) => {
+          const hasBlogPost = Boolean(project.blogId && availableBlogPosts?.includes(project.blogId));
+          
+          return (
+            <ProjectCard
+              key={i}
+              name={project.name}
+              description={project.description}
+              stack={project.stack}
+              href={project.href}
+              blogId={project.blogId}
+              hasBlogPost={hasBlogPost}
+            />
+          );
+        })}
+      </motion.div>
+    </div>
   );
 };
 

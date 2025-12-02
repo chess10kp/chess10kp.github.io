@@ -12,6 +12,10 @@ const config: Config = {
       blur: {
         xl: "24px",
       },
+      fontFamily: {
+        sans: ["var(--font-sans)"],
+        geist: ["var(--font-geist)"],
+      },
   		backgroundImage: {
   			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
   			'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
