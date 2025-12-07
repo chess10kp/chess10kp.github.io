@@ -25,11 +25,17 @@ marked.use(markedHighlight({
   }
 }));
 
-// Custom renderer for images with lazy loading
+// Custom renderer for images with lazy loading and mermaid diagrams
 (marked.use as any)({
   renderer: {
     image(href: string, title: string | null, text: string) {
       return `<img src="${href}" alt="${text || ''}" title="${title || text || ''}" loading="lazy">`;
+    },
+    code(code: string, language: string | undefined) {
+      if (language === 'mermaid') {
+        return `<div class="mermaid">${code}</div>`;
+      }
+      return `<pre><code class="language-${language || ''}">${code}</code></pre>`;
     }
   }
 });

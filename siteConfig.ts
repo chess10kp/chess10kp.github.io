@@ -49,8 +49,7 @@ export default {
   projects: [
     {
       name: "Chatherine",
-      description:
-      "A multi client AI agent to support small business",
+      description: "A multi client AI agent to support small business",
       stack: [
         [typescriptSvg, "Typescript"],
         [nextSvg, "Next.js", true],
@@ -77,6 +76,7 @@ export default {
       image: "",
       blogId: "babelfish",
     },
+
     {
       name: "HD4",
       demo: "",
@@ -93,10 +93,20 @@ export default {
       blogId: "hd4",
     },
     {
+      name: "ChessBreak",
+      description: "A chrome extension that lets you play focused chess",
+      stack: [[typescriptSvg, "Typescript"]],
+      href: "https://github.com/inkscribe-org/chessbreak",
+      demo: "https://github.com/inkscribe-org/chessbreak",
+      image: "",
+      blogId: "improving_my_rating",
+    },
+    {
       name: "Socraticoin",
       demo: "",
       image: "",
-      description: "An interactive blockchain simulation platform that implements core cryptocurrency protocols and consensus mechanisms",
+      description:
+        "An interactive blockchain simulation platform that implements core cryptocurrency protocols and consensus mechanisms",
       stack: [
         [typescriptSvg, "Typescript"],
         [reactSvg, "React"],

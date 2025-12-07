@@ -2,6 +2,7 @@ import { getPostById, getAllPostIds } from "@/lib/posts";
 import "./post.css";
 import { Badge } from "@/components/ui/badge";
 import CodeBlockCopy from "@/components/code-block-copy";
+import MermaidRenderer from "@/components/mermaid-renderer";
 
 export async function generateStaticParams() {
   const posts = getAllPostIds();
@@ -16,7 +17,8 @@ export default async function Page({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const { content, title, date, tags } = await getPostById(id);
+  const post = await getPostById(id);
+  const { content, title, date, tags } = post;
   return (
     <div className="flex justify-center min-h-screen px-4 lg:px-96 md:px-8">
       {title ? (
@@ -34,14 +36,15 @@ export default async function Page({
             </div>
             <h1 className="font-bold text-4xl mono text-left">{title}</h1>
           </div>
-          <div className="items-center flex w-full">
-            <div
-              className="post"
-              dangerouslySetInnerHTML={{
-                __html: content ? content : "No post found",
-              }}
-            ></div>
-          </div>
+           <div className="items-center flex w-full">
+             <div
+               className="post"
+               dangerouslySetInnerHTML={{
+                 __html: (content as string) || "No post found",
+               }}
+             ></div>
+             <MermaidRenderer />
+           </div>
         </div>
       ) : (
         <div className="text-center justify-center  flex">

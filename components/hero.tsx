@@ -6,7 +6,7 @@ const Hero = () => {
       <div className="pt-8">
         <div className="geist text-lg md:text-xl text-muted-foreground space-y-6">
           <p>
-            I'm Nitin, a student at UMich . Currently at Ancor.
+            I'm Nitin, a student at UMich. I love making things Currently at Ancor.
           </p>
           <p className="">
             Wanna know more about  {" "}
