@@ -249,6 +249,17 @@ body::webkit-scrollbar {
     @apply rounded-md;
     margin: 1rem 0;
   }
+
+  .post pre {
+    overflow-x: hidden;
+    word-break: break-all;
+    white-space: pre-wrap;
+  }
+
+  .post pre code {
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
 }
 
 body {

@@ -13,6 +13,7 @@ import "prismjs/components/prism-json";
 import "prismjs/components/prism-bash";
 import "prismjs/components/prism-sql";
 import "prismjs/components/prism-haskell";
+import "prismjs/components/prism-csharp";
 
 marked.use(markedKatex());
 marked.use(markedHighlight({

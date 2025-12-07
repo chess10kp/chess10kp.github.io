@@ -20,7 +20,7 @@ export default async function Page({
   const post = await getPostById(id);
   const { content, title, date, tags } = post;
   return (
-    <div className="flex justify-center min-h-screen px-4 lg:px-96 md:px-8">
+    <div className="flex justify-center min-h-screen px-4 lg:px-64 md:px-8">
       {title ? (
         <div className="my-8 sm:my-12 md:my-16 w-full max-w-4xl">
           <div className="flex flex-col">

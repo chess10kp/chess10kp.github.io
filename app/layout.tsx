@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "katex/dist/katex.min.css";
-import { SmoothScrollProvider } from "../components/smooth-scroll-provider";
 
 export const metadata: Metadata = {
   title: "Nitin's Page",
@@ -17,9 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <body className="font-sans">
-        <SmoothScrollProvider>
-          {children}
-        </SmoothScrollProvider>
+        {children}
       </body>
     </html>
   );

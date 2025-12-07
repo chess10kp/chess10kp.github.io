@@ -14,11 +14,11 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
       isScrolling = true
 
       const scrollAmount = e.deltaY
-      const momentum = Math.min(Math.abs(scrollAmount) * 2.5, 800)
+      const momentum = Math.min(Math.abs(scrollAmount) * 1, 200)
       const direction = scrollAmount > 0 ? 1 : -1
       
       let currentVelocity = momentum * direction
-      const friction = 0.98
+      const friction = 0.97
       const minVelocity = 0.1
 
       const animate = () => {
