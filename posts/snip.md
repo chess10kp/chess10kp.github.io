@@ -2,6 +2,7 @@
 title: Making things for the sake of it
 date: "2025-08-24"
 tags: ["csharp", "programming-language", "compiler"]
+tagline: why you should make stuff for fun
 ---
 
 In 2024, I hit the point in my life where I wanted to make my own programming language. The world didn't need another "JS-like programming language with  human readable syntax", but I decided what the world needed didn't matter. I named it [Snip](https://github.com/snip-lang/snip), because the goal was to *snip* compilation times down to 0 by just interpreting everything instead.
@@ -37,7 +38,7 @@ public void ArrayLiteral_ShouldEvaluateContents() {
 }
 ```
 
-TDD didn't just speed up development, it let the language become fully featured without collapsing under complexity.
+TDD didn't just speed up development, it helped me worry less and think faster when implementing new things. 
 
 Snip is now an interpreted dynamic language written in C#. One of its quirks being that `array` and `object` live in the standard library since I naively assumed that would make execution times faster for `Hello World!`. It also has a [large standard library](https://github.com/snip-lang/snip/blob/main/README.md) inspired by Go and Haskell. 
 

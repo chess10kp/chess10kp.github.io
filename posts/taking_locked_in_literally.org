@@ -1,0 +1,22 @@
+#+title: Taking locking in literally 
+#+date: "2025-11-24"
+#+tags: ["shell" ,"linux"]
+#+tagline: Using shell scripting to lock in
+
+* What is "locking in"? 
+
+"Locking in" is GenZ lingo that means to just focus on some specific task. I think this is my favorite piece of GenZ lingo and I find myself using it all the time. 
+
+* Outline
++ tiling window managers are too convinient
++ everything is keyboard oriented
++ meaning i context switch frequently
+  + show off refile script
+  + show off launch if not start
++ modes in sway
+  + introduce locus launcher
+  + focus mode that doens't let me do anything
+  + introduce focus mode
+
+* Tiling window managers are too convenient
+Earlier this year, as I was context switching between multiple 

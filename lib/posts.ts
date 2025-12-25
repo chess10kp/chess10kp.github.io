@@ -57,13 +57,10 @@ export function getSortedPostsData() {
       title: matterResult.data.title,
       date: matterResult.data.date,
       tags: matterResult.data.tags || [],
+      tagline: matterResult.data.tagline || "",
     };
   });
-  return allPostsData.sort((a, b) => {
-    if (a.date < b.date) {
-      return 1;
-    } else return 0;
-  });
+  return allPostsData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export function getAllPostIds() {
@@ -90,6 +87,7 @@ export async function getPostById(id: string) {
       title: matterResult.data.title,
       date: matterResult.data.date,
       tags: matterResult.data.tags || [],
+      tagline: matterResult.data.tagline || "",
     };
   } catch (error) {
     return { content: null, id: null, title: null, date: null, tags: [] };

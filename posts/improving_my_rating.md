@@ -2,6 +2,7 @@
 title: How I improved my chess elo by 300 points (2350 -> 2650)
 date: "2025-09-24"
 tags: ["chess", "project", "extension"]
+tagline: Not clickbait
 ---
 
 Playing bullet chess (1 minute per side for the whole game) is sometimes a gamble. One loss turns into two, then five and suddenly I'm down 5 games. Here's an example
