@@ -10,7 +10,7 @@ import Link from "next/link"
 const About = () => {
   return (
     <AnimationProvider>
-      <div className="flex flex-col  my-10 items-center min-h-[80vh]">
+      <div className="flex flex-col  my-10 items-center min-h-[80vh] pb-24">
         <AnimatedSection
           animation="fade-up"
           className="font-light text-center text-5xl m-10"
@@ -18,13 +18,13 @@ const About = () => {
           <h2>About</h2>
         </AnimatedSection>
         <div className="flex flex-col items-center gap-4">
-          <AnimatedSection animation="fade-up" delay={100}>
+          <AnimatedSection threshold={0.2} animation="fade-up" delay={100}>
             <SelfInfo />
           </AnimatedSection>
-          <AnimatedSection animation="fade-up" delay={200}>
+          <AnimatedSection threshold={0.2} animation="fade-up" delay={200}>
             <ContactInfo />
           </AnimatedSection>
-          <AnimatedSection animation="fade-up" delay={300}>
+          <AnimatedSection threshold={0.2} animation="fade-up" delay={300}>
             <Intro />
           </AnimatedSection>
           {/* <AnimatedSection animation="fade-up" delay={400}> */}

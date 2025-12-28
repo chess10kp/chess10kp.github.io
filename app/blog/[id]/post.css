@@ -262,6 +262,75 @@ body::webkit-scrollbar {
   }
 }
 
+/* Footnote styles */
+.footnote-ref {
+  @apply text-xs align-super;
+  color: hsl(var(--primary));
+  font-family: var(--font-mono);
+  font-weight: 600;
+  margin: 0 2px;
+}
+
+.footnote-ref a {
+  text-decoration: none;
+  border-bottom: 1px dotted hsl(var(--primary));
+  transition: all 0.2s ease;
+}
+
+.footnote-ref a:hover {
+  color: hsl(var(--primary-foreground));
+  background: hsl(var(--primary));
+  border-bottom: none;
+  padding: 1px 3px;
+  border-radius: 3px;
+}
+
+.footnotes {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid hsl(var(--border));
+}
+
+.footnotes hr {
+  border: none;
+  height: 2px;
+  background: hsl(var(--border));
+  margin-bottom: 2rem;
+}
+
+.footnotes ol {
+  @apply text-sm text-muted-foreground;
+  padding-left: 1.5rem;
+  font-family: var(--font-geist);
+  line-height: 1.7;
+}
+
+.footnotes li {
+  margin-bottom: 0.75rem;
+  padding-left: 0.5rem;
+}
+
+.footnotes li:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive footnotes */
+@media (max-width: 640px) {
+  .footnotes {
+    margin-top: 2rem;
+    padding-top: 1rem;
+  }
+  
+  .footnotes ol {
+    font-size: 0.8rem;
+    padding-left: 1rem;
+  }
+  
+  .footnotes li {
+    margin-bottom: 0.5rem;
+  }
+}
+
 body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */

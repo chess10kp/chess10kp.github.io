@@ -1,8 +1,8 @@
 ---
 title: Git Worktrees give you a free dev team
 date: "2025-11-17"
-tags: ["git", "development", "llm"]
-tagline: or rather, nearly free
+tags: ["git", "llm"]
+tagline: Nearly free
 ---
 
 [Git Worktrees](https://git-scm.com/docs/git-worktree) can literally change your life.

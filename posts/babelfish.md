@@ -1,7 +1,7 @@
 ---
 title: BabelFish
 date: "2025-11-24"
-tags: ["typescript", "project", "gemini", "fastapi", "langchain", "productivity"]
+tags: ["typescript", "project", "langchain"]
 tagline: AI in your chats is awful, but what if it was YOUR AI in YOUR chats
 ---
 

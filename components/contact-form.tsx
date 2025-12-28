@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatedSection } from "./animated-section";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,17 +8,14 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { SendIcon, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Card, CardContent } from "@/components/ui/card";
-import { motion } from "framer-motion";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
@@ -69,28 +67,27 @@ export function ContactForm() {
 
   if (isSubmitted) {
     return (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex my-16 flex-col items-center justify-center p-6 bg-card/50 backdrop-blur-xl rounded-lg border border-accent/30"
+      <AnimatedSection
+        animation="fade-in"
+        threshold={0.2}
+        className="flex my-16 flex-col items-center justify-center p-6 bg-card/50 backdrop-blur-xl"
       >
         <h4 className="text-xl font-medium mb-2 geist">Message Sent!</h4>
         <p className="text-sm text-center text-muted-foreground mb-4 geist">
           Thanks for reaching out. I'll get back to you as soon as possible.
         </p>
-        <Button variant="outline" onClick={() => setIsSubmitted(false)} className="border-accent/50 text-accent hover:bg-accent/20 hover:text-accent-foreground">
+        <Button variant="outline" onClick={() => setIsSubmitted(false)} className="text-accent">
           Send Another Message
         </Button>
-      </motion.div>
+      </AnimatedSection>
     );
   }
 
   return (
-    <motion.div
+    <AnimatedSection
       id="contact"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.2 }}
+      animation="fade-up"
+      threshold={0.2}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -100,7 +97,6 @@ export function ContactForm() {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="geist text-muted-foreground">Name</FormLabel>
                   <FormControl>
                     <Input placeholder="Your name" {...field} />
                   </FormControl>
@@ -113,7 +109,6 @@ export function ContactForm() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="geist text-muted-foreground">Email</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
@@ -131,7 +126,6 @@ export function ContactForm() {
             name="subject"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="geist text-muted-foreground">Subject</FormLabel>
                 <FormControl>
                   <Input placeholder="What is this regarding?" {...field} />
                 </FormControl>
@@ -144,7 +138,6 @@ export function ContactForm() {
             name="message"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="geist text-muted-foreground">Message</FormLabel>
                 <FormControl>
                   <Textarea placeholder="Your message" {...field} />
                 </FormControl>
@@ -154,7 +147,7 @@ export function ContactForm() {
           />
           <Button
             type="submit"
-            className="w-full bg-accent/40 hover:bg-accent/50 text-accent-foreground border border-accent/50"
+            className="w-full bg-secondary hover:bg-accent/50 text-accent-foreground rounded-none"
             disabled={form.formState.isSubmitting}
           >
             {form.formState.isSubmitting ? (
@@ -164,13 +157,12 @@ export function ContactForm() {
               </>
             ) : (
               <>
-                <SendIcon className="w-4 h-4 mr-2" />
                 Send Message
               </>
             )}
           </Button>
         </form>
       </Form>
-    </motion.div>
+    </AnimatedSection>
   );
 }

@@ -1,7 +1,7 @@
 ---
 title: Functional Programming with C#
 date: "2025-05-19"
-tags: ["csharp", "functional-programming", "lambda-calculus"]
+tags: ["csharp", "functional-programming"]
 ---
 
 # Introduction

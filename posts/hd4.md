@@ -1,7 +1,7 @@
 ---
 title: HackDearborn's Mobile App
 date: "2025-06-24"
-tags: ["typescript", "react-native", "java", "supabase", "mobile-app", "hackathon"]
+tags: ["react-native", "project"]
 ---
 
 As part of [HackDearborn](https://hackdearborn.org)'s dev team, I've been working on the hackathon's website and app since 2024. Check it out [here](https://play.google.com/store/apps/details?id=org.hackdearborn.hackdearbornapp&pli=1).  

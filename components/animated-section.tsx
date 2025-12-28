@@ -1,6 +1,7 @@
 "use client"
 
 import type { ReactNode } from "react"
+import { useState, useEffect } from "react"
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer"
 import { cn } from "@/lib/utils"
 import { useAnimation } from "@/contexts/animation-context"
@@ -24,10 +25,16 @@ export function AnimatedSection({
   delay = 0,
   className,
   threshold = 0.1,
-  rootMargin = "-50px",
+  rootMargin = "0px",
   id,
   forceAnimate = false,
 }: AnimatedSectionProps) {
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
   const { ref, isIntersecting } = useIntersectionObserver({
     threshold,
     rootMargin,
@@ -54,7 +61,7 @@ export function AnimatedSection({
     const baseClasses = `transition-all duration-${settings.duration} ${settings.easing}`
     const delayClass = actualDelay ? `delay-${actualDelay}` : ""
 
-    if (!isIntersecting) {
+    if (!isMounted || !isIntersecting) {
       switch (animation) {
         case "fade-up":
           return `${baseClasses} opacity-0 translate-y-[${getTransformValue(10)}px]`
@@ -86,8 +93,8 @@ export function AnimatedSection({
       transitionDuration: `${settings.duration}ms`,
       transitionTimingFunction: settings.easing,
       transitionDelay: actualDelay ? `${actualDelay}ms` : undefined,
-      transform: !isIntersecting ? getTransformStyle() : "translate3d(0, 0, 0) scale(1)",
-      opacity: isIntersecting ? 1 : 0,
+      transform: (!isMounted || !isIntersecting) ? getTransformStyle() : "translate3d(0, 0, 0) scale(1)",
+      opacity: (isMounted && isIntersecting) ? 1 : 0,
     }
   }
 

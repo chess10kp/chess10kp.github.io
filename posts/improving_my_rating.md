@@ -1,7 +1,7 @@
 ---
 title: How I improved my chess elo by 300 points (2350 -> 2650)
 date: "2025-09-24"
-tags: ["chess", "project", "extension"]
+tags: ["chess", "project"]
 tagline: Not clickbait
 ---
 

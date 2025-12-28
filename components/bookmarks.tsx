@@ -54,7 +54,7 @@ const Bookmarks = () => {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-1 bg-secondary hover:bg-secondary/80 rounded-md text-sm transition-colors"
+              className="flex items-center gap-2 px-3 py-1 bg-secondary text-background hover:bg-secondary/80 rounded-md text-sm transition-colors"
             >
               <Image 
                 src={link.icon} 

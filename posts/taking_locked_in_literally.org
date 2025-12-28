@@ -1,22 +1,46 @@
-#+title: Taking locking in literally 
+#+title: I like Modal Computing 
 #+date: "2025-11-24"
-#+tags: ["shell" ,"linux"]
-#+tagline: Using shell scripting to lock in
+#+tags: ["linux"]
+#+tagline: Or, how I'm using scripts to lock in
 
-* What is "locking in"? 
 
-"Locking in" is GenZ lingo that means to just focus on some specific task. I think this is my favorite piece of GenZ lingo and I find myself using it all the time. 
 
-* Outline
-+ tiling window managers are too convinient
-+ everything is keyboard oriented
-+ meaning i context switch frequently
-  + show off refile script
-  + show off launch if not start
-+ modes in sway
-  + introduce locus launcher
-  + focus mode that doens't let me do anything
-  + introduce focus mode
+* Tiling window managers are fast
+Tiling window managers are so mainstream, even Pewdiepie uses one. I'm joking, only almost. I've been using tiling window managers for quite a while on linux, and one thing that I like about it is the reliability of the experience. Organizing your windows into workspaces (or virtual desktops on other operating systems) means that I always know where my applications are at all times, and moving back and forth between them is really simple. While you can clearly do this even on Windows, the multi workspace metaphor is heavily pushed on linux much more than Windows or MacOS.
+I've been using the [[https://github.com/swaywm/sway][Sway window manager]] for quite a while now. And one thing that window managers offer is a completely keyboard driven experience. This means everything is just a few keypresses away, and that means I can automate everything. So one of the first things I did was to create scripts for everything along with application launching - music and bookmark storage are some of the ones that I use the most.
 
-* Tiling window managers are too convenient
-Earlier this year, as I was context switching between multiple 
+* Tiling window managers lend themselves to automation
+The inherent fact of the tiling window manager workflow is that any keymap that interacts with the window manager executes a command. This means automation. One of the things I first liked about tiling window managers is being able to name work spaces. This put a easily accessible level of organization to my computing experience, since by naming my workspaces, I have windows that relate to a specific topic together in one workspace.
+I realized I was opening the same windows in the same workspaces day after day, so I wrote a little [[https://github.com/chess10kp/configfiles/blob/main/scripts/mode/sway-goto-if-not-start][script]] to automate that. This script essentially checks if a window is open on a specific workspace, opens it if it isn't and switches to that workspace. Since I always have discord on a specific workpsace, this means that I always only have to hit a single keypress and I'm always taken there regardless of what application I'm using currently.  
+So yeah, window managers let you script them, launch applications quickly and navigate through your openend windows like butter. What's the catch? 
+
+* Low cost context switching
+One of the outcomes with reducing the friction of desktop actions, is, you guessed it, that the cost to switch between applications is low. This means I having many tasks going on at the same time is more dangerous than ever before.
+Having the smallest amount of idle time means I'm already on a different task, since switching workspaces has very low action cost and no mental overhead.
+But this doesn’t mean that switching is free. Context switching prevents you from focusing deeply, since you have to gather that short term context you lose every time you switch to a different task.
+This, I feel is something that isn't talking about when talking about the benefits of using a tiling window manager. Micro optimizing your desktop experience, in this case, gives you worse results than just sticking with a default environment.    
+
+Frequent, low resistance context switching induces a kind of psychosis that robs me of the ability to think about problems for more than a short amount of time since my mind is split between multiple different things at the same time.   
+
+The bottleneck was never really switching windows, it was always the context switching that wasted up more of my time. 
+
+That sounds quite paradoxical, but removing frication in this case, /increases/ cognitive fragmentation by removing too much friction.
+
+The obvious solution is to add some back in.
+
+* Treat your desktop as a state machine
+I see many people talking about split keyboards, bleeding edge editor setups, but the bottleneck to doing anything on a computer is usually never the computer, it's you. Keyboard efficeny might even end up amplifying fragmentation.
+
+But the important thing to understand is that some of the friction is still painful to work with. For example, working with a traditional desktop and hitting alt tab 5 times to go back and forth between 3 applications is not something that I can do anymore.
+
+The way to keep both the organizational advantages of a workspaces based workflow while not going in too deep is to simply increase the cost with switching workspaces. I have a "refile" script that moves all the windows from a workspace into another named workspace, only this second workspace is not bound to a keymap. So switching back to the task requires me to bring up a search menu, then select the workspace that I want to move into.
+
+* You've heard of modal editing, now get ready for modal computing
+Sometimes I really just need to lock in and pay no attention to anything else, and this isn't enoguh. This is where sway's "modes" come in. They essentially act as a layer map over your keyboard, letting you chord your keys. What's interesting is that modes don't define a way to get back to the default mode. 
+
+And since we know that keybinds can execute scripts, I simply lock down the  computer. No workplace switching, no new windows and no launcher. I'm simply left with the same windows I opened before switching modes for the next 30 minutes, with no way to change it back. And this includes turning my computer (including the power switch).
+
+This really just means I either work on what I'm supposed to be working on. Oh wait, there is no "or". I'm essentially forced into working on one single thing for a while, or take a break from my screen.
+
+* Conclusion: Productivity Is About Constraints, Not Speed
+Productivity is sometimes about constraints, not raw speed. 

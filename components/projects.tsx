@@ -1,8 +1,7 @@
 "use client";
 import config from "@/siteConfig";
-import { Badge } from "./ui/badge";
-import { Card, CardContent, CardHeader } from "./ui/card";
-import { motion } from "framer-motion";
+import { Card } from "./ui/card";
+import { AnimatedSection } from "./animated-section";
 import Image from "next/image";
 import gitSvg from "@/assets/images/Git.svg";
 import Link from "next/link";
@@ -16,10 +15,7 @@ type ProjectCardType = {
   blogId: string;
 };
 
-const projectVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
+
 
 const ProjectCard = ({
   name,
@@ -28,17 +24,13 @@ const ProjectCard = ({
   href,
   blogId,
   hasBlogPost,
-}: ProjectCardType & { hasBlogPost: boolean }) => {
+  delay = 0,
+}: ProjectCardType & { hasBlogPost: boolean; delay?: number }) => {
   const CardContent = (
     <>
       <div className="my-2 mx-0 px-0 space-y-4 text-left md:col-span-4">
-        <div className="text-xl mono">
+        <div className="text-xl flex gap-4 mono">
           <span className="text-accent">{name}</span>
-        </div>
-        <div className="text-left wrap text-muted-foreground geist">
-          {description}
-        </div>
-        <div className="flex items-center justify-between">
           <div className="flex flex-wrap gap-1">
             {stack.slice(0, 6).map((tech: any, i: number) => (
               <Image
@@ -56,6 +48,12 @@ const ProjectCard = ({
               </span>
             )}
           </div>
+        </div>
+        <div className="text-left wrap text-muted-foreground geist">
+          {description}
+        </div>
+        <div className="flex items-center justify-between">
+          
           {href && (
             <a
               href={href}
@@ -63,13 +61,7 @@ const ProjectCard = ({
               onClick={(e) => e.stopPropagation()}
               className="hover:text-accent transition-colors duration-200"
             >
-              <Image
-                src={gitSvg}
-                width="16"
-                height="16"
-                alt="GitHub repository"
-                className="dark:invert"
-              />
+              Repo
             </a>
           )}
         </div>
@@ -79,22 +71,22 @@ const ProjectCard = ({
 
   if (hasBlogPost) {
     return (
-      <motion.div variants={projectVariants}>
+      <AnimatedSection animation="fade-up" delay={delay}>
         <Link href={`/blog/${blogId}`}>
           <Card className="grid border-0 md:grid-cols-4 bg-card/50 backdrop-blur-xl mb-8 rounded-lg p-4 cursor-pointer hover:bg-card/90 transition-colors">
             {CardContent}
           </Card>
         </Link>
-      </motion.div>
+      </AnimatedSection>
     );
   }
 
   return (
-    <motion.div variants={projectVariants}>
+    <AnimatedSection animation="fade-up" delay={delay}>
       <Card className="grid border-0 md:grid-cols-4 bg-card/50 backdrop-blur-xl mb-8 rounded-lg p-4">
         {CardContent}
       </Card>
-    </motion.div>
+    </AnimatedSection>
   );
 };
 
@@ -107,17 +99,13 @@ const Projects = ({ availableBlogPosts = [] }: ProjectsProps) => {
 
 return (
     <div id="projects">
-      <h2 className="text-3xl mono underline underline-offset-8 font-bold text-left my-4 text-accent">
-        Projects
+      <h2 className="text-3xl mono text-muted-foreground/30 font-bold text-left my-4">
+        ** projects
       </h2>
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        transition={{ staggerChildren: 0.2 }}
-      >
+      <div>
         {projectsList.map((project, i) => {
           const hasBlogPost = Boolean(project.blogId && availableBlogPosts?.includes(project.blogId));
-          
+
           return (
             <ProjectCard
               key={i}
@@ -127,10 +115,11 @@ return (
               href={project.href}
               blogId={project.blogId}
               hasBlogPost={hasBlogPost}
+              delay={i * 200}
             />
           );
         })}
-      </motion.div>
+      </div>
     </div>
   );
 };

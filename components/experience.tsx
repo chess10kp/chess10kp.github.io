@@ -1,7 +1,7 @@
 "use client";
 import { Badge } from "./ui/badge";
 import { Card, CardContent, CardHeader } from "./ui/card";
-import { motion } from "framer-motion";
+import { AnimatedSection } from "./animated-section";
 
 type ExperienceCardType = {
   timeline: string;
@@ -10,11 +10,7 @@ type ExperienceCardType = {
   employer_link: string;
   description: string;
   tech: string[];
-};
-
-const experienceVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
+  delay?: number;
 };
 
 const ExperienceCard = ({
@@ -23,18 +19,19 @@ const ExperienceCard = ({
   employer,
   description,
   tech,
+  delay = 0,
 }: ExperienceCardType) => {
   return (
-    <motion.div variants={experienceVariants}>
+    <AnimatedSection threshold={0.2} animation="fade-up" delay={delay}>
       <Card className="grid border-0 md:grid-cols-4 bg-card/50 backdrop-blur-xl mb-8 rounded-lg p-4">
         <CardHeader className="text-muted-foreground text-left p-0 my-2 mono md:col-span-1">
-          {timeline}
-        </CardHeader>
-        <CardContent className="my-2 mx-0 px-0 space-y-4 text-left md:col-span-3">
           <div className="text-xl mono">
-            <span className="text-accent">{position}</span> @{" "}
+            <span className="text-accent">{"* "}{position}</span> @{" "}
             <span className="text-foreground">{employer}</span>
           </div>
+          {"<"}{timeline}{">"}
+        </CardHeader>
+        <CardContent className="my-2 mx-0 px-0 space-y-4 text-left md:col-span-3">
           <div className="text-left wrap text-muted-foreground geist">
             {description}
           </div>
@@ -47,7 +44,7 @@ const ExperienceCard = ({
           </div>
         </CardContent>
       </Card>
-    </motion.div>
+    </AnimatedSection>
   );
 };
 
@@ -59,7 +56,7 @@ export function Experience() {
       employer: "Ancor",
       employer_link: "weareancor.com",
       description:
-        "Developed a React Native app to track and manage 10k auto part inventory through wireless RFID scanning. Sold to client for a 5 figure annual license. Currently working on RAG and AI chatbots.",
+        "Developed a React Native app to track 10k auto parts through RFID scanning. Sold to client for a 5 figure annual license. Currently working on RAG and AI chatbots.",
       tech: ["Next.js", "React Native", "RAG"],
     },
     {
@@ -92,26 +89,21 @@ export function Experience() {
   ];
   return (
     <div id="experience">
-      <h2 className="text-3xl underline underline-offset-8 mono font-bold text-left my-4 text-accent">
-        Updates
+      <h2 className="text-3xl mono text-muted-foreground/30 font-bold text-left my-4">
+        ** updates
       </h2>
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        transition={{ staggerChildren: 0.2 }}
-      >
-        {experiences.map((exp, i) => (
-          <ExperienceCard
-            key={i}
-            tech={exp.tech}
-            position={exp.position}
-            timeline={exp.timeline}
-            employer={exp.employer}
-            employer_link={exp.employer_link}
-            description={exp.description}
-          />
-        ))}
-      </motion.div>
+      {experiences.map((exp, i) => (
+        <ExperienceCard
+          key={i}
+          tech={exp.tech}
+          position={exp.position}
+          timeline={exp.timeline}
+          employer={exp.employer}
+          employer_link={exp.employer_link}
+          description={exp.description}
+          delay={i * 100}
+        />
+      ))}
     </div>
   );
 }

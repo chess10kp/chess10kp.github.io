@@ -41,6 +41,33 @@ marked.use(markedHighlight({
   }
 });
 
+// Custom processor to handle footnotes
+function processFootnotes(content: string): { processedContent: string; footnotes: Map<string, string> } {
+  const footnotes = new Map<string, string>();
+  
+  // Extract footnote definitions using a more comprehensive regex
+  const footnoteDefRegex = /^\[(\^[^\]]+)\]:\s*(.+?)(?=\n\n|\n(?=\[)|$)/gm;
+  let match;
+  
+  // Use while loop to collect all footnote definitions
+  while ((match = footnoteDefRegex.exec(content)) !== null) {
+    const id = match[1].substring(1);
+    const text = match[2].trim();
+    footnotes.set(id, text);
+  }
+  
+  // Remove footnote definitions from content first
+  let processedContent = content.replace(footnoteDefRegex, '');
+  
+  // Replace footnote references with HTML
+  processedContent = processedContent.replace(/\[(\^[^\]]+)\]/g, (match, p1) => {
+    const id = p1.substring(1);
+    return `<sup class="footnote-ref"><a href="#footnote-${id}">${id}</a></sup>`;
+  });
+  
+  return { processedContent, footnotes };
+}
+
 const postsDirectory = path.join(process.cwd(), "posts");
 
 export function getSortedPostsData() {
@@ -81,8 +108,22 @@ export async function getPostById(id: string) {
   try {
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const matterResult = matter(fileContents);
+    const { processedContent, footnotes } = processFootnotes(matterResult.content);
+    const processedHtml = marked(processedContent);
+    
+    // Append footnotes section if any exist
+    let finalContent = processedHtml;
+    if (footnotes.size > 0) {
+      let footnotesHtml = '<div class="footnotes"><hr><ol>';
+      footnotes.forEach((text, id) => {
+        footnotesHtml += `<li id="footnote-${id}">${text}</li>`;
+      });
+      footnotesHtml += '</ol></div>';
+      finalContent += footnotesHtml;
+    }
+    
     return {
-      content: marked(matterResult.content),
+      content: finalContent,
       id: matterResult.data.id,
       title: matterResult.data.title,
       date: matterResult.data.date,

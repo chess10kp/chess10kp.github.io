@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { AnimatedSection } from "@/components/animated-section";
 
 type Props = {
-  posts: { id: string; date: string; title: string; tags: string[] }[];
+  posts: { id: string; date: string; title: string; tags: string[]; tagline: string }[];
 };
 
 const BlogPosts = ({ posts }: Props) => {
@@ -12,7 +12,7 @@ const BlogPosts = ({ posts }: Props) => {
     <div className="min-h-[80vh] pt-20">
       <ul className="space-y-3">
         {posts &&
-          posts.map(({ id, date, title, tags }, index) => {
+          posts.map(({ id, date, title, tags, tagline }, index) => {
             return (
               <AnimatedSection
                 key={id}
@@ -27,6 +27,11 @@ const BlogPosts = ({ posts }: Props) => {
                   <Link href={`/blog/${id}`}>
                     <h1 className="text-lg mono font-bold text-accent hover:text-accent/80 transition-colors">{title}</h1>
                   </Link>
+                  {tagline && (
+                    <p className="text-sm text-muted-foreground italic mt-1 line-clamp-2">
+                      {tagline}
+                    </p>
+                  )}
                 </div>
                  <div className="flex flex-wrap gap-2 ml-4">
                    {tags.slice(0, 3).map((tag) => (

@@ -9,7 +9,6 @@ import geminiSvg from "@/assets/images/gemini.svg";
 import fastAPISvg from "@/assets/images/fastapi.svg";
 import typescriptSvg from "@/assets/images/Typescript.svg";
 import javaSvg from "@/assets/images/Java.svg";
-import rustSvg from "@/assets/images/rust.svg";
 import langChainSvg from "@/assets/images/langchain.svg";
 
 export default {

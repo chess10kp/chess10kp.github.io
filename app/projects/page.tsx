@@ -1,12 +1,13 @@
 import ProjectCard from "@/components/project-card";
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 import siteConfig from "@/siteConfig";
 
 export default function ProjectsPage() {
   return (
     <div>
       <Header />
-      <section id="projects" className="py-16">
+      <section id="projects" className="py-16 pb-24">
         <div className="container mx-auto px-4">
           <h1 className="text-5xl font-bold text-center my-8">
             All Projects
@@ -23,6 +24,7 @@ export default function ProjectsPage() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

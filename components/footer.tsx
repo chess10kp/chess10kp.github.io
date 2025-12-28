@@ -1,11 +1,13 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import siteConfig from "@/siteConfig";
 import { Github, Linkedin, Mail } from "@geist-ui/icons";
+import { usePathname } from "next/navigation";
 
 const ChessSvg = (props: any) => (
   <svg
-    width={20}
-    height={20}
+    width={14}
+    height={14}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 320 512"
     {...props}
@@ -18,90 +20,109 @@ const ChessSvg = (props: any) => (
 );
 
 const Footer = () => {
-  const socialLinks = [
-    {
-      icon: Github,
-      href: "https://github.com/chess10kp",
-      label: "GitHub",
-      username: "@chess10kp",
-    },
-    {
-      icon: Linkedin,
-      href: siteConfig.links.linkedin,
-      label: "LinkedIn",
-      username: "Nitin Shankar Madhu",
-    },
-    {
-      icon: Mail,
-      href: siteConfig.links.email,
-      label: "Email",
-      username: "nmadhu@umich.edu",
-    },
-    {
-      icon: ChessSvg,
-      href: siteConfig.links.chess,
-      label: "Chess",
-      username: "chess10kp",
-    },
-  ];
+  const pathname = usePathname();
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const getBufferName = () => {
+    if (pathname === "/") return "index.org";
+    if (pathname === "/about") return "about.org";
+    if (pathname.startsWith("/blog")) return "blog.org";
+    if (pathname.startsWith("/projects")) return "projects.org";
+    return pathname.replace(/\//g, "") + ".org";
+  };
+
+  const getModeName = () => {
+    if (pathname === "/") return "Website";
+    if (pathname === "/about") return "About";
+    if (pathname.startsWith("/blog")) return "Blog";
+    if (pathname.startsWith("/projects")) return "Projects";
+    return "Fundamental";
+  };
+
+  const getTimeString = () => {
+    return currentTime.toLocaleTimeString('en-US', { 
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  const bufferName = getBufferName();
+  const modeName = getModeName();
+  const timeString = getTimeString();
+  const lineCol = "L1 C1";
 
   return (
-    <footer className="py-8 border-t max-w-full mx-auto container dark:border-border bg-transparent backdrop-blur-xl">
-      <div className="flex flex-col gap-8 items-center">
-        <div className="space-y-4">
-          <p className="text-balance geist text-sm leading-loose text-muted-foreground">
-            &copy; {new Date().getFullYear()}. Built by{" "}
-            <a
+    <>
+      {/* Emacs Mode Line */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border">
+        <div className="flex items-center justify-between px-4 py-1 text-xs font-mono">
+          {/* Left: Buffer info */}
+          <div className="flex items-center space-x-4">
+            <span className="text-foreground">{bufferName}</span>
+            <span className="text-muted-foreground hidden sm:inline">---</span>
+            <span className="text-accent hidden sm:inline">{modeName}</span>
+            <span className="text-muted-foreground hidden md:inline">---</span>
+            <span className="text-muted-foreground hidden md:inline">{lineCol}</span>
+          </div>
+          
+          {/* Center: Social links as mini-icons */}
+          <div className="hidden md:flex items-center space-x-3">
+            <a 
+              href="https://github.com/chess10kp"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              title="GitHub"
+            >
+              <Github size={12} />
+            </a>
+            <a 
               href={siteConfig.links.linkedin}
               target="_blank"
-              rel="noreferrer"
-              className="font-medium text-accent hover:text-accent/80 transition-colors"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              title="LinkedIn"
             >
-              {siteConfig.personal.name}
+              <Linkedin size={12} />
             </a>
-            . The source is on{" "}
-            <a
-              className="text-accent hover:text-accent/80 transition-colors"
-              href="https://github.com/chess10kp/chess10kp.github.io"
+            <a 
+              href={siteConfig.links.email}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              title="Email"
+            >
+              <Mail size={12} />
+            </a>
+            <a 
+              href={siteConfig.links.chess}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              title="Chess"
             >
-              GitHub
+              <ChessSvg />
             </a>
-          </p>
-        </div>
-
-        <div className="space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-            {socialLinks.map((link, idx) => (
-              <a
-                key={idx}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-card/50 hover:border-accent/40 border border-transparent transition-all duration-200 group"
-              >
-                <div                 className="flex-shrink-0 text-muted-foreground group-hover:text-accent transition-colors">
-                  {link.icon === ChessSvg ? (
-                    <ChessSvg />
-                  ) : (
-                    <link.icon size={18} />
-                  )}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-sm font-medium text-foreground">
-                    {link.label}
-                  </div>
-                  <div className="text-xs text-muted-foreground truncate">
-                    {link.username}
-                  </div>
-                </div>
-              </a>
-            ))}
+          </div>
+          
+          {/* Right: Time and position */}
+          <div className="flex items-center space-x-2 sm:space-x-4">
+            <span className="text-muted-foreground hidden sm:inline">(U)</span>
+            <span className="text-muted-foreground hidden sm:inline">UTF-8</span>
+            <span className="text-foreground">{timeString}</span>
           </div>
         </div>
       </div>
-    </footer>
+
+      {/* Add padding to main content to account for fixed mode line */}
+      <div className="h-6"></div>
+    </>
   );
 };
 
