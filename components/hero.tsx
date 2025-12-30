@@ -4,6 +4,7 @@ import { Github, Linkedin, Mail } from "@geist-ui/icons";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ExternalLink } from "lucide-react";
 import siteConfig from "@/siteConfig";
+import { AnimatedSection } from "./animated-section";
 
 const ChessSvg = (props: any) => (
   <svg
@@ -69,9 +70,9 @@ const Hero = () => {
   return (
     <section className="flex flex-col space-y-6">
       <div className="pt-8">
-        <div className="geist text-lg md:text-xl text-muted-foreground space-y-6">
+        <AnimatedSection className="geist text-lg md:text-xl text-muted-foreground space-y-6">
           <p>
-            I'm Nitin, a student at UMich. I love making software. Currently at
+            I'm Nitin, a student at UMich. I love making software. Currently SWE Intern at
             Ancor.
           </p>
           <p className="">
@@ -83,7 +84,7 @@ const Hero = () => {
               me?
             </a>
           </p>
-        </div>
+        </AnimatedSection>
       </div>
 
       {/* Social Links */}

@@ -25,13 +25,13 @@ const ExperienceCard = ({
     <AnimatedSection threshold={0.2} animation="fade-up" delay={delay}>
       <Card className="grid border-0 md:grid-cols-4 bg-card/50 backdrop-blur-xl mb-8 rounded-lg p-4">
         <CardHeader className="text-muted-foreground text-left p-0 my-2 mono md:col-span-1">
-          <div className="text-xl mono">
-            <span className="text-accent">{"* "}{position}</span> @{" "}
-            <span className="text-foreground">{employer}</span>
-          </div>
-          {"<"}{timeline}{">"}
+          {timeline}
         </CardHeader>
         <CardContent className="my-2 mx-0 px-0 space-y-4 text-left md:col-span-3">
+          <div className="text-xl mono">
+            <span className="text-accent">{position}</span> @{" "}
+            <span className="text-foreground">{employer}</span>
+          </div>
           <div className="text-left wrap text-muted-foreground geist">
             {description}
           </div>

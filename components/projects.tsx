@@ -5,7 +5,7 @@ import { AnimatedSection } from "./animated-section";
 import Image from "next/image";
 import gitSvg from "@/assets/images/Git.svg";
 import Link from "next/link";
-
+import { Badge } from "@/components/ui/badge";
 
 type ProjectCardType = {
   name: string;
@@ -14,8 +14,6 @@ type ProjectCardType = {
   href: string;
   blogId: string;
 };
-
-
 
 const ProjectCard = ({
   name,
@@ -53,15 +51,11 @@ const ProjectCard = ({
           {description}
         </div>
         <div className="flex items-center justify-between">
-          
           {href && (
-            <a
-              href={href}
-              target="_blank"
-              onClick={(e) => e.stopPropagation()}
-              className="hover:text-accent transition-colors duration-200"
-            >
-              Repo
+            <a href={href} target="_blank" onClick={(e) => e.stopPropagation()}>
+              <Badge variant="secondary">
+                Repo
+              </Badge>
             </a>
           )}
         </div>
@@ -71,7 +65,7 @@ const ProjectCard = ({
 
   if (hasBlogPost) {
     return (
-      <AnimatedSection animation="fade-up" delay={delay}>
+      <AnimatedSection  animation="fade-up" delay={delay}>
         <Link href={`/blog/${blogId}`}>
           <Card className="grid border-0 md:grid-cols-4 bg-card/50 backdrop-blur-xl mb-8 rounded-lg p-4 cursor-pointer hover:bg-card/90 transition-colors">
             {CardContent}
@@ -97,14 +91,16 @@ interface ProjectsProps {
 const Projects = ({ availableBlogPosts = [] }: ProjectsProps) => {
   const projectsList = config.projects;
 
-return (
+  return (
     <div id="projects">
       <h2 className="text-3xl mono text-muted-foreground/30 font-bold text-left my-4">
         ** projects
       </h2>
       <div>
         {projectsList.map((project, i) => {
-          const hasBlogPost = Boolean(project.blogId && availableBlogPosts?.includes(project.blogId));
+          const hasBlogPost = Boolean(
+            project.blogId && availableBlogPosts?.includes(project.blogId),
+          );
 
           return (
             <ProjectCard

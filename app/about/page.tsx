@@ -5,7 +5,7 @@ import { AnimationProvider } from "@/contexts/animation-context";
 import { AnimatedSection } from "@/components/animated-section";
 import Bookmarks from "@/components/bookmarks";
 import Image from "next/image";
-import Link from "next/link"
+import Link from "next/link";
 
 const About = () => {
   return (
@@ -51,10 +51,16 @@ const Intro = () => {
           conversation.
         </p>
         <p>
-          When I'm not glued to my editor, you will find me playing chess.
-          Here's me hitting 2650 on  {" "}
-          <Link href="https://www.chess.com/member/n_s_m/stats">chess.com.</Link>
+          When I'm not glued to my editor, you probably will find me playing chess.
+          Here's me hitting 2650 on{" "}
+          <Link href="https://www.chess.com/member/n_s_m/stats">
+            chess.com.
+          </Link>
         </p>
+
+        <div className="relative w-full h-64 mt-4">
+          <Image src="/gain_rating.png" fill alt="chess rating" />
+        </div>
       </AnimatedSection>
     </>
   );
@@ -88,13 +94,13 @@ const ContactInfo = () => {
     { name: <Github />, link: info.links.github },
     { name: <Linkedin />, link: info.links.linkedin },
     { name: <Mail />, link: info.links.email },
-    { 
-      name: <Image src="/vercel.svg" alt="Vercel" width={20} height={20} />, 
-      link: "https://vercel.com" 
+    {
+      name: <Image src="/vercel.svg" alt="Vercel" width={20} height={20} />,
+      link: "https://vercel.com",
     },
-    { 
-      name: <Image src="/next.svg" alt="Next.js" width={20} height={20} />, 
-      link: "https://nextjs.org" 
+    {
+      name: <Image src="/next.svg" alt="Next.js" width={20} height={20} />,
+      link: "https://nextjs.org",
     },
   ];
   return (

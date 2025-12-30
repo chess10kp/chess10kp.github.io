@@ -81,9 +81,6 @@
   font-family: var(--font-mono);
   border: 1px solid hsl(var(--border));
   position: relative;
-  box-shadow:
-    0 4px 6px -1px rgb(0 0 0 / 0.1),
-    0 2px 4px -2px rgb(0 0 0 / 0.1);
   max-width: 100%;
   word-wrap: break-word;
   white-space: pre-wrap;
@@ -104,19 +101,23 @@
 .post pre code {
   @apply block p-4 text-sm leading-relaxed;
   color: hsl(var(--foreground));
+  font-size: 16px;
   tab-size: 2;
   background: transparent !important;
 }
 
 /* Override Prism theme colors to match your design */
 .post pre[class*="language-"] {
+  font-size: 16px;
   background: hsl(var(--card)) !important;
   border: 1px solid hsl(var(--border)) !important;
+
 }
 
 .post code[class*="language-"] {
   color: hsl(var(--foreground)) !important;
   font-family: var(--font-mono) !important;
+  font-size: 16px;
 }
 
 /* Syntax highlighting colors that match your theme */
@@ -176,9 +177,8 @@
   right: 8px;
   background: hsl(var(--muted));
   color: hsl(var(--foreground));
-  border: 1px solid hsl(var(--border));
+  border: 0px solid hsl(var(--border));
   padding: 6px 12px;
-  border-radius: 6px;
   font-size: 12px;
   font-family: var(--font-geist);
   cursor: pointer;
@@ -207,7 +207,8 @@
 .post p code,
 .post li code {
   @apply bg-muted/50 text-foreground px-2 py-0.5 rounded-md text-sm font-mono;
-  border: 1px solid hsl(var(--border) / 50);
+  border: 2px solid hsl(var(--border) / 50);
+  font-size: 16px;
   font-weight: 500;
   letter-spacing: 0.025em;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
