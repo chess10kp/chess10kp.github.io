@@ -36,23 +36,23 @@ const HomeContent = ({ posts, availableBlogPosts }: HomeContentProps) => {
            <div className="relative mx-auto flex w-screen items-center justify-center">
              <main className="relative">
                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="max-w-4xl mx-auto">
-                  <div className="py-16 border-b border-border">
+                <div className="max-w-5xl mx-auto">
+                  <div className="py-24 md:py-32 border-b border-border/30">
                     <Hero />
                   </div>
-                  <div className="py-16 border-b border-border">
+                  <div className="py-24 border-b border-border/30">
                     <Experience />
                   </div>
-                  <div className="py-16 border-b border-border" id="projects">
+                  <div className="py-24 border-b border-border/30" id="projects">
                     <Projects availableBlogPosts={availableBlogPosts} />
                   </div>
-                  <div className="py-16">
+                  <div className="py-24 border-b border-border/30">
                     <LatestBlogPosts posts={posts} />
                   </div>
-                  <div className="py-16">
+                  <div className="py-24">
                     <ContactSection />
                   </div>
-                  <div className="py-16 pb-24">
+                  <div className="py-12 pb-24">
                     {/* Extra padding for mode line */}
                   </div>
                 </div>

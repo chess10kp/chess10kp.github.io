@@ -138,18 +138,23 @@ h1 {
   body {
     @apply bg-background text-foreground;
     background-image: 
-      linear-gradient(to right, hsl(var(--border) / 0.1) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--border) / 0.1) 1px, transparent 1px);
-    background-size: 16px 16px;
+      linear-gradient(to right, hsl(var(--border) / 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--border) / 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
 
   /* Link highlighting */
   a {
-    @apply text-accent transition-colors duration-200;
+    @apply text-accent transition-colors duration-300;
   }
 
   a:hover {
     @apply text-accent/80;
+  }
+
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
   }
 }
 

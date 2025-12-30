@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { motion } from "framer-motion"
 
 export function ScrollProgressIndicator() {
   const [scrollProgress, setScrollProgress] = useState(0)
@@ -25,10 +26,12 @@ export function ScrollProgressIndicator() {
   }, [])
 
   return (
-    <div className="fixed top-0 left-0 right-0 h-2 bg-zinc-800 z-50 shadow-lg">
-      <div
-        className="h-full bg-gradient-to-r from-accent to-accent/80 shadow-md"
-        style={{ width: `${scrollProgress * 100}%`, transition: "width 0.15s ease-out" }}
+    <div className="fixed top-[61px] left-0 right-0 h-1 bg-border/30 z-[59]">
+      <motion.div
+        className="h-full bg-gradient-to-r from-accent to-primary shadow-lg shadow-accent/30"
+        initial={{ width: 0 }}
+        animate={{ width: `${scrollProgress * 100}%` }}
+        transition={{ duration: 0.1, ease: "linear" }}
         role="progressbar"
         aria-valuenow={scrollProgress * 100}
         aria-valuemin={0}

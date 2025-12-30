@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import siteConfig from "@/siteConfig";
@@ -73,104 +74,137 @@ const Header = () => {
 
   return (
     <div
-      className={`fixed top-0 z-[60] w-full transition-all duration-300 border-t border-border bg-card`}
+      className={`fixed top-0 z-[60] w-full transition-all duration-500 border-b border-border/30 bg-background/80 backdrop-blur-xl`}
     >
       {/* Emacs-style tabbar */}
-      <div className="flex items-center px-2 py-1 bg-card overflow-x-auto">
+      <div className="flex items-center px-2 sm:px-4 py-2 bg-background/30 overflow-x-auto">
         {/* Home tab */}
         <Link href="/" className="flex-shrink-0">
-          <div
-            className={`px-3 py-1 text-lg font-mono transition-colors cursor-pointer ${
-              currentPathName === "/"
-                ? "bg-background text-foreground border border-border"
-                : "text-muted-foreground hover:text-foreground hover:bg-background/50"
-            }`}
+          <motion.div
+            whileHover={{ y: -2 }}
+            whileTap={{ y: 0 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
-            {siteConfig.personal.name}
-          </div>
+            <div
+              className={`px-4 py-2 text-base sm:text-lg font-mono transition-all duration-300 cursor-pointer ${
+                currentPathName === "/"
+                  ? "bg-background text-foreground border border-border"
+                  : "text-muted-foreground hover:text-foreground hover:bg-background/50"
+              }`}
+            >
+              {siteConfig.personal.name}
+            </div>
+          </motion.div>
         </Link>
 
+        <div className="w-px h-6 bg-border/30 mx-2" />
+
         {/* Projects tab */}
-        <button
+        <motion.button
           onClick={() => scrollToSection("/#projects")}
-          className={`px-3 py-1 text-lg hidden md:inline-flex  font-mono transition-colors flex-shrink-0 ${
+          whileHover={{ y: -2 }}
+          whileTap={{ y: 0 }}
+          transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          className={`px-4 py-2 text-base sm:text-lg hidden md:inline-flex font-mono transition-all duration-300 flex-shrink-0 ${
             currentPathName === "/" || currentPathName === "/#projects"
               ? "bg-secondary text-background border border-border"
               : "text-muted-foreground hover:text-foreground hover:bg-background/50"
           }`}
         >
           Projects
-        </button>
+        </motion.button>
 
         {/* About tab */}
-        <button
+        <motion.button
           onClick={() => router.push("/about")}
-          className={`hidden md:inline-flex px-3 py-1 text-lg font-mono transition-colors flex-shrink-0 ${
+          whileHover={{ y: -2 }}
+          whileTap={{ y: 0 }}
+          transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          className={`hidden md:inline-flex px-4 py-2 text-base sm:text-lg font-mono transition-all duration-300 flex-shrink-0 ${
             currentPathName === "/about"
               ? "bg-secondary text-background border border-border"
               : "text-muted-foreground hover:text-foreground hover:bg-background/50"
           }`}
         >
           About
-        </button>
+        </motion.button>
 
         {/* Blog tab */}
-        <button
+        <motion.button
           onClick={() => router.push("/blog")}
-          className={`hidden md:inline-flex px-3 py-1 text-lg font-mono transition-colors flex-shrink-0 ${
+          whileHover={{ y: -2 }}
+          whileTap={{ y: 0 }}
+          transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          className={`hidden md:inline-flex px-4 py-2 text-base sm:text-lg font-mono transition-all duration-300 flex-shrink-0 ${
             isBlogPage
               ? "bg-secondary text-background border border-border"
               : "text-muted-foreground hover:text-foreground hover:bg-background/50"
           }`}
         >
           Blog
-        </button>
+        </motion.button>
 
-        <button
-          className="md:hidden ml-2 px-2 py-1 text-lg font-mono text-muted-foreground hover:text-foreground hover:bg-background/50 transition-colors flex-shrink-0"
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="md:hidden ml-auto px-3 py-2 text-lg font-mono text-muted-foreground hover:text-foreground hover:bg-background/50 transition-all duration-300 flex-shrink-0"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? "✕" : "☰"}
-        </button>
+        </motion.button>
       </div>
 
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-secon border-t border-border">
-          <div className="container px-4 py-6">
-            <nav className="flex flex-col gap-4">
-              {navItems.map((item, idx) => (
-                <button
-                  key={idx}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="md:hidden bg-card border-t border-border/30 overflow-hidden"
+          >
+            <div className="container px-4 py-4">
+              <nav className="flex flex-col gap-2">
+                {navItems.map((item, idx) => (
+                  <motion.button
+                    key={idx}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.1 }}
+                    onClick={() => {
+                      scrollToSection(item.link);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`text-left text-lg font-mono transition-all duration-300 py-3 px-4 border ${
+                      isActiveLink(item.link)
+                        ? "text-foreground border-border bg-background"
+                        : "text-muted-foreground border-transparent hover:text-foreground hover:bg-background/50"
+                    }`}
+                  >
+                    {item.name}
+                  </motion.button>
+                ))}
+                <motion.button
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: navItems.length * 0.1 }}
                   onClick={() => {
-                    scrollToSection(item.link);
+                    router.push("/blog");
                     setIsMobileMenuOpen(false);
                   }}
-                  className={`text-left text-lg font-mono transition-colors py-2 border-b ${
-                    isActiveLink(item.link)
-                      ? "text-foreground border-foreground"
-                      : "text-muted-foreground border-transparent hover:text-foreground"
+                  className={`text-left text-lg font-mono transition-all duration-300 py-3 px-4 border ${
+                    isBlogPage
+                      ? "text-foreground border-border bg-background"
+                      : "text-muted-foreground border-transparent hover:text-foreground hover:bg-background/50"
                   }`}
                 >
-                  {item.name}
-                </button>
-              ))}
-              <button
-                onClick={() => {
-                  router.push("/blog");
-                  setIsMobileMenuOpen(false);
-                }}
-                className={`text-left text-lg font-mono transition-colors py-2 border-b ${
-                  isBlogPage
-                    ? "text-foreground border-foreground"
-                    : "text-muted-foreground border-transparent hover:text-foreground"
-                }`}
-              >
-                Blog
-              </button>
-            </nav>
-          </div>
-        </div>
-      )}
+                  Blog
+                </motion.button>
+              </nav>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

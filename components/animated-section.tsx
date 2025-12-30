@@ -2,11 +2,12 @@
 
 import type { ReactNode } from "react"
 import { useState, useEffect } from "react"
+import { motion } from "framer-motion"
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer"
 import { cn } from "@/lib/utils"
 import { useAnimation } from "@/contexts/animation-context"
 
-type AnimationType = "fade-up" | "fade-in" | "slide-left" | "slide-right" | "zoom-in" | "bounce"
+type AnimationType = "fade-up" | "fade-in" | "slide-left" | "slide-right" | "zoom-in"
 
 interface AnimatedSectionProps {
   children: ReactNode
@@ -44,85 +45,84 @@ export function AnimatedSection({
   const { settings } = useAnimation()
   const shouldAnimate = settings.enabled || forceAnimate
 
-  // Calculate actual delay based on settings
   const actualDelay = (delay * settings.delay) / 100
 
-  // Calculate transform values based on intensity
-  const getTransformValue = (baseValue: number) => {
-    return baseValue * settings.intensity
-  }
-
-  const getAnimationClasses = () => {
-    // If animations are disabled, return empty classes
+  const getMotionVariants = () => {
     if (!shouldAnimate) {
-      return ""
-    }
-
-    const baseClasses = `transition-all duration-${settings.duration} ${settings.easing}`
-    const delayClass = actualDelay ? `delay-${actualDelay}` : ""
-
-    if (!isMounted || !isIntersecting) {
-      switch (animation) {
-        case "fade-up":
-          return `${baseClasses} opacity-0 translate-y-[${getTransformValue(10)}px]`
-        case "fade-in":
-          return `${baseClasses} opacity-0`
-        case "slide-left":
-          return `${baseClasses} opacity-0 -translate-x-[${getTransformValue(10)}px]`
-        case "slide-right":
-          return `${baseClasses} opacity-0 translate-x-[${getTransformValue(10)}px]`
-        case "zoom-in":
-          return `${baseClasses} opacity-0 scale-[${1 - getTransformValue(0.05)}]`
-        case "bounce":
-          return `${baseClasses} opacity-0 -translate-y-[${getTransformValue(4)}px]`
-        default:
-          return `${baseClasses} opacity-0`
+      return {
+        hidden: { opacity: 1, y: 0, x: 0, scale: 1 },
+        visible: { opacity: 1, y: 0, x: 0, scale: 1 },
       }
     }
 
-    return `${baseClasses} ${delayClass} opacity-100 translate-y-0 translate-x-0 scale-100`
+    const intensity = settings.intensity
+
+    switch (animation) {
+      case "fade-up":
+        return {
+          hidden: { opacity: 0, y: 30 * intensity },
+          visible: { opacity: 1, y: 0 },
+        }
+      case "fade-in":
+        return {
+          hidden: { opacity: 0 },
+          visible: { opacity: 1 },
+        }
+      case "slide-left":
+        return {
+          hidden: { opacity: 0, x: -30 * intensity },
+          visible: { opacity: 1, x: 0 },
+        }
+      case "slide-right":
+        return {
+          hidden: { opacity: 0, x: 30 * intensity },
+          visible: { opacity: 1, x: 0 },
+        }
+      case "zoom-in":
+        return {
+          hidden: { opacity: 0, scale: 1 - 0.05 * intensity },
+          visible: { opacity: 1, scale: 1 },
+        }
+      default:
+        return {
+          hidden: { opacity: 0, y: 30 * intensity },
+          visible: { opacity: 1, y: 0 },
+        }
+    }
   }
 
-  // Generate inline styles for custom duration and easing
-  const getAnimationStyles = () => {
-    if (!shouldAnimate) {
-      return {}
+  if (!shouldAnimate) {
+    return <section className={className} id={id}>{children}</section>
+  }
+
+  const getTransition = () => {
+    if (settings.easing === "spring") {
+      return {
+        type: "spring" as const,
+        stiffness: settings.stiffness || 400,
+        damping: settings.damping || 25,
+        delay: actualDelay / 1000,
+      }
     }
 
     return {
-      transitionDuration: `${settings.duration}ms`,
-      transitionTimingFunction: settings.easing,
-      transitionDelay: actualDelay ? `${actualDelay}ms` : undefined,
-      transform: (!isMounted || !isIntersecting) ? getTransformStyle() : "translate3d(0, 0, 0) scale(1)",
-      opacity: (isMounted && isIntersecting) ? 1 : 0,
+      duration: settings.duration / 1000,
+      delay: actualDelay / 1000,
+      ease: settings.easing,
     }
-  }
-
-  const getTransformStyle = () => {
-    if (!isIntersecting) {
-      switch (animation) {
-        case "fade-up":
-          return `translate3d(0, ${getTransformValue(10)}px, 0)`
-        case "fade-in":
-          return "translate3d(0, 0, 0)"
-        case "slide-left":
-          return `translate3d(-${getTransformValue(10)}px, 0, 0)`
-        case "slide-right":
-          return `translate3d(${getTransformValue(10)}px, 0, 0)`
-        case "zoom-in":
-          return `translate3d(0, 0, 0) scale(${1 - getTransformValue(0.05)})`
-        case "bounce":
-          return `translate3d(0, -${getTransformValue(4)}px, 0)`
-        default:
-          return "translate3d(0, 0, 0)"
-      }
-    }
-    return "translate3d(0, 0, 0) scale(1)"
   }
 
   return (
-    <section ref={ref as any} className={cn(className)} style={getAnimationStyles()} id={id}>
+    <motion.section
+      ref={ref as any}
+      className={cn(className)}
+      id={id}
+      initial="hidden"
+      animate={isMounted && isIntersecting ? "visible" : "hidden"}
+      variants={getMotionVariants()}
+      transition={getTransition()}
+    >
       {children}
-    </section>
+    </motion.section>
   )
 }

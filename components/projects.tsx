@@ -26,36 +26,54 @@ const ProjectCard = ({
 }: ProjectCardType & { hasBlogPost: boolean; delay?: number }) => {
   const CardContent = (
     <>
-      <div className="my-2 mx-0 px-0 space-y-4 text-left md:col-span-4">
-        <div className="text-xl flex gap-4 mono">
-          <span className="text-accent">{name}</span>
-          <div className="flex flex-wrap gap-1">
+      <div className="my-2 mx-0 px-0 space-y-5 text-left md:col-span-4">
+        <div className="flex items-start justify-between gap-4">
+          <h3 className="text-2xl font-semibold mono text-foreground">
+            {name}
+          </h3>
+        </div>
+        <p className="text-muted-foreground geist leading-relaxed">
+          {description}
+        </p>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex flex-wrap gap-2">
             {stack.slice(0, 6).map((tech: any, i: number) => (
-              <Image
+              <div
                 key={i}
-                src={tech[0]}
-                width="16"
-                height="16"
-                alt="svg icon"
-                className={`${tech[2] == true ? "dark:invert" : ""}`}
-              />
+                className="relative group"
+              >
+                <Image
+                  src={tech[0]}
+                  width="20"
+                  height="20"
+                  alt={tech[1]}
+                  className={`${tech[2] == true ? "dark:invert" : ""} transition-transform group-hover:scale-110`}
+                />
+              </div>
             ))}
             {stack.length > 6 && (
-              <span className="text-xs text-muted-foreground ml-1">
+              <span className="text-xs text-muted-foreground/60 font-mono py-1">
                 +{stack.length - 6}
               </span>
             )}
           </div>
-        </div>
-        <div className="text-left wrap text-muted-foreground geist">
-          {description}
-        </div>
-        <div className="flex items-center justify-between">
           {href && (
-            <a href={href} target="_blank" onClick={(e) => e.stopPropagation()}>
-              <Badge variant="secondary">
-                Repo
-              </Badge>
+            <a 
+              href={href} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="inline-flex items-center gap-2 text-sm font-mono text-accent hover:text-accent/80 transition-colors group"
+            >
+              <span>View Project</span>
+              <svg 
+                className="w-4 h-4 transition-transform group-hover:translate-x-1" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
             </a>
           )}
         </div>
@@ -67,7 +85,7 @@ const ProjectCard = ({
     return (
       <AnimatedSection  animation="fade-up" delay={delay}>
         <Link href={`/blog/${blogId}`}>
-          <Card className="grid border-0 md:grid-cols-4 bg-card/50 backdrop-blur-xl mb-8 rounded-lg p-4 cursor-pointer hover:bg-card/90 transition-colors">
+          <Card className="grid border border-border/30 md:grid-cols-4 bg-card/40 backdrop-blur-xl mb-6 p-6 cursor-pointer hover:bg-card/60 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-500 group">
             {CardContent}
           </Card>
         </Link>
@@ -77,7 +95,7 @@ const ProjectCard = ({
 
   return (
     <AnimatedSection animation="fade-up" delay={delay}>
-      <Card className="grid border-0 md:grid-cols-4 bg-card/50 backdrop-blur-xl mb-8 rounded-lg p-4">
+      <Card className="grid border border-border/30 md:grid-cols-4 bg-card/40 backdrop-blur-xl mb-6 p-6 hover:bg-card/60 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-500 group">
         {CardContent}
       </Card>
     </AnimatedSection>
@@ -92,10 +110,17 @@ const Projects = ({ availableBlogPosts = [] }: ProjectsProps) => {
   const projectsList = config.projects;
 
   return (
-    <div id="projects">
-      <h2 className="text-3xl mono text-muted-foreground/30 font-bold text-left my-4">
-        ** projects
-      </h2>
+    <div id="projects" className="scroll-mt-24">
+      <AnimatedSection animation="fade-up">
+        <div className="mb-12">
+          <p className="text-accent font-mono text-sm tracking-widest uppercase mb-2">
+            Selected Work
+          </p>
+          <h2 className="text-4xl md:text-5xl font-bold mono text-foreground/90">
+            Projects
+          </h2>
+        </div>
+      </AnimatedSection>
       <div>
         {projectsList.map((project, i) => {
           const hasBlogPost = Boolean(
@@ -111,7 +136,7 @@ const Projects = ({ availableBlogPosts = [] }: ProjectsProps) => {
               href={project.href}
               blogId={project.blogId}
               hasBlogPost={hasBlogPost}
-              delay={i * 200}
+              delay={i * 100}
             />
           );
         })}

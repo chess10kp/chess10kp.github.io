@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 
-export type EasingFunction = "linear" | "ease" | "ease-in" | "ease-out" | "ease-in-out" | "spring"
+export type EasingFunction = "linear" | "easeIn" | "easeOut" | "easeInOut" | "spring"
 export type AnimationPreset = "subtle" | "moderate" | "playful" | "dramatic" | "none"
 
 interface AnimationSettings {

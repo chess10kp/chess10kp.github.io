@@ -23,21 +23,26 @@ const ExperienceCard = ({
 }: ExperienceCardType) => {
   return (
     <AnimatedSection threshold={0.2} animation="fade-up" delay={delay}>
-      <Card className="grid border-0 md:grid-cols-4 bg-card/50 backdrop-blur-xl mb-8 rounded-lg p-4">
-        <CardHeader className="text-muted-foreground text-left p-0 my-2 mono md:col-span-1">
+      <Card className="grid border border-border/30 md:grid-cols-4 bg-card/40 backdrop-blur-xl mb-6 p-6 hover:bg-card/60 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-500">
+        <CardHeader className="text-muted-foreground text-left p-0 my-2 mono md:col-span-1 font-semibold">
           {timeline}
         </CardHeader>
-        <CardContent className="my-2 mx-0 px-0 space-y-4 text-left md:col-span-3">
-          <div className="text-xl mono">
-            <span className="text-accent">{position}</span> @{" "}
+        <CardContent className="my-2 mx-0 px-0 space-y-5 text-left md:col-span-3">
+          <div className="text-xl md:text-2xl mono font-semibold">
+            <span className="text-accent">{position}</span>
+            <span className="text-muted-foreground mx-2">@</span>
             <span className="text-foreground">{employer}</span>
           </div>
-          <div className="text-left wrap text-muted-foreground geist">
+          <p className="text-muted-foreground geist leading-relaxed">
             {description}
-          </div>
+          </p>
           <div className="flex mono flex-wrap gap-2">
             {tech.map((tech) => (
-              <Badge key={tech} variant="secondary">
+              <Badge 
+                key={tech} 
+                variant="secondary"
+                className="bg-card/50 hover:bg-accent/10 transition-colors"
+              >
                 {tech}
               </Badge>
             ))}
@@ -88,10 +93,17 @@ export function Experience() {
     },
   ];
   return (
-    <div id="experience">
-      <h2 className="text-3xl mono text-muted-foreground/30 font-bold text-left my-4">
-        ** updates
-      </h2>
+    <div id="experience" className="scroll-mt-24">
+      <AnimatedSection animation="fade-up">
+        <div className="mb-12">
+          <p className="text-accent font-mono text-sm tracking-widest uppercase mb-2">
+            Professional Journey
+          </p>
+          <h2 className="text-4xl md:text-5xl font-bold mono text-foreground/90">
+            Experience
+          </h2>
+        </div>
+      </AnimatedSection>
       {experiences.map((exp, i) => (
         <ExperienceCard
           key={i}

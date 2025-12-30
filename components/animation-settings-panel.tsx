@@ -25,10 +25,10 @@ export function AnimationSettingsPanel() {
 
   const easingOptions: { value: EasingFunction; label: string }[] = [
     { value: "linear", label: "Linear" },
-    { value: "ease", label: "Ease" },
-    { value: "ease-in", label: "Ease In" },
-    { value: "ease-out", label: "Ease Out" },
-    { value: "ease-in-out", label: "Ease In Out" },
+    { value: "easeIn", label: "Ease In" },
+    { value: "easeOut", label: "Ease Out" },
+    { value: "easeInOut", label: "Ease In Out" },
+    { value: "spring", label: "Spring" },
   ]
 
   const presetOptions: { value: AnimationPreset; label: string; icon: React.ReactNode }[] = [

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Github, Linkedin, Mail } from "@geist-ui/icons";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ExternalLink } from "lucide-react";
+import { Check, ExternalLink, ArrowRight } from "lucide-react";
 import siteConfig from "@/siteConfig";
 import { AnimatedSection } from "./animated-section";
 
@@ -68,101 +68,123 @@ const Hero = () => {
   };
 
   return (
-    <section className="flex flex-col space-y-6">
-      <div className="pt-8">
-        <AnimatedSection className="geist text-lg md:text-xl text-muted-foreground space-y-6">
-          <p>
-            I'm Nitin, a student at UMich. I love making software. Currently SWE Intern at
-            Ancor.
+    <section className="min-h-[70vh] flex flex-col justify-center space-y-12 py-20">
+      <div className="space-y-8">
+        <AnimatedSection threshold={0.1} animation="fade-up" delay={0}>
+          <div className="space-y-4">
+            <p className="text-accent font-mono text-sm tracking-widest uppercase">
+              Hello, I'm
+            </p>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-tight">
+              Nitin
+              <span className="block text-muted-foreground/60">
+                Madhu
+              </span>
+            </h1>
+          </div>
+        </AnimatedSection>
+
+        <AnimatedSection threshold={0.1} animation="fade-up" delay={150}>
+          <p className="geist text-xl md:text-2xl text-muted-foreground max-w-2xl leading-relaxed">
+            I'm a student at UMich who loves making software. Currently a SWE Intern at
+            <span className="text-accent font-medium"> Ancor</span>.
           </p>
-          <p className="">
-            Wanna know more about{" "}
+        </AnimatedSection>
+
+        <AnimatedSection threshold={0.1} animation="fade-up" delay={300}>
+          <div className="inline-flex items-center gap-2 group cursor-pointer">
             <a
               href="/about"
-              className="text-accent hover:underline ml-1 transition-colors"
+              className="text-foreground hover:text-accent transition-colors duration-300 flex items-center gap-2"
             >
-              me?
+              <span className="text-lg geist">Learn more about me</span>
+              <ArrowRight 
+                size={18} 
+                className="transform group-hover:translate-x-1 transition-transform duration-300"
+              />
             </a>
-          </p>
+          </div>
         </AnimatedSection>
       </div>
 
       {/* Social Links */}
-
-      <motion.div
-        className="flex items-center gap-4 pt-4"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.6 }}
-      >
-          <p className="">
-            Reach out to me:
+      <AnimatedSection threshold={0.1} animation="fade-up" delay={450}>
+        <div className="pt-8 border-t border-border/50">
+          <p className="text-sm text-muted-foreground mb-4 font-mono">
+            Let's connect
           </p>
-        {socialLinks.map((link, idx) => (
-          <motion.div
-            key={idx}
-            className="relative group"
-            onMouseEnter={() => setActiveTooltip(idx)}
-            onMouseLeave={() => setActiveTooltip(null)}
-          >
-            <motion.button
-              onClick={
-                link.copyable ? () => handleCopyEmail(link.username) : undefined
-              }
-              className={`p-3 text-muted-foreground transition-all duration-300 rounded-lg hover:bg-card/50 ${link.color}`}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label={link.label}
-            >
-              {link.copyable && copiedEmail && link.username.includes("@") ? (
-                <Check size={18} className="text-green-500" />
-              ) : link.icon === ChessSvg ? (
-                <ChessSvg />
-              ) : (
-                <link.icon size={18} />
-              )}
-            </motion.button>
-
-            <AnimatePresence>
-              {activeTooltip === idx && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10, scale: 0.9 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -10, scale: 0.9 }}
-                  className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 px-3 py-2 bg-popover text-popover-foreground rounded-lg shadow-lg border border-border whitespace-nowrap z-50"
+          <div className="flex items-center gap-3">
+            {socialLinks.map((link, idx) => (
+              <motion.div
+                key={idx}
+                className="relative group"
+                onMouseEnter={() => setActiveTooltip(idx)}
+                onMouseLeave={() => setActiveTooltip(null)}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 + idx * 0.1 }}
+              >
+                <motion.button
+                  onClick={
+                    link.copyable ? () => handleCopyEmail(link.username) : undefined
+                  }
+                  className={`relative p-4 text-muted-foreground transition-all duration-500 bg-card/30 border border-border/30 backdrop-blur-sm ${link.color}`}
+                  whileHover={{ 
+                    scale: 1.05,
+                    y: -2,
+                    boxShadow: "0 10px 30px -10px hsl(var(--primary) / 0.3)",
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  aria-label={link.label}
                 >
-                  <div className="text-sm font-medium">{link.label}</div>
-                  <div className="text-xs text-muted-foreground">
-                    {link.username}
-                  </div>
-                  {link.copyable && (
-                    <div className="text-xs text-blue-500 mt-1">
-                      Click to copy
-                    </div>
+                  {link.copyable && copiedEmail && link.username.includes("@") ? (
+                    <Check size={20} className="text-green-500" />
+                  ) : link.icon === ChessSvg ? (
+                    <ChessSvg />
+                  ) : (
+                    <link.icon size={20} />
                   )}
-                  {!link.copyable && (
-                    <ExternalLink size={12} className="inline ml-1" />
+                </motion.button>
+
+                <AnimatePresence>
+                  {activeTooltip === idx && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      className="absolute bottom-full mb-4 left-1/2 -translate-x-1/2 px-4 py-3 bg-popover text-popover-foreground shadow-2xl border border-border whitespace-nowrap z-50"
+                    >
+                      <div className="text-sm font-semibold mb-1">{link.label}</div>
+                      <div className="text-xs text-muted-foreground">
+                        {link.username}
+                      </div>
+                      {link.copyable && (
+                        <div className="text-xs text-accent mt-2 flex items-center gap-1">
+                          Click to copy
+                        </div>
+                      )}
+                      {!link.copyable && (
+                        <ExternalLink size={12} className="inline ml-1 text-muted-foreground" />
+                      )}
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-popover border-r border-b border-border rotate-45" />
+                    </motion.div>
                   )}
+                </AnimatePresence>
 
-                  {/* Tooltip Arrow */}
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-popover border-l border-b border-border rotate-45" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* External link handler */}
-            {!link.copyable && (
-              <a
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute inset-0"
-                aria-label={`Visit ${link.label}`}
-              />
-            )}
-          </motion.div>
-        ))}
-      </motion.div>
+                {!link.copyable && (
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute inset-0"
+                    aria-label={`Visit ${link.label}`}
+                  />
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </AnimatedSection>
 
       {/* Success Toast for Email Copy */}
       <AnimatePresence>
@@ -171,9 +193,9 @@ const Hero = () => {
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
-            className="fixed bottom-20 left-6 z-50 bg-green-500/10 border border-green-500/20 text-green-500 px-4 py-3 rounded-lg backdrop-blur-xl flex items-center gap-2"
+            className="fixed bottom-24 left-6 z-50 bg-green-500/10 border border-green-500/30 text-green-500 px-6 py-4 backdrop-blur-xl flex items-center gap-3 shadow-2xl"
           >
-            <Check size={18} />
+            <Check size={20} />
             <span className="text-sm font-medium">
               Email copied to clipboard!
             </span>

@@ -27,10 +27,17 @@ const LatestBlogPosts = ({ posts }: Props) => {
   }
 
   return (
-    <div id="blog" className="py-16">
-      <h2 className="mono text-muted-foreground/30 text-3xl font-bold text-left mb-8">
-        ** blog
-      </h2>
+    <div id="blog" className="py-16 scroll-mt-24">
+      <AnimatedSection animation="fade-up">
+        <div className="mb-12">
+          <p className="text-accent font-mono text-sm tracking-widest uppercase mb-2">
+            Thoughts & Writing
+          </p>
+          <h2 className="text-4xl md:text-5xl font-bold mono text-foreground/90">
+            Latest Posts
+          </h2>
+        </div>
+      </AnimatedSection>
 
       <div className="grid gap-6 md:grid-cols-1">
         {latestPosts.map(({ id, date, title, tags, tagline }, index) => (
@@ -38,17 +45,16 @@ const LatestBlogPosts = ({ posts }: Props) => {
             key={id}
             animation="fade-up"
             delay={index * 100}
-            className="h-full p-6 border rounded-lg bg-card/50 hover:bg-card/70 border-transparent transition-all duration-300"
           >
             <Link href={`/blog/${id}`}>
-              <div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
-                  {date}
+              <div className="h-full p-6 md:p-8 border border-border/30 bg-card/40 backdrop-blur-xl hover:bg-card/60 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-500 group">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+                  <span className="font-mono">{date}</span>
                 </div>
-                <h3 className="text-xl mono font-semibold mb-3 line-clamp-2 text-accent hover:text-accent/80 transition-colors">
+                <h3 className="text-xl md:text-2xl mono font-semibold mb-4 line-clamp-2 text-accent group-hover:text-accent/80 transition-colors">
                   {title}
                 </h3>
-                <p className="text-md text-muted-foreground">
+                <p className="text-md text-muted-foreground leading-relaxed">
                   {tagline}
                 </p>
               </div>
@@ -58,14 +64,19 @@ const LatestBlogPosts = ({ posts }: Props) => {
       </div>
 
       {posts.length > 3 && (
-        <div className="mt-8 text-center">
-          <Link href="/blog">
-            <Button variant="outline" className="group">
-              View All Posts
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </Link>
-        </div>
+        <AnimatedSection animation="fade-up" delay={300}>
+          <div className="mt-12 text-center">
+            <Link href="/blog">
+              <Button 
+                variant="outline" 
+                className="group hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all duration-300"
+              >
+                View All Posts
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+          </div>
+        </AnimatedSection>
       )}
     </div>
   );
