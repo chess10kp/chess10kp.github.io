@@ -77,7 +77,7 @@
 }
 
 .post pre {
-  @apply bg-card border-border rounded-lg my-6 overflow-x-auto;
+  @apply bg-card border-border rounded-none my-6 overflow-x-auto;
   font-family: var(--font-mono);
   border: 1px solid hsl(var(--border));
   position: relative;
@@ -95,7 +95,7 @@
   right: 0;
   height: 3px;
   background: hsl(var(--muted));
-  border-radius: 0.5rem 0.5rem 0 0;
+  border-radius: 0;
 }
 
 .post pre code {
@@ -206,7 +206,7 @@
 
 .post p code,
 .post li code {
-  @apply bg-muted/50 text-foreground px-2 py-0.5 rounded-md text-sm font-mono;
+  @apply bg-muted/50 text-foreground px-2 py-0.5 rounded-none text-sm font-mono;
   border: 2px solid hsl(var(--border) / 50);
   font-size: 16px;
   font-weight: 500;
@@ -229,7 +229,7 @@ body::webkit-scrollbar {
 
 /* Image styles */
 .post img {
-  @apply rounded-lg shadow-md my-6;
+  @apply rounded-none shadow-md my-6;
   max-width: 100%;
   height: auto;
   display: block;
@@ -247,7 +247,7 @@ body::webkit-scrollbar {
 /* Responsive images */
 @media (max-width: 640px) {
   .post img {
-    @apply rounded-md;
+    @apply rounded-none;
     margin: 1rem 0;
   }
 
@@ -283,7 +283,7 @@ body::webkit-scrollbar {
   background: hsl(var(--primary));
   border-bottom: none;
   padding: 1px 3px;
-  border-radius: 3px;
+  border-radius: 0;
 }
 
 .footnotes {

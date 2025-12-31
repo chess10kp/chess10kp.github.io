@@ -44,14 +44,14 @@ export function AnimationSettingsPanel() {
       <Button
         onClick={togglePanel}
         size="icon"
-        className="rounded-full w-12 h-12 bg-zinc-800/80 backdrop-blur-sm hover:bg-zinc-700/80 shadow-lg"
+        className="rounded-none w-12 h-12 bg-zinc-800/80 backdrop-blur-sm hover:bg-zinc-700/80 shadow-lg"
         aria-label="Animation Settings"
       >
         <Settings className="h-5 w-5 text-cyan-400" />
       </Button>
 
       {isOpen && (
-        <Card className="absolute bottom-16 left-0 w-80 bg-zinc-900/95 backdrop-blur-md border-zinc-700 shadow-xl rounded-lg overflow-hidden">
+        <Card className="absolute bottom-16 left-0 w-80 bg-zinc-900/95 backdrop-blur-md border-zinc-700 shadow-xl rounded-none overflow-hidden">
           <div className="p-4">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-medium flex items-center">
@@ -61,7 +61,7 @@ export function AnimationSettingsPanel() {
               <Button
                 size="icon"
                 variant="ghost"
-                className="h-8 w-8 rounded-full"
+                className="h-8 w-8 rounded-none"
                 onClick={togglePanel}
                 aria-label="Close settings"
               >
@@ -211,11 +211,11 @@ function AnimationPreviewCard({ animationType }: AnimationPreviewCardProps) {
   return (
     <div className="relative">
       <div className="absolute -top-1 -right-1 z-10">
-        <Button size="icon" variant="ghost" className="h-6 w-6 rounded-full bg-zinc-800" onClick={resetAnimation}>
+        <Button size="icon" variant="ghost" className="h-6 w-6 rounded-none bg-zinc-800" onClick={resetAnimation}>
           <Play className="h-3 w-3" />
         </Button>
       </div>
-      <div className="h-20 bg-zinc-800/50 rounded-md overflow-hidden">
+      <div className="h-20 bg-zinc-800/50 rounded-none overflow-hidden">
         <AnimatedSection
           key={key}
           animation={animationType}

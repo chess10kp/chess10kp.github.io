@@ -150,7 +150,7 @@ const ContactSidebar = () => {
         initial="hidden"
         animate="visible"
       >
-        <div className="flex flex-col items-center gap-4 p-4 bg-card/80 backdrop-blur-xl rounded-t-lg border border-border/50 border-b-0">
+        <div className="flex flex-col items-center gap-4 p-4 bg-card/80 backdrop-blur-xl rounded-none border border-border/50 border-b-0">
           {socialLinks.map((link, idx) => (
             <motion.div
               key={idx}
@@ -165,7 +165,7 @@ const ContactSidebar = () => {
                     ? () => handleCopyEmail(link.username)
                     : undefined
                 }
-                className={`p-3 text-muted-foreground transition-all duration-300 rounded-lg hover:bg-card/50 ${link.color}`}
+                className={`p-3 text-muted-foreground transition-all duration-300 rounded-none hover:bg-card/50 ${link.color}`}
                 whileHover={{ scale: 1.1, x: 5 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label={link.label}
@@ -185,7 +185,7 @@ const ContactSidebar = () => {
                     initial={{ opacity: 0, x: -10, scale: 0.9 }}
                     animate={{ opacity: 1, x: 0, scale: 1 }}
                     exit={{ opacity: 0, x: -10, scale: 0.9 }}
-                    className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-3 py-2 bg-popover text-popover-foreground rounded-lg shadow-lg border border-border whitespace-nowrap z-50"
+                    className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-3 py-2 bg-popover text-popover-foreground rounded-none shadow-lg border border-border whitespace-nowrap z-50"
                   >
                     <div className="text-sm font-medium">{link.label}</div>
                     <div className="text-xs text-muted-foreground">
@@ -236,7 +236,7 @@ const ContactSidebar = () => {
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
-            className="fixed bottom-20 left-6 z-50 bg-green-500/10 border border-green-500/20 text-green-500 px-4 py-3 rounded-lg backdrop-blur-xl flex items-center gap-2"
+            className="fixed bottom-20 left-6 z-50 bg-green-500/10 border border-green-500/20 text-green-500 px-4 py-3 rounded-none backdrop-blur-xl flex items-center gap-2"
           >
             <Check size={18} />
             <span className="text-sm font-medium">

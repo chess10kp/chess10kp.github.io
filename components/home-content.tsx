@@ -37,7 +37,7 @@ const HomeContent = ({ posts, availableBlogPosts }: HomeContentProps) => {
              <main className="relative">
                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="max-w-5xl mx-auto">
-                  <div className="py-24 md:py-32 border-b border-border/30">
+                  <div className="py-12 md:py-16 border-b border-border/30">
                     <Hero />
                   </div>
                   <div className="py-24 border-b border-border/30">

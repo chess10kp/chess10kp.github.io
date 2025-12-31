@@ -77,7 +77,7 @@ const Header = () => {
       className={`fixed top-0 z-[60] w-full transition-all duration-500 border-b border-border/30 bg-background/80 backdrop-blur-xl`}
     >
       {/* Emacs-style tabbar */}
-      <div className="flex items-center px-2 sm:px-4 py-2 bg-background/30 overflow-x-auto">
+      <div className="flex items-center px-4 md:px-6 py-2 bg-background/30 overflow-x-auto">
         {/* Home tab */}
         <Link href="/" className="flex-shrink-0">
           <motion.div

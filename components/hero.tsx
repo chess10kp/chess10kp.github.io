@@ -68,26 +68,25 @@ const Hero = () => {
   };
 
   return (
-    <section className="min-h-[70vh] flex flex-col justify-center space-y-12 py-20">
+    <section className="min-h-[70vh] flex flex-col justify-center space-y-12 py-8">
       <div className="space-y-8">
         <AnimatedSection threshold={0.1} animation="fade-up" delay={0}>
           <div className="space-y-4">
             <p className="text-accent font-mono text-sm tracking-widest uppercase">
-              Hello, I'm
+              This site
             </p>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-tight">
               Nitin
-              <span className="block text-muted-foreground/60">
-                Madhu
-              </span>
+              <span className="block text-muted-foreground/60">Madhu</span>
             </h1>
           </div>
         </AnimatedSection>
 
         <AnimatedSection threshold={0.1} animation="fade-up" delay={150}>
           <p className="geist text-xl md:text-2xl text-muted-foreground max-w-2xl leading-relaxed">
-            I'm a student at UMich who loves making software. Currently a SWE Intern at
-            <span className="text-accent font-medium"> Ancor</span>.
+            I build software when existing solutions fail.
+            I shipped React Native software to a Fortune 500 company.
+            Currently at Ancor building LLM-powered asset management.
           </p>
         </AnimatedSection>
 
@@ -97,9 +96,9 @@ const Hero = () => {
               href="/about"
               className="text-foreground hover:text-accent transition-colors duration-300 flex items-center gap-2"
             >
-              <span className="text-lg geist">Learn more about me</span>
-              <ArrowRight 
-                size={18} 
+              <span className="text-lg geist">Who am I?</span>
+              <ArrowRight
+                size={18}
                 className="transform group-hover:translate-x-1 transition-transform duration-300"
               />
             </a>
@@ -110,7 +109,7 @@ const Hero = () => {
       {/* Social Links */}
       <AnimatedSection threshold={0.1} animation="fade-up" delay={450}>
         <div className="pt-8 border-t border-border/50">
-          <p className="text-sm text-muted-foreground mb-4 font-mono">
+          <p className="text-sm mono text-muted-foreground mb-4 font-mono">
             Let's connect
           </p>
           <div className="flex items-center gap-3">
@@ -126,10 +125,12 @@ const Hero = () => {
               >
                 <motion.button
                   onClick={
-                    link.copyable ? () => handleCopyEmail(link.username) : undefined
+                    link.copyable
+                      ? () => handleCopyEmail(link.username)
+                      : undefined
                   }
                   className={`relative p-4 text-muted-foreground transition-all duration-500 bg-card/30 border border-border/30 backdrop-blur-sm ${link.color}`}
-                  whileHover={{ 
+                  whileHover={{
                     scale: 1.05,
                     y: -2,
                     boxShadow: "0 10px 30px -10px hsl(var(--primary) / 0.3)",
@@ -137,7 +138,9 @@ const Hero = () => {
                   whileTap={{ scale: 0.98 }}
                   aria-label={link.label}
                 >
-                  {link.copyable && copiedEmail && link.username.includes("@") ? (
+                  {link.copyable &&
+                  copiedEmail &&
+                  link.username.includes("@") ? (
                     <Check size={20} className="text-green-500" />
                   ) : link.icon === ChessSvg ? (
                     <ChessSvg />
@@ -154,7 +157,9 @@ const Hero = () => {
                       exit={{ opacity: 0, y: 10, scale: 0.95 }}
                       className="absolute bottom-full mb-4 left-1/2 -translate-x-1/2 px-4 py-3 bg-popover text-popover-foreground shadow-2xl border border-border whitespace-nowrap z-50"
                     >
-                      <div className="text-sm font-semibold mb-1">{link.label}</div>
+                      <div className="text-sm font-semibold mb-1">
+                        {link.label}
+                      </div>
                       <div className="text-xs text-muted-foreground">
                         {link.username}
                       </div>
@@ -164,7 +169,10 @@ const Hero = () => {
                         </div>
                       )}
                       {!link.copyable && (
-                        <ExternalLink size={12} className="inline ml-1 text-muted-foreground" />
+                        <ExternalLink
+                          size={12}
+                          className="inline ml-1 text-muted-foreground"
+                        />
                       )}
                       <div className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-popover border-r border-b border-border rotate-45" />
                     </motion.div>

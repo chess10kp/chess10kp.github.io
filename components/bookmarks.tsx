@@ -34,7 +34,7 @@ const Bookmarks = () => {
           <button
             key={idx}
             onClick={() => setActiveCategory(idx)}
-            className={`px-4 py-2 gap-2 flex rounded-md transition-colors ${
+            className={`px-4 py-2 gap-2 flex rounded-none transition-colors ${
               activeCategory === idx
                 ? "text-primary-foreground"
                 : "text-secondary"
@@ -54,7 +54,7 @@ const Bookmarks = () => {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-1 bg-secondary text-background hover:bg-secondary/80 rounded-md text-sm transition-colors"
+              className="flex items-center gap-2 px-3 py-1 bg-secondary text-background hover:bg-secondary/80 rounded-none text-sm transition-colors"
             >
               <Image 
                 src={link.icon} 

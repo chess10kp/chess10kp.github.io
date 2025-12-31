@@ -51,7 +51,7 @@
     --border: 207 22% 15%;
     --input: 207 22% 15%;
     --ring: 348 83% 61%;
-    --radius: 0.5rem;
+    --radius: 0rem;
     --chart-1: 43 96% 56%;
     --chart-2: 178 31% 44%;
     --chart-3: 348 83% 61%;
@@ -82,7 +82,7 @@
     --border: 207 22% 15%;
     --input: 207 22% 15%;
     --ring: 348 83% 61%;
-    --radius: 0.5rem;
+    --radius: 0rem;
     --chart-1: 43 96% 56%;
     --chart-2: 178 31% 44%;
     --chart-3: 348 83% 61%;
@@ -166,7 +166,7 @@ h1 {
   color: hsl(var(--accent));
   border: 1px solid hsl(var(--accent) / 0.6);
   padding: 4px 8px;
-  border-radius: 4px;
+  border-radius: 0px;
   font-size: 12px;
   cursor: pointer;
   opacity: 0.8;

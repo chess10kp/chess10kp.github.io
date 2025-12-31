@@ -47,7 +47,7 @@ const Loader = () => {
       >
         N M
       </motion.h1>
-      <div className="w-32 h-1 mt-4 bg-muted rounded-full overflow-hidden">
+      <div className="w-32 h-1 mt-4 bg-muted rounded-none overflow-hidden">
         <motion.div
           className="h-full bg-primary"
           variants={loadingBarVariants as Variants}

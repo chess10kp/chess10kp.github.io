@@ -15,6 +15,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Project } from "@/lib/types";
 import { useId } from "react";
 
@@ -27,8 +28,12 @@ const ProjectCard = ({
 
   return (
     <Link href={`/blog/${project.blogId}`}>
-      <div className="h-full">
-        <Card className="h-full text-center border border-border bg-card rounded-none hover:bg-card transition-colors duration-200 flex flex-col cursor-pointer">
+      <motion.div 
+        className="h-full"
+        whileHover={{ y: -4 }}
+        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      >
+        <Card className="h-full text-center border border-border bg-card/50 rounded-none hover:border-accent/50 hover:bg-accent/5 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.1)] transition-all duration-300 flex flex-col cursor-pointer">
           <CardHeader className="border-b border-border">
             <div>
               <CardTitle className="font-mono">{project.name}</CardTitle>
@@ -71,7 +76,7 @@ const ProjectCard = ({
             </div>
           </CardFooter>
         </Card>
-      </div>
+      </motion.div>
     </Link>
   );
 };

@@ -64,7 +64,7 @@ export default function ProjectDialog({ project, onClose }: ProjectDialogProps) 
               duration: 0.05,
             },
           }}
-          className="flex absolute top-2 right-2 lg:hidden items-center justify-center bg-white rounded-full h-6 w-6"
+          className="flex absolute top-2 right-2 lg:hidden items-center justify-center bg-white rounded-none h-6 w-6"
           onClick={onClose}
         >
           <CloseIcon />
@@ -72,7 +72,7 @@ export default function ProjectDialog({ project, onClose }: ProjectDialogProps) 
         <motion.div
           layoutId={`project-card-${project.name}-${id}`}
           ref={ref}
-          className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden"
+          className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-neutral-900 sm:rounded-none overflow-hidden"
         >
           <div className="p-6">
             <motion.div layoutId={`project-title-${project.name}-${id}`}>
@@ -94,14 +94,14 @@ export default function ProjectDialog({ project, onClose }: ProjectDialogProps) 
                   alt={project.name}
                   width={500}
                   height={300}
-                  className="rounded-lg object-cover w-full mb-6"
+                  className="rounded-none object-cover w-full mb-6"
                 />
               </motion.div>
             )}
 
             <div className="flex flex-wrap gap-2 mb-6">
               {project.stack.map((tech, i) => (
-                <div key={i} className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-800 rounded-full px-3 py-1">
+                <div key={i} className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-800 rounded-none px-3 py-1">
                   <Image
                     src={tech[0]}
                     width="16"
@@ -123,7 +123,7 @@ export default function ProjectDialog({ project, onClose }: ProjectDialogProps) 
                     href={project.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2 px-4 py-2 text-sm rounded-full font-bold bg-gray-100 hover:bg-accent/20 dark:bg-gray-800 dark:hover:bg-accent/20 text-black dark:text-white hover:text-accent transition-colors"
+                    className="flex items-center space-x-2 px-4 py-2 text-sm rounded-none font-bold bg-gray-100 hover:bg-accent/20 dark:bg-gray-800 dark:hover:bg-accent/20 text-black dark:text-white hover:text-accent transition-colors"
                   >
                     <Github width="16" height="16" />
                     <span>GitHub</span>
@@ -135,7 +135,7 @@ export default function ProjectDialog({ project, onClose }: ProjectDialogProps) 
                   href={project.demo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 text-sm rounded-full font-bold bg-accent/30 hover:bg-accent/40 text-accent"
+                  className="px-4 py-2 text-sm rounded-none font-bold bg-accent/30 hover:bg-accent/40 text-accent"
                 >
                   Live Demo
                 </a>

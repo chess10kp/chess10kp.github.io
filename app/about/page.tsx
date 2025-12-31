@@ -5,7 +5,6 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Github, Linkedin, Mail } from "@geist-ui/icons";
 import { AnimationProvider } from "@/contexts/animation-context";
 import { AnimatedSection } from "@/components/animated-section";
-import Bookmarks from "@/components/bookmarks";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -22,7 +21,7 @@ const About = () => {
             Who I Am
           </p>
           <h2 className="text-5xl md:text-6xl font-bold mono text-foreground/90">
-            About Me
+            About Nitin
           </h2>
         </AnimatedSection>
         <div className="flex flex-col items-center gap-6 max-w-4xl w-full px-4">
@@ -53,7 +52,7 @@ const Intro = () => {
         className="flex flex-col lg:mx-0 md:mx-16 text-xl gap-6 mx-6 md:mx-12"
       >
         <p className="text-lg md:text-xl leading-relaxed text-muted-foreground geist">
-          Hi! I'm Nitin - a student developer. I enjoy programming and making
+          I'm a senior at UMich Dearborn. I enjoy programming and making
           software I find useful. I'm currently working on BabelFish, a chat
           summarization tool that ensures you never miss another important
           conversation.
@@ -75,8 +74,10 @@ const Intro = () => {
         <div className="relative w-full h-64 md:h-80 mt-4 overflow-hidden border border-border/30">
           <Image 
             src="/gain_rating.png" 
-            fill 
             alt="chess rating" 
+            sizes="100vw"
+            fill
+            style={{ objectFit: 'contain'}}
             className="object-cover hover:scale-105 transition-transform duration-700"
           />
         </div>
@@ -101,7 +102,7 @@ const SelfInfo = () => {
           <span className="font-mono text-accent">{info.currentStanding()}</span> at{" "}
           <a
             href={info.personal.university_link}
-            className="text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4 decoration-2 hover:decoration-accent"
+            className="text-muted-foreground hover:text-foreground transition-colors decoration-2 hover:decoration-accent"
           >
             {info.personal.university}
           </a>
@@ -116,16 +117,6 @@ const ContactInfo = () => {
     { name: <Github size={24} />, link: info.links.github, label: "GitHub" },
     { name: <Linkedin size={24} />, link: info.links.linkedin, label: "LinkedIn" },
     { name: <Mail size={24} />, link: info.links.email, label: "Email" },
-    {
-      name: <Image src="/vercel.svg" alt="Vercel" width={24} height={24} />,
-      link: "https://vercel.com",
-      label: "Vercel",
-    },
-    {
-      name: <Image src="/next.svg" alt="Next.js" width={24} height={24} />,
-      link: "https://nextjs.org",
-      label: "Next.js",
-    },
   ];
   return (
     <div className="flex justify-center gap-3 flex-wrap">

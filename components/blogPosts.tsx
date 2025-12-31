@@ -18,7 +18,7 @@ const BlogPosts = ({ posts }: Props) => {
                 key={id}
                 animation="fade-up"
                 delay={index * 100}
-                className="flex items-center justify-between p-3 rounded-lg bg-card/30 hover:bg-card/50 border border-transparent hover:border-accent/30 transition-all duration-300"
+                className="flex items-center justify-between p-3 rounded-none bg-card/30 hover:bg-card/50 border border-transparent hover:border-accent/30 transition-all duration-300"
               >
                 <div className="flex-1">
                   <p className="text-xs text-muted-foreground mb-1">
