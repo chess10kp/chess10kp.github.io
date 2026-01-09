@@ -137,10 +137,6 @@ h1 {
   }
   body {
     @apply bg-background text-foreground;
-    background-image: 
-      linear-gradient(to right, hsl(var(--border) / 0.08) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--border) / 0.08) 1px, transparent 1px);
-    background-size: 24px 24px;
   }
 
   /* Link highlighting */

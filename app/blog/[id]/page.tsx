@@ -1,12 +1,13 @@
-import { getPostById, getAllPostIds } from "@/lib/posts";
+import { getPostById, getAllPostIds, getAdjacentPosts } from "@/lib/posts";
 import "./post.css";
 import { Badge } from "@/components/ui/badge";
 import CodeBlockCopy from "@/components/code-block-copy";
 import MermaidRenderer from "@/components/mermaid-renderer";
+import BlogNavigation from "@/components/blog-navigation";
 
 export async function generateStaticParams() {
   const posts = getAllPostIds();
-  return posts.map((post) => post.params); // Format: { id: "post-id" }
+  return posts.map((post) => post.params);
 }
 
 export const dynamicParams = false;
@@ -19,6 +20,8 @@ export default async function Page({
   const { id } = await params;
   const post = await getPostById(id);
   const { content, title, date, tags } = post;
+  const { prev, next } = getAdjacentPosts(id);
+
   return (
     <div className="flex justify-center min-h-screen px-4 lg:px-64 md:px-8">
       {title ? (
@@ -36,18 +39,20 @@ export default async function Page({
             </div>
             <h1 className="font-bold text-4xl mono text-left">{title}</h1>
           </div>
-           <div className="items-center flex w-full">
-             <div
-               className="post"
-               dangerouslySetInnerHTML={{
-                 __html: (content as string) || "No post found",
-               }}
-             ></div>
-             <MermaidRenderer />
-           </div>
+          <div className="items-center flex w-full">
+            <div
+              className="post"
+              dangerouslySetInnerHTML={{
+                __html: (content as string) || "No post found",
+              }}
+            ></div>
+            <MermaidRenderer />
+          </div>
+
+          <BlogNavigation prev={prev} next={next} />
         </div>
       ) : (
-        <div className="text-center justify-center  flex">
+        <div className="text-center justify-center flex">
           <div className="my-auto flex items-center">
             <h1 className="border-r leading-loose align-top mx-8 px-8 border-r-foreground text-4xl">
               404

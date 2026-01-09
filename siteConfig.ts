@@ -1,5 +1,11 @@
 import { Project } from "@/lib/types";
 import supabase from "@/assets/images/supabase.svg";
+import typescriptsvg from "@/assets/images/Typescript.svg";
+import nextsvg from "@/assets/images/nextjs.svg";
+import geminisvg from "@/assets/images/gemini.svg";
+import fastapisvg from "@/assets/images/fastapi.svg";
+import javasvg from "@/assets/images/Java.svg";
+import langchainsvg from "@/assets/images/langchain.svg";
 import cs from "@/assets/images/CS.svg";
 import pythonSvg from "@/assets/images/Python.svg";
 import haskellSvg from "@/assets/images/Haskell.svg";
@@ -41,19 +47,20 @@ export default {
     major: "CS",
   },
   skills: {
-    software: ["Next.js", "React", "Typescript", "C#", "ASP.NET", "HTML/CSS"],
+    software: ["Next.js", "React", "Typescript", "C#", "ASP.NET"],
     ml: ["Pytorch", "Tensorflow", "NumPy", "Pandas"],
     llm: ["LangChain"],
   },
   projects: [
     {
       name: "Chatherine",
-      description: "A multi client AI agent to support small business",
+      description:
+        "Non-technical business owners lack the expertise to manage web hosting and deployments. Chatherine is a content management system that lets business owners update content on their website and app with a Telegram Bot.",
       stack: [
-        [typescriptSvg, "Typescript"],
-        [nextSvg, "Next.js", true],
-        [geminiSvg, "Google Gemini", true],
-        [fastAPISvg, "FastAPI", true],
+        [typescriptsvg, "typescript"],
+        [nextsvg, "next.js", true],
+        [geminisvg, "google gemini", true],
+        [fastapisvg, "fastapi", true],
       ],
       href: "https://github.com/inkscribe-org/chatherine",
       demo: "",
@@ -61,69 +68,70 @@ export default {
       blogId: "",
     },
     {
-      name: "BabelFish",
+      name: "Babelfish",
       description:
-        "Multi-agent extension powered by Gemini 2.5 that collaboratively translates and summarizes messages across Discord, Slack, and WhatsApp.",
+        "Discord doesn't have a native translation layer despite hosting thousands of diverse communities. BabelFish is an AI layer on top of Discord to translate messages in real-time and provides instant chat summarization",
       stack: [
-        [typescriptSvg, "Typescript"],
-        [geminiSvg, "Google Gemini", true],
-        [fastAPISvg, "FastAPI", true],
-        [langChainSvg, "LangChain", true],
+        [typescriptsvg, "typescript"],
+        [geminisvg, "google gemini", true],
+        [fastapisvg, "fastapi", true],
+        [langchainsvg, "langchain", true],
       ],
       href: "https://devpost.com/software/babelfetch",
       demo: "https://devpost.com/software/babelfetch",
       image: "",
-      blogId: "babelfish",
+      blogid: "babelfish",
     },
 
+    // {
+    //   name: "hd4",
+    //   demo: "",
+    //   image: "",
+    //   description:
+    //     "a cross platform mobile app for um dearborn's hackdearborn 4",
+    //   stack: [
+    //     [typescriptsvg, "typescript"],
+    //     [reactsvg, "react native"],
+    //     [javasvg, "java"],
+    //     [supabase, "supabase"],
+    //   ],
+    //   href: "https://play.google.com/store/apps/details?id=org.hackdearborn.hackdearbornapp&pli=1",
+    //   blogid: "hd4",
+    // },
     {
-      name: "HD4",
-      demo: "",
-      image: "",
+      name: "Chessbreak",
       description:
-        "A cross platform mobile app for UM Dearborn's HackDearborn 4",
-      stack: [
-        [typescriptSvg, "Typescript"],
-        [reactSvg, "React Native"],
-        [javaSvg, "Java"],
-        [supabase, "Supabase"],
-      ],
-      href: "https://play.google.com/store/apps/details?id=org.hackdearborn.hackdearbornapp&pli=1",
-      blogId: "hd4",
-    },
-    {
-      name: "ChessBreak",
-      description: "A chrome extension that lets you play focused chess",
-      stack: [[typescriptSvg, "Typescript"]],
+        "Chess players often lose focus by continuing to play when they are tired. Chessbreak is an extension that monitors accuracy and tracks sessions on chess.com. This blocks users when their play quality drops, ensuring they only play at their best.",
+      stack: [[typescriptsvg, "typescript"]],
       href: "https://github.com/inkscribe-org/chessbreak",
       demo: "https://github.com/inkscribe-org/chessbreak",
       image: "",
-      blogId: "improving_my_rating",
+      blogid: "improving_my_rating",
     },
-    {
-      name: "Socraticoin",
-      demo: "",
-      image: "",
-      description:
-        "An interactive blockchain simulation platform that implements core cryptocurrency protocols and consensus mechanisms",
-      stack: [
-        [typescriptSvg, "Typescript"],
-        [reactSvg, "React"],
-        [pythonSvg, "Python"],
-        [fastAPISvg, "FastAPI"],
-      ],
-      href: "https://github.com/chess10kp/socraticoin",
-      blogId: "socraticoin",
-    },
-    {
-      name: "Snip",
-      demo: "",
-      image: "",
-      description: "A JS-style interpreted programming language",
-      stack: [[cs, "C#"]],
-      href: "https://github.com/snip-lang/snip",
-      blogId: "snip",
-    },
+    // {
+    //   name: "socraticoin",
+    //   demo: "",
+    //   image: "",
+    //   description:
+    //     "an interactive blockchain simulation platform that implements core cryptocurrency protocols and consensus mechanisms",
+    //   stack: [
+    //     [typescriptsvg, "typescript"],
+    //     [reactSvg, "React"],
+    //     [pythonSvg, "Python"],
+    //     [fastAPISvg, "FastAPI"],
+    //   ],
+    //   href: "https://github.com/chess10kp/socraticoin",
+    //   blogId: "socraticoin",
+    // },
+    // {
+    //   name: "Snip",
+    //   demo: "",
+    //   image: "",
+    //   description: "A JS-style interpreted programming language",
+    //   stack: [[cs, "C#"]],
+    //   href: "https://github.com/snip-lang/snip",
+    //   blogId: "snip",
+    // },
   ] as Project[],
   hiddenProjects: [
     {

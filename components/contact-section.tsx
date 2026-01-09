@@ -20,10 +20,10 @@ export function ContactSection() {
     >
       <div className="mb-12">
         <p className="text-accent font-mono text-sm tracking-widest uppercase mb-2">
-          Start a Conversation
+          I'd love to hear from you
         </p>
         <h2 className="text-4xl md:text-5xl font-bold mono text-foreground/90 mb-4">
-          Get in Touch
+          Reach Out
         </h2>
       </div>
       <div className="grid border border-border/30 md:grid-cols-4 bg-card/40 backdrop-blur-xl p-6 md:p-8 hover:bg-card/60 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-500">

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "@/components/header";
 import Hero from "@/components/hero";
+import Skills from "@/components/Skills";
 import { Experience } from "@/components/experience";
 
 import Projects from "@/components/projects";
@@ -48,6 +49,9 @@ const HomeContent = ({ posts, availableBlogPosts }: HomeContentProps) => {
                   </div>
                   <div className="py-24 border-b border-border/30">
                     <LatestBlogPosts posts={posts} />
+                  </div>
+                  <div className="py-12 md:py-16 border-b border-border/30">
+                    <Skills />
                   </div>
                   <div className="py-24">
                     <ContactSection />

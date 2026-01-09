@@ -2,7 +2,7 @@
 title: I fixed Python's functional chaining
 date: "2025-12-26"
 tags: ["python", "fp"]
-tagline: Python now works like a real programming language 
+tagline: obj.map().filter() is a great pattern, but python doesn't have it! 
 ---
 
 

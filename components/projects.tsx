@@ -28,7 +28,7 @@ const ProjectCard = ({
     <>
       <div className="my-2 mx-0 px-0 space-y-5 text-left md:col-span-4">
         <div className="flex items-start justify-between gap-4">
-          <h3 className="text-2xl font-semibold mono text-foreground">
+          <h3 className="text-2xl text-accent text-accent/80 font-semibold mono">
             {name}
           </h3>
         </div>

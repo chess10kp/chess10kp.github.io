@@ -19,33 +19,28 @@ import { motion } from "framer-motion";
 import { Project } from "@/lib/types";
 import { useId } from "react";
 
-const ProjectCard = ({
-  project,
-}: {
-  project: Project;
-}) => {
+const ProjectCard = ({ project }: { project: Project }) => {
   const id = useId();
 
   return (
     <Link href={`/blog/${project.blogId}`}>
-      <motion.div 
+      <motion.div
         className="h-full"
         whileHover={{ y: -4 }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
       >
-        <Card className="h-full text-center border border-border bg-card/50 rounded-none hover:border-accent/50 hover:bg-accent/5 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.1)] transition-all duration-300 flex flex-col cursor-pointer">
+        <Card className="h-full text-center border border-border bg-card/50 rounded-none hover:bg-accent/5 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.1)] transition-all duration-300 flex flex-col cursor-pointer">
           <CardHeader className="border-b border-border">
-            <div>
-              <CardTitle className="font-mono">{project.name}</CardTitle>
-            </div>
+            <CardTitle className="font-mono text-accent ">
+              {project.name}
+            </CardTitle>
           </CardHeader>
           <div>
             <CardDescription className="text-left font-mono text-muted-foreground p-4">
               {project.description}
             </CardDescription>
           </div>
-          <CardContent className="flex-grow">
-          </CardContent>
+          <CardContent className="flex-grow"></CardContent>
           <CardFooter>
             <div className="flex flex-1 space-x-2 w-fit p-2">
               <TooltipProvider delayDuration={100}>
@@ -70,7 +65,11 @@ const ProjectCard = ({
               </TooltipProvider>
             </div>
             <div>
-              <Link href={project.href} className="hover:text-accent transition-colors duration-200" onClick={(e) => e.stopPropagation()}>
+              <Link
+                href={project.href}
+                className="hover:text-accent transition-colors duration-200"
+                onClick={(e) => e.stopPropagation()}
+              >
                 Demo
               </Link>
             </div>

@@ -24,7 +24,7 @@ const SkillCard = ({ name, icon }: SkillCardProps) => {
       whileHover={{ y: -4, scale: 1.02 }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
     >
-      <Card className="h-full bg-card/50 hover:bg-accent/5 hover:border-accent/50 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.1)] border-transparent transition-all duration-300 flex flex-col items-center justify-center p-3 rounded-none">
+      <Card className="h-full bg-card/50 hover:bg-accent/5 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.1)] border-transparent transition-all duration-300 flex flex-col items-center justify-center p-3 rounded-none">
         <CardHeader className="p-0 flex-col items-center gap-2">
           {icon ? (
             <Image

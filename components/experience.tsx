@@ -38,8 +38,8 @@ const ExperienceCard = ({
           </p>
           <div className="flex mono flex-wrap gap-2">
             {tech.map((tech) => (
-              <Badge 
-                key={tech} 
+              <Badge
+                key={tech}
                 variant="secondary"
                 className="bg-card/50 hover:bg-accent/10 transition-colors"
               >
@@ -57,38 +57,46 @@ export function Experience() {
   const experiences: ExperienceCardType[] = [
     {
       position: "Software Innovation Intern",
-      timeline: "Jun — Present",
+      timeline: "Jun 2025 — Present",
       employer: "Ancor",
       employer_link: "weareancor.com",
       description:
-        "Developed a React Native app to track 10k auto parts through RFID scanning. Sold to client for a 5 figure annual license. Currently working on RAG and AI chatbots.",
+        "Built a React Native RFID tracking app for 10k+ auto parts, patching incompatible libraries to ship to an enterprise client. We closed out a 5-figure annual license. I'm currently building LLM-powered asset management tools.",
       tech: ["Next.js", "React Native", "RAG"],
     },
     {
       position: "Research Assistant",
-      timeline: "Oct - Present",
+      timeline: "Oct 2025 - Present",
       employer: "UofM",
       employer_link: "https://github.com/chess10kp/cobas",
       description:
-        "Working on wireless battery sensing with Deep Neural Networks",
+        "Traditional Battery Management Systems are clunky and expensive. I'm finetuning ResNet models to predict battery charge wirelessly using reflections from ultrasonic chirped excitation in low-fidelity environments.",
       tech: ["Python", "PyTorch", "Numpy"],
     },
     {
+      position: "Student Software Developer",
+      employer_link: "https://hackdearborn.com",
+      timeline: "Sep 2024 — Dec 2025",
+      employer: "Google Developer Groups",
+      description: "I worked on the HackDearborn's mobile app to improve event discovery and user engagement.",
+      tech: ["React Native", "Firebase", "TypeScript"],
+    },
+    {
       position: "Research Assistant",
-      timeline: "Jan —  Apr 2025",
+      timeline: "Jan 2025 —  Apr 2025",
       employer: "UofM",
       employer_link: "https://github.com/chess10kp/compass",
       description:
-        "Trained ML models to detect bias in inmate sentencing classification systems. Developed fairness-aware algorithms to compensate for bias in predictive models",
-      tech: ["Python", "PyTorch", "Numpy", "Tensorflow"],
+        "Risk engines often perpetuate historical bias. I trained regression models and built fairness metrics to quantify bias in sentencing prediction systems.",
+      tech: ["Python", "Numpy", "Tensorflow"],
     },
     {
       position: "Development Intern",
-      timeline: "May — Aug 2024",
+      timeline: "May 2024 — Aug 2024",
       employer: "Michigan Medicine",
       employer_link: "https://www.michiganmedicine.org",
       description:
-        "Analyzed patient family engagment data with Python to uncover behaviorial trends. Conducted data analysis with python to visualize findings for internal research.",
+        "Analyzed patient family engagement data to identify effective fundraising channels. Built visualizations that showed digital outreach significantly outperformed traditional mail.",
       tech: ["Python", "Matplotlib", "Numpy"],
     },
   ];
@@ -96,9 +104,6 @@ export function Experience() {
     <div id="experience" className="scroll-mt-24">
       <AnimatedSection animation="fade-up">
         <div className="mb-12">
-          <p className="text-accent font-mono text-sm tracking-widest uppercase mb-2">
-            Professional Journey
-          </p>
           <h2 className="text-4xl md:text-5xl font-bold mono text-foreground/90">
             Experience
           </h2>

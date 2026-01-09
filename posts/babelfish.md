@@ -2,7 +2,7 @@
 title: BabelFish
 date: "2025-11-24"
 tags: ["typescript", "project", "langchain"]
-tagline: AI in your chats is awful, but what if it was YOUR AI in YOUR chats
+tagline: AI in your chats sounds dystopian, but what if you controlled it?
 ---
 
 BabelFetch was my team's project at [HackDearborn](https://hackdearbon.org) this year. [Demo Video](https://youtu.be/1sCfoWvphjw) (Recorded after 30 hours being awake, I promise I don't usually sound like this).  

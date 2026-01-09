@@ -17,11 +17,8 @@ const About = () => {
           animation="fade-up"
           className="text-center mb-12"
         >
-          <p className="text-accent font-mono text-sm tracking-widest uppercase mb-2">
-            Who I Am
-          </p>
           <h2 className="text-5xl md:text-6xl font-bold mono text-foreground/90">
-            About Nitin
+            About
           </h2>
         </AnimatedSection>
         <div className="flex flex-col items-center gap-6 max-w-4xl w-full px-4">
@@ -52,14 +49,10 @@ const Intro = () => {
         className="flex flex-col lg:mx-0 md:mx-16 text-xl gap-6 mx-6 md:mx-12"
       >
         <p className="text-lg md:text-xl leading-relaxed text-muted-foreground geist">
-          I'm a senior at UMich Dearborn. I enjoy programming and making
-          software I find useful. I'm currently working on BabelFish, a chat
-          summarization tool that ensures you never miss another important
-          conversation.
+    I'm a senior at UMich Dearborn graduating April 2026. I build software when existing solutions fail. I'm open to full stack/mobile dev roles anywhere in the US. 
         </p>
         <p className="text-lg md:text-xl leading-relaxed text-muted-foreground geist">
-          When I'm not glued to my editor, you probably will find me playing chess.
-          Here's me hitting 2650 on{" "}
+          When I'm not glued to my editor, you'll find me playing chess. Here's me hitting 2650 on{" "}
           <Link 
             href="https://www.chess.com/member/n_s_m/stats"
             className="text-accent hover:text-accent/80 transition-colors underline underline-offset-4 decoration-2 hover:decoration-accent"
@@ -90,23 +83,11 @@ const SelfInfo = () => {
   return (
     <div className="items-center flex flex-col gap-4">
       <div className="relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-accent to-primary blur-lg opacity-30 animate-pulse" />
+        <div className="absolute inset-0 blur-lg opacity-30" />
         <Avatar className="w-28 h-28 border-4 border-card relative">
           <AvatarImage src="/me.jpg" alt="@nitinmadhu" className="object-cover" />
           <AvatarFallback className="bg-accent text-accent-foreground text-3xl font-bold">NM</AvatarFallback>
         </Avatar>
-      </div>
-      <div className="flex items-center flex-col text-center">
-        <h3 className="text-3xl font-bold text-foreground mb-1">Nitin Madhu</h3>
-        <p className="text-base text-muted-foreground">
-          <span className="font-mono text-accent">{info.currentStanding()}</span> at{" "}
-          <a
-            href={info.personal.university_link}
-            className="text-muted-foreground hover:text-foreground transition-colors decoration-2 hover:decoration-accent"
-          >
-            {info.personal.university}
-          </a>
-        </p>
       </div>
     </div>
   );

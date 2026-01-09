@@ -218,7 +218,7 @@ export default function App() {
             <div className="flex items-center gap-2">
               <div className="text-[10px] uppercase tracking-widest text-gray-500">Status:</div>
               <div className="flex items-center gap-1.5">
-                <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></div>
+                <div className="w-1.5 h-1.5 rounded-none bg-green-400 animate-pulse"></div>
                 <span className="text-green-400 text-xs font-mono tracking-wider">COGNIZANT</span>
               </div>
             </div>
@@ -258,7 +258,7 @@ export default function App() {
         {/* Footer */}
         <footer className="flex justify-between items-end border-t border-white/10 pt-4 pointer-events-auto">
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-orange-600 animate-ping"></div>
+            <div className="w-2 h-2 rounded-none bg-orange-600 animate-ping"></div>
             <span className="text-[10px] tracking-[0.2em] text-gray-500 uppercase">Live Simulation</span>
           </div>
           

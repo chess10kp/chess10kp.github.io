@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
@@ -86,7 +85,7 @@ const Header = () => {
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
             <div
-              className={`px-4 py-2 text-base sm:text-lg font-mono transition-all duration-300 cursor-pointer ${
+              className={`px-4 py-2 text-base sm:text-lg transition-all duration-300 cursor-pointer border border-foreground ${
                 currentPathName === "/"
                   ? "bg-background text-foreground border border-border"
                   : "text-muted-foreground hover:text-foreground hover:bg-background/50"
@@ -105,7 +104,7 @@ const Header = () => {
           whileHover={{ y: -2 }}
           whileTap={{ y: 0 }}
           transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          className={`px-4 py-2 text-base sm:text-lg hidden md:inline-flex font-mono transition-all duration-300 flex-shrink-0 ${
+          className={`px-4 py-2 text-base sm:text-lg hidden md:inline-flex transition-all duration-300 flex-shrink-0 ${
             currentPathName === "/" || currentPathName === "/#projects"
               ? "bg-secondary text-background border border-border"
               : "text-muted-foreground hover:text-foreground hover:bg-background/50"
@@ -120,7 +119,7 @@ const Header = () => {
           whileHover={{ y: -2 }}
           whileTap={{ y: 0 }}
           transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          className={`hidden md:inline-flex px-4 py-2 text-base sm:text-lg font-mono transition-all duration-300 flex-shrink-0 ${
+          className={`hidden md:inline-flex px-4 py-2 text-base sm:text-lg transition-all duration-300 flex-shrink-0 ${
             currentPathName === "/about"
               ? "bg-secondary text-background border border-border"
               : "text-muted-foreground hover:text-foreground hover:bg-background/50"
@@ -135,7 +134,7 @@ const Header = () => {
           whileHover={{ y: -2 }}
           whileTap={{ y: 0 }}
           transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          className={`hidden md:inline-flex px-4 py-2 text-base sm:text-lg font-mono transition-all duration-300 flex-shrink-0 ${
+          className={`hidden md:inline-flex px-4 py-2 text-base sm:text-lg transition-all duration-300 flex-shrink-0 ${
             isBlogPage
               ? "bg-secondary text-background border border-border"
               : "text-muted-foreground hover:text-foreground hover:bg-background/50"
@@ -147,7 +146,7 @@ const Header = () => {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="md:hidden ml-auto px-3 py-2 text-lg font-mono text-muted-foreground hover:text-foreground hover:bg-background/50 transition-all duration-300 flex-shrink-0"
+          className="md:hidden ml-auto px-3 py-2 text-lg text-muted-foreground hover:text-foreground hover:bg-background/50 transition-all duration-300 flex-shrink-0"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? "✕" : "☰"}
@@ -175,7 +174,7 @@ const Header = () => {
                       scrollToSection(item.link);
                       setIsMobileMenuOpen(false);
                     }}
-                    className={`text-left text-lg font-mono transition-all duration-300 py-3 px-4 border ${
+                    className={`text-left text-lg transition-all duration-300 py-3 px-4 border ${
                       isActiveLink(item.link)
                         ? "text-foreground border-border bg-background"
                         : "text-muted-foreground border-transparent hover:text-foreground hover:bg-background/50"
@@ -192,7 +191,7 @@ const Header = () => {
                     router.push("/blog");
                     setIsMobileMenuOpen(false);
                   }}
-                  className={`text-left text-lg font-mono transition-all duration-300 py-3 px-4 border ${
+                  className={`text-left text-lg  transition-all duration-300 py-3 px-4 border ${
                     isBlogPage
                       ? "text-foreground border-border bg-background"
                       : "text-muted-foreground border-transparent hover:text-foreground hover:bg-background/50"

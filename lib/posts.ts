@@ -110,8 +110,7 @@ export async function getPostById(id: string) {
     const matterResult = matter(fileContents);
     const { processedContent, footnotes } = processFootnotes(matterResult.content);
     const processedHtml = marked(processedContent);
-    
-    // Append footnotes section if any exist
+
     let finalContent = processedHtml;
     if (footnotes.size > 0) {
       let footnotesHtml = '<div class="footnotes"><hr><ol>';
@@ -121,7 +120,7 @@ export async function getPostById(id: string) {
       footnotesHtml += '</ol></div>';
       finalContent += footnotesHtml;
     }
-    
+
     return {
       content: finalContent,
       id: matterResult.data.id,
@@ -133,4 +132,18 @@ export async function getPostById(id: string) {
   } catch (error) {
     return { content: null, id: null, title: null, date: null, tags: [] };
   }
+}
+
+export function getAdjacentPosts(currentId: string) {
+  const posts = getSortedPostsData();
+  const currentIndex = posts.findIndex((post) => post.id === currentId);
+
+  if (currentIndex === -1) {
+    return { prev: null, next: null };
+  }
+
+  return {
+    prev: currentIndex > 0 ? posts[currentIndex - 1] : null,
+    next: currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null,
+  };
 }
