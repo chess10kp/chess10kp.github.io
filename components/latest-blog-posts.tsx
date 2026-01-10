@@ -47,7 +47,7 @@ const LatestBlogPosts = ({ posts }: Props) => {
             delay={index * 100}
           >
             <Link href={`/blog/${id}`}>
-              <div className="h-full p-6 md:p-8 border border-border/30 bg-card/40 backdrop-blur-xl hover:bg-card/60 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-500 group">
+              <div className="h-full p-6 md:p-8 border border-border/30 bg-card/40 backdrop-blur-xl hover:bg-card/60 hover:border-accent/30 transition-all duration-500 group">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
                   <span className="font-mono">{date}</span>
                 </div>

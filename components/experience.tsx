@@ -23,7 +23,7 @@ const ExperienceCard = ({
 }: ExperienceCardType) => {
   return (
     <AnimatedSection threshold={0.2} animation="fade-up" delay={delay}>
-      <Card className="grid border border-border/30 md:grid-cols-4 bg-card/40 backdrop-blur-xl mb-6 p-6 hover:bg-card/60 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-500">
+      <Card className="grid border border-border/30 md:grid-cols-4 bg-card/40 backdrop-blur-xl mb-6 p-6 hover:bg-card/60 hover:border-accent/30 transition-all duration-500">
         <CardHeader className="text-muted-foreground text-left p-0 my-2 mono md:col-span-1 font-semibold">
           {timeline}
         </CardHeader>

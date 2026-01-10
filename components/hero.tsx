@@ -81,7 +81,6 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
         className={`relative p-4 text-muted-foreground transition-all duration-500 bg-card/30 border border-border/30 backdrop-blur-sm ${link.color}`}
         whileHover={{
           scale: 1.1,
-          boxShadow: "0 10px 30px -10px hsl(var(--primary) / 0.4), 0 0 20px hsl(var(--primary) / 0.2)",
         }}
         whileTap={{ scale: 0.95 }}
         aria-label={link.label}
@@ -259,8 +258,7 @@ const Hero = () => {
                     transition={{
                       duration: 0.5,
                       delay: index * 0.05,
-                      type: "spring",
-                      stiffness: 100,
+                      ease: "easeOut",
                     }}
                     className="inline-block hover:text-accent transition-colors duration-200 cursor-default"
                   >
@@ -277,8 +275,7 @@ const Hero = () => {
                     transition={{
                       duration: 0.5,
                       delay: 0.25 + index * 0.05,
-                      type: "spring",
-                      stiffness: 100,
+                      ease: "easeOut",
                     }}
                     className="inline-block text-muted-foreground/60 hover:text-accent transition-colors duration-200 cursor-default"
                   >

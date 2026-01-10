@@ -82,7 +82,7 @@ const Header = () => {
           <motion.div
             whileHover={{ y: -2 }}
             whileTap={{ y: 0 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            transition={{ type: "inertia", stiffness: 400, damping: 17 }}
           >
             <div
               className={`px-4 py-2 text-base sm:text-lg transition-all duration-300 cursor-pointer border border-foreground ${

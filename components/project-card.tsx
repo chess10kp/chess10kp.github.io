@@ -29,7 +29,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
         whileHover={{ y: -4 }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
       >
-        <Card className="h-full text-center border border-border bg-card/50 rounded-none hover:bg-accent/5 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.1)] transition-all duration-300 flex flex-col cursor-pointer">
+        <Card className="h-full text-center border border-border bg-card/50 rounded-none hover:bg-accent/5 transition-all duration-300 flex flex-col cursor-pointer">
           <CardHeader className="border-b border-border">
             <CardTitle className="font-mono text-accent ">
               {project.name}

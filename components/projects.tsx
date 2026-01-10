@@ -85,7 +85,7 @@ const ProjectCard = ({
     return (
       <AnimatedSection  animation="fade-up" delay={delay}>
         <Link href={`/blog/${blogId}`}>
-          <Card className="grid border border-border/30 md:grid-cols-4 bg-card/40 backdrop-blur-xl mb-6 p-6 cursor-pointer hover:bg-card/60 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-500 group">
+          <Card className="grid border border-border/30 md:grid-cols-4 bg-card/40 backdrop-blur-xl mb-6 p-6 cursor-pointer hover:bg-card/60 hover:border-accent/30 transition-all duration-500 group">
             {CardContent}
           </Card>
         </Link>
@@ -95,7 +95,7 @@ const ProjectCard = ({
 
   return (
     <AnimatedSection animation="fade-up" delay={delay}>
-      <Card className="grid border border-border/30 md:grid-cols-4 bg-card/40 backdrop-blur-xl mb-6 p-6 hover:bg-card/60 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-500 group">
+      <Card className="grid border border-border/30 md:grid-cols-4 bg-card/40 backdrop-blur-xl mb-6 p-6 hover:bg-card/60 hover:border-accent/30 transition-all duration-500 group">
         {CardContent}
       </Card>
     </AnimatedSection>
