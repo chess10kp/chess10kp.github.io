@@ -12,7 +12,7 @@ import { motion } from "framer-motion";
 const About = () => {
   return (
     <AnimationProvider>
-      <div className="flex flex-col my-10 items-center min-h-[80vh] pb-24">
+      <div className="flex flex-col my-10 mt-24 items-center min-h-[80vh] pb-24">
         <AnimatedSection
           animation="fade-up"
           className="text-center mb-12"

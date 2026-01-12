@@ -78,7 +78,7 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
       <motion.button
         onClick={link.copyable ? () => handleCopyEmail(link.username) : undefined}
         style={{ x: moveX, y: moveY }}
-        className={`relative p-4 text-muted-foreground transition-all duration-500 bg-card/30 border border-border/30 backdrop-blur-sm ${link.color}`}
+        className={`relative p-4 text-muted-foreground transition-all duration-200 bg-card/30 border border-border/30 backdrop-blur-sm ${link.color}`}
         whileHover={{
           scale: 1.1,
         }}
@@ -222,20 +222,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="min-h-[70vh] flex flex-col justify-center space-y-12 py-8 relative overflow-hidden">
-      <div
-        className="absolute inset-0 z-[-1] pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, hsl(var(--foreground) / 0.1) 1px, transparent 1px),
-            linear-gradient(to bottom, hsl(var(--foreground) / 0.1) 1px, transparent 1px)
-          `,
-          backgroundSize: '50px 50px'
-        }}
-      />
-      <div
-        className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-background/80"
-      />
+    <section className="min-h-[70vh] flex flex-col justify-center space-y-12 py-8 relative">
       <motion.div
         className="absolute inset-0 pointer-events-none"
         animate={{
@@ -253,10 +240,10 @@ const Hero = () => {
                 {firstName.map((letter, index) => (
                   <motion.span
                     key={index}
-                    initial={{ y: 50, opacity: 0 }}
+                    initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{
-                      duration: 0.5,
+                      duration: 0.2,
                       delay: index * 0.05,
                       ease: "easeOut",
                     }}
@@ -270,14 +257,14 @@ const Hero = () => {
                 {lastName.map((letter, index) => (
                   <motion.span
                     key={index}
-                    initial={{ y: 50, opacity: 0 }}
+                    initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{
-                      duration: 0.5,
+                      duration: 0.2,
                       delay: 0.25 + index * 0.05,
                       ease: "easeOut",
                     }}
-                    className="inline-block text-muted-foreground/60 hover:text-accent transition-colors duration-200 cursor-default"
+                    className="inline-block text-secondary/80 hover:text-accent transition-colors duration-200 cursor-default"
                   >
                     {letter}
                   </motion.span>
@@ -299,7 +286,7 @@ const Hero = () => {
           <div className="inline-flex items-center gap-2 group cursor-pointer">
             <a
               href="/about"
-              className="text-foreground hover:text-accent transition-colors duration-300 flex items-center gap-2"
+              className="text-foreground hover:text-accent transition-colors duration-200 flex items-center gap-2"
             >
               <span className="text-lg geist">Who am I?</span>
               <motion.span

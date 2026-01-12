@@ -35,37 +35,46 @@ const HomeContent = ({ posts, availableBlogPosts }: HomeContentProps) => {
         <>
           <Header />
            <div className="relative mx-auto flex w-screen items-center justify-center">
-             <main className="relative">
+             <main className="relative w-full">
+               <div className="absolute inset-0 z-[-1] pointer-events-none h-full w-full"
+                 style={{
+                   backgroundImage: `
+                     linear-gradient(to right, hsl(var(--foreground) / 0.1) 1px, transparent 1px),
+                     linear-gradient(to bottom, hsl(var(--foreground) / 0.1) 1px, transparent 1px)
+                   `,
+                   backgroundSize: '50px 50px'
+                 }}
+               />
                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="max-w-5xl mx-auto">
-                  <div className="py-12 md:py-16 border-b border-border/30">
-                    <Hero />
-                  </div>
-                  <div className="py-24 border-b border-border/30">
-                    <Experience />
-                  </div>
-                  <div className="py-24 border-b border-border/30" id="projects">
-                    <Projects availableBlogPosts={availableBlogPosts} />
-                  </div>
-                  <div className="py-24 border-b border-border/30">
-                    <LatestBlogPosts posts={posts} />
-                  </div>
-                  <div className="py-12 md:py-16 border-b border-border/30">
-                    <Skills />
-                  </div>
-                  <div className="py-24">
-                    <ContactSection />
-                  </div>
-                  <div className="py-12 pb-24">
-                    {/* Extra padding for mode line */}
-                  </div>
-                </div>
-              </div>
-            </main>
-          </div>
-          <Footer />
-        </>
-      )}
+                 <div className="max-w-5xl mx-auto">
+                   <div className="py-12 md:py-16 border-b border-border/30 relative z-10">
+                     <Hero />
+                   </div>
+                   <div className="py-24 border-b border-border/30 relative z-10">
+                     <Experience />
+                   </div>
+                   <div className="py-24 border-b border-border/30 relative z-10" id="projects">
+                     <Projects availableBlogPosts={availableBlogPosts} />
+                   </div>
+                   <div className="py-24 border-b border-border/30 relative z-10">
+                     <LatestBlogPosts posts={posts} />
+                   </div>
+                   <div className="py-12 md:py-16 border-b border-border/30 relative z-10">
+                     <Skills />
+                   </div>
+                   <div className="py-24 relative z-10">
+                     <ContactSection />
+                   </div>
+                   <div className="py-12 pb-24 relative z-10">
+                     {/* Extra padding for mode line */}
+                   </div>
+                 </div>
+               </div>
+             </main>
+           </div>
+           <Footer />
+         </>
+       )}
     </AnimationProvider>
   );
 };

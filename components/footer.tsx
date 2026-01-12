@@ -115,7 +115,7 @@ const Footer = () => {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-foreground hover:bg-card/50 p-1 transition-all duration-300"
+                  className="text-muted-foreground hover:text-foreground hover:bg-card/50 p-1 transition-all duration-200"
                   aria-label={link.label}
                 >
                   {link.icon === ChessSvg ? (

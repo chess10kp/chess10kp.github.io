@@ -39,7 +39,7 @@ const LatestBlogPosts = ({ posts }: Props) => {
         </div>
       </AnimatedSection>
 
-      <div className="grid gap-6 md:grid-cols-1">
+      <div className="space-y-6">
         {latestPosts.map(({ id, date, title, tags, tagline }, index) => (
           <AnimatedSection
             key={id}
@@ -47,7 +47,7 @@ const LatestBlogPosts = ({ posts }: Props) => {
             delay={index * 100}
           >
             <Link href={`/blog/${id}`}>
-              <div className="h-full p-6 md:p-8 border border-border/30 bg-card/40 backdrop-blur-xl hover:bg-card/60 hover:border-accent/30 transition-all duration-500 group">
+              <div className="h-full p-6 md:p-8 border border-border/30 bg-card/40 backdrop-blur-xl hover:bg-card/60 hover:border-accent/30 transition-all duration-200 group">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
                   <span className="font-mono">{date}</span>
                 </div>
@@ -69,7 +69,7 @@ const LatestBlogPosts = ({ posts }: Props) => {
             <Link href="/blog">
               <Button 
                 variant="outline" 
-                className="group hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all duration-300"
+                className="group hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all duration-200"
               >
                 View All Posts
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />

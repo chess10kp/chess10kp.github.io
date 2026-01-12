@@ -26,8 +26,8 @@ export function ContactSection() {
           Reach Out
         </h2>
       </div>
-      <div className="grid border border-border/30 md:grid-cols-4 bg-card/40 backdrop-blur-xl p-6 md:p-8 hover:bg-card/60 hover:border-accent/30 transition-all duration-500">
-        <div className="md:col-span-5 md:pl-8">
+      <div className="border border-border/30 bg-card/40 backdrop-blur-xl p-6 md:p-8 hover:bg-card/60 hover:border-accent/30 transition-all duration-200">
+        <div className="">
           <ContactForm />
         </div>
       </div>

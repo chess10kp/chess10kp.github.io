@@ -26,7 +26,7 @@ const ProjectCard = ({
 }: ProjectCardType & { hasBlogPost: boolean; delay?: number }) => {
   const CardContent = (
     <>
-      <div className="my-2 mx-0 px-0 space-y-5 text-left md:col-span-4">
+      <div className="my-2 mx-0 px-0 space-y-5 text-left">
         <div className="flex items-start justify-between gap-4">
           <h3 className="text-2xl text-accent text-accent/80 font-semibold mono">
             {name}
@@ -85,7 +85,7 @@ const ProjectCard = ({
     return (
       <AnimatedSection  animation="fade-up" delay={delay}>
         <Link href={`/blog/${blogId}`}>
-          <Card className="grid border border-border/30 md:grid-cols-4 bg-card/40 backdrop-blur-xl mb-6 p-6 cursor-pointer hover:bg-card/60 hover:border-accent/30 transition-all duration-500 group">
+          <Card className="border border-border/30 bg-card/40 backdrop-blur-xl mb-6 p-6 cursor-pointer hover:bg-card/60 hover:border-accent/30 transition-all duration-200 group">
             {CardContent}
           </Card>
         </Link>
@@ -95,7 +95,7 @@ const ProjectCard = ({
 
   return (
     <AnimatedSection animation="fade-up" delay={delay}>
-      <Card className="grid border border-border/30 md:grid-cols-4 bg-card/40 backdrop-blur-xl mb-6 p-6 hover:bg-card/60 hover:border-accent/30 transition-all duration-500 group">
+      <Card className="border border-border/30 bg-card/40 backdrop-blur-xl mb-6 p-6 hover:bg-card/60 hover:border-accent/30 transition-all duration-200 group">
         {CardContent}
       </Card>
     </AnimatedSection>
