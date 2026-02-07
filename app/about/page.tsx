@@ -15,9 +15,9 @@ const About = () => {
       <div className="flex flex-col my-10 mt-24 items-center min-h-[80vh] pb-24">
         <AnimatedSection
           animation="fade-up"
-          className="text-center mb-12"
+          className="text-center mb-10"
         >
-          <h2 className="text-5xl md:text-6xl font-bold mono text-foreground/90">
+          <h2 className="text-3xl md:text-4xl font-bold font-mono text-foreground/90">
             About
           </h2>
         </AnimatedSection>
@@ -46,10 +46,22 @@ const Intro = () => {
       <AnimatedSection
         animation="fade-up"
         delay={300}
-        className="flex flex-col lg:mx-0 md:mx-16 text-xl gap-6 mx-6 md:mx-12"
+        className="flex flex-col lg:mx-0 md:mx-16 text-base gap-6 mx-6 md:mx-12"
       >
-        <p className="text-lg md:text-xl leading-relaxed text-muted-foreground geist">
-    I'm a senior at UMich Dearborn graduating April 2026. I build software when existing solutions fail. I'm open to full stack/mobile dev roles anywhere in the US. 
+        <p className="text-base md:text-lg leading-relaxed text-muted-foreground font-mono">
+    I'm a senior at UMich Dearborn graduating April 2026. I build software when existing solutions fail. I'm open to full stack/mobile dev roles anywhere in US.
+        </p>
+        <p className="text-base md:text-lg leading-relaxed text-muted-foreground font-mono">
+          When I'm not glued to my editor, you'll find me playing chess. Here's me hitting 2650 on{" "}
+          <Link
+            href="https://www.chess.com/member/n_s_m/stats"
+            className="text-accent hover:text-accent/80 transition-colors underline underline-offset-4 decoration-2 hover:decoration-accent"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            chess.com
+          </Link>
+          .
         </p>
         <p className="text-lg md:text-xl leading-relaxed text-muted-foreground geist">
           When I'm not glued to my editor, you'll find me playing chess. Here's me hitting 2650 on{" "}
@@ -95,9 +107,9 @@ const SelfInfo = () => {
 
 const ContactInfo = () => {
   const personal_links = [
-    { name: <Github size={24} />, link: info.links.github, label: "GitHub" },
-    { name: <Linkedin size={24} />, link: info.links.linkedin, label: "LinkedIn" },
-    { name: <Mail size={24} />, link: info.links.email, label: "Email" },
+    { name: <Github size={18} />, link: info.links.github, label: "GitHub" },
+    { name: <Linkedin size={18} />, link: info.links.linkedin, label: "LinkedIn" },
+    { name: <Mail size={18} />, link: info.links.email, label: "Email" },
   ];
   return (
     <div className="flex justify-center gap-3 flex-wrap">
@@ -107,7 +119,7 @@ const ContactInfo = () => {
           href={link.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-3 px-4 py-2 text-accent hover:text-foreground bg-card/50 hover:bg-card border border-border/30 transition-all duration-300 group"
+          className="flex items-center gap-2 px-3 py-1.5 text-sm text-accent hover:text-foreground bg-card/50 hover:bg-card border border-border/30 transition-all duration-300 group font-mono"
           whileHover={{ y: -2, scale: 1.05 }}
           whileTap={{ scale: 0.98 }}
           initial={{ opacity: 0, scale: 0.9 }}

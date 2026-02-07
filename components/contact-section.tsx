@@ -18,15 +18,15 @@ export function ContactSection() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
     >
-      <div className="mb-12">
-        <p className="text-accent font-mono text-sm tracking-widest uppercase mb-2">
-          I'd love to hear from you
+      <div className="mb-5">
+        <p className="text-accent font-mono text-xs mb-1.5">
+          ;; I'd love to hear from you
         </p>
-        <h2 className="text-4xl md:text-5xl font-bold mono text-foreground/90 mb-4">
-          Reach Out
+        <h2 className="text-xl md:text-2xl font-semibold font-mono text-foreground mb-3">
+          ** Reach Out
         </h2>
       </div>
-      <div className="border border-border/30 bg-card/40 backdrop-blur-xl p-6 md:p-8 hover:bg-card/60 hover:border-accent/30 transition-all duration-200">
+      <div className="py-2">
         <div className="">
           <ContactForm />
         </div>

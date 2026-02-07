@@ -57,7 +57,7 @@
     --chart-3: 348 83% 61%;
     --chart-4: 28 80% 54%;
     --chart-5: 211 76% 51%;
-    --font-mono: "Victor Mono", sans-serif;
+    --font-mono: "JetBrains Mono", "Victor Mono", "Menlo", "Monaco", "Consolas", monospace;
     --font-geist: "SF Pro Display", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     --font-sans: "SF Pro Display", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   }
@@ -113,6 +113,9 @@ body {
   scroll-padding-top: 2rem;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 h1 {
@@ -193,4 +196,163 @@ h1 {
 
 .accent-pulse {
   animation: accent-pulse 3s ease-in-out infinite;
+}
+
+/* Emacs-style cursor */
+.emacs-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.2em;
+  background: hsl(var(--primary));
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Emacs-style region selection */
+.emacs-region {
+  background: hsl(var(--accent) / 0.3);
+}
+
+/* Emacs-style buffer list */
+.emacs-buffer {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--background));
+  transition: all 0.1s ease;
+}
+
+.emacs-buffer:hover {
+  background: hsl(var(--muted));
+  border-color: hsl(var(--accent));
+}
+
+.emacs-buffer.active {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+  border-color: hsl(var(--accent));
+}
+
+/* Emacs-style menu bar */
+.emacs-menu-bar {
+  background: hsl(var(--background));
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.emacs-menu-item {
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.emacs-menu-item:hover {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+
+/* Emacs-style buttons */
+.emacs-button {
+  border: 1px solid hsl(var(--border));
+  padding: 0.25rem 0.75rem;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.emacs-button:hover {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+  border-color: hsl(var(--accent));
+}
+
+.emacs-button:active {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+/* Emacs-style links */
+a.emacs-link {
+  color: hsl(var(--accent));
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.1s ease;
+}
+
+a.emacs-link:hover {
+  border-bottom: 1px solid hsl(var(--accent));
+  background: hsl(var(--accent) / 0.1);
+}
+
+/* org-modern style */
+.org-modern-section {
+  position: relative;
+}
+
+.org-modern-headline {
+  font-weight: 600;
+  margin: 1.25rem 0 0.75rem 0;
+  padding: 0.25rem 0;
+}
+
+.org-modern-headline h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.org-modern-headline h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.org-modern-headline h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.org-modern-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.org-modern-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.org-modern-list li::before {
+  content: '-';
+  position: absolute;
+  left: 0.5rem;
+  color: hsl(var(--accent));
+}
+
+.org-modern-hr {
+  border: none;
+  height: 1px;
+  background: hsl(var(--border));
+  margin: 1.5rem 0;
+}
+
+/* Emacs-style headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Force monospace everywhere */
+* {
+  font-family: var(--font-mono) !important;
 }

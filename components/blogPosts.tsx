@@ -4,12 +4,23 @@ import { Badge } from "@/components/ui/badge";
 import { AnimatedSection } from "@/components/animated-section";
 
 type Props = {
-  posts: { id: string; date: string; title: string; tags: string[]; tagline: string }[];
+  posts: {
+    id: string;
+    date: string;
+    title: string;
+    tags: string[];
+    tagline: string;
+  }[];
 };
 
 const BlogPosts = ({ posts }: Props) => {
   return (
-    <div className="min-h-[80vh] pt-20">
+    <div className="min-h-[80vh] pt-16">
+      <AnimatedSection animation="fade-up" delay={0}>
+        <div className="mb-10">
+          <p className="text-accent font-mono text-lg mb-2">;; Blog</p>
+        </div>
+      </AnimatedSection>
       <ul className="space-y-3">
         {posts &&
           posts.map(({ id, date, title, tags, tagline }, index) => {
@@ -17,30 +28,40 @@ const BlogPosts = ({ posts }: Props) => {
               <AnimatedSection
                 key={id}
                 animation="fade-up"
-                delay={index * 100}
-                className="flex items-center justify-between p-3 rounded-none bg-card/30 hover:bg-card/50 border border-transparent hover:border-accent/30 transition-all duration-300"
+                delay={index * 50 + 100}
+                className="flex items-start justify-between p-3 rounded-none bg-card/30 hover:bg-card/50  transition-all duration-300"
               >
                 <div className="flex-1">
-                  <p className="text-xs text-muted-foreground mb-1">
-                    {date}
-                  </p>
                   <Link href={`/blog/${id}`}>
-                    <h1 className="text-lg mono font-bold text-accent hover:text-accent/80 transition-colors">{title}</h1>
+                    <h1 className="text-lg font-bold text-accent hover:text-accent/80 transition-colors font-mono">
+                      {title}
+                    </h1>
                   </Link>
+                  <Badge variant={"secondary"} className="text-xs font-mono">
+                    {date}
+                  </Badge>
                   {tagline && (
-                    <p className="text-sm text-muted-foreground italic mt-1 line-clamp-2">
+                    <p className="text-sm text-muted-foreground/80 mt-1 line-clamp-2 font-mono">
                       {tagline}
                     </p>
                   )}
                 </div>
-                 <div className="flex flex-wrap gap-2 ml-4">
-                   {tags.slice(0, 3).map((tag) => (
-                     <Badge key={tag} variant="secondary" className="hover:bg-accent/20 hover:text-accent transition-colors text-xs">{tag}</Badge>
-                   ))}
-                   {tags.length > 3 && (
-                     <Badge variant="secondary" className="text-xs">+{tags.length - 3}</Badge>
-                   )}
-                 </div>
+                <div className="flex flex-wrap gap-2 ml-4">
+                  {tags.slice(0, 3).map((tag) => (
+                    <Badge
+                      key={tag}
+                      variant="outline"
+                      className="transition-colors text-secondary text-xs font-mono"
+                    >
+                      {tag}
+                    </Badge>
+                  ))}
+                  {tags.length > 3 && (
+                    <Badge variant="secondary" className="text-xs font-mono">
+                      +{tags.length - 3}
+                    </Badge>
+                  )}
+                </div>
               </AnimatedSection>
             );
           })}

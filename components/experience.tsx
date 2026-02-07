@@ -1,6 +1,4 @@
 "use client";
-import { Badge } from "./ui/badge";
-import { Card, CardContent, CardHeader } from "./ui/card";
 import { AnimatedSection } from "./animated-section";
 
 type ExperienceCardType = {
@@ -22,33 +20,46 @@ const ExperienceCard = ({
   delay = 0,
 }: ExperienceCardType) => {
   return (
-    <AnimatedSection threshold={0.2} animation="fade-up" delay={delay}>
-      <Card className="border border-border/30 bg-card/40 backdrop-blur-xl mb-6 p-6 hover:bg-card/60 hover:border-accent/30 transition-all duration-200">
-        <CardHeader className="text-muted-foreground text-left p-0 my-2 mono font-semibold">
-          {timeline}
-        </CardHeader>
-        <CardContent className="my-2 mx-0 px-0 space-y-5 text-left">
-          <div className="text-xl md:text-2xl mono font-semibold">
-            <span className="text-accent">{position}</span>
-            <span className="text-muted-foreground mx-2">@</span>
-            <span className="text-foreground">{employer}</span>
+    <AnimatedSection
+      className="w-full"
+      threshold={0.2}
+      animation="fade-up"
+      delay={delay}
+    >
+      <div className="py-1.5 mb-6 pl-4 border-l border-border">
+        <div className="space-y-2 flex-col gap-4  text-left">
+          <div className="flex flex-wrap justify-between items-start gap-4">
+            <div className="md:text-base gap-2 flex font-mono font-semibold">
+              <span className="text-accent text-xl">{position}</span>
+              <span className="text-muted-foreground text-xl mx-1">@</span>
+              <span className=" text-xl text-foreground">{employer}</span>
+            </div>
+
+            <div className="flex flex-wrap gap-1.5 shrink-0">
+              {tech.map((t: string) => (
+                <span
+                  key={t}
+                  className="px-2 py-0.5 text-xs font-mono bg-secondary text-accent-foreground rounded-none"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
           </div>
-          <p className="text-muted-foreground geist leading-relaxed">
-            {description}
-          </p>
-          <div className="flex mono flex-wrap gap-2">
-            {tech.map((tech) => (
-              <Badge
-                key={tech}
-                variant="secondary"
-                className="bg-card/50 hover:bg-accent/10 transition-colors"
-              >
-                {tech}
-              </Badge>
-            ))}
+
+          <div className="text-muted-foreground text-left font-mono font-semibold text-xs mb-1.5">
+            {timeline}
           </div>
-        </CardContent>
-      </Card>
+          {description && description.split('.').map((p, i) => (
+            <p
+              key={i}
+              className="text-muted-foreground font-mono text-sm leading-relaxed"
+            >
+              {p}
+            </p>
+          ))}
+        </div>
+      </div>
     </AnimatedSection>
   );
 };
@@ -61,7 +72,7 @@ export function Experience() {
       employer: "Ancor",
       employer_link: "weareancor.com",
       description:
-        "Built a React Native RFID tracking app for 10k+ auto parts, patching incompatible libraries to ship to an enterprise client. We closed out a 5-figure annual license. I'm currently building LLM-powered asset management tools.",
+        "Built a React Native RFID tracking app for 10k+ auto parts, shipped to an enterprise client. Closed out a 5-figure annual license. Currently building LLM-powered asset management tools.",
       tech: ["Next.js", "React Native", "RAG"],
     },
     {
@@ -70,16 +81,17 @@ export function Experience() {
       employer: "UofM",
       employer_link: "https://github.com/chess10kp/cobas",
       description:
-        "Traditional Battery Management Systems are clunky and expensive. I'm finetuning ResNet models to predict battery charge wirelessly using reflections from ultrasonic chirped excitation in low-fidelity environments.",
+        "Traditional Battery Management Systems are clunky and expensive. Finetuning ResNet models to wirelessly predict battery charge in low-fidelity environments. Feature extraction from ultrasonic chirped excitation .",
       tech: ["Python", "PyTorch", "Numpy"],
     },
     {
       position: "Student Software Developer",
       employer_link: "https://hackdearborn.com",
       timeline: "Sep 2024 — Dec 2025",
-      employer: "Google Developer Groups",
-      description: "I worked on the HackDearborn's mobile app to improve event discovery and user engagement.",
-      tech: ["React Native", "Firebase", "TypeScript"],
+      employer: "GDG",
+      description:
+        "Worked on the HackDearborn's mobile app to improve event discovery and user engagement. Serving on the board as an advisor",
+      tech: ["Reac Native", "TypeScript"],
     },
     {
       position: "Research Assistant",
@@ -87,7 +99,7 @@ export function Experience() {
       employer: "UofM",
       employer_link: "https://github.com/chess10kp/compass",
       description:
-        "Risk engines often perpetuate historical bias. I trained regression models and built fairness metrics to quantify bias in sentencing prediction systems.",
+        "Risk engines often perpetuate historical bias. Trained regression models and built fairness metrics to quantify bias in sentencing prediction systems.",
       tech: ["Python", "Numpy", "Tensorflow"],
     },
     {
@@ -103,24 +115,26 @@ export function Experience() {
   return (
     <div id="experience" className="scroll-mt-24">
       <AnimatedSection animation="fade-up">
-        <div className="mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mono text-foreground/90">
+        <div className="org-modern-headline">
+          <h2 className="font-semibold font-mono text-foreground">
             Experience
           </h2>
         </div>
       </AnimatedSection>
-      {experiences.map((exp, i) => (
-        <ExperienceCard
-          key={i}
-          tech={exp.tech}
-          position={exp.position}
-          timeline={exp.timeline}
-          employer={exp.employer}
-          employer_link={exp.employer_link}
-          description={exp.description}
-          delay={i * 100}
-        />
-      ))}
+      <div className="flex flex-wrap gap-4 justify-center">
+        {experiences.map((exp, i) => (
+          <ExperienceCard
+            key={i}
+            tech={exp.tech}
+            position={exp.position}
+            timeline={exp.timeline}
+            employer={exp.employer}
+            employer_link={exp.employer_link}
+            description={exp.description}
+            delay={i * 80}
+          />
+        ))}
+      </div>
     </div>
   );
 }

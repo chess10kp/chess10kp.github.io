@@ -91,71 +91,57 @@ const Footer = () => {
   return (
     <>
       {/* Emacs Mode Line */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-xl border-t border-border/50">
-        <div className="flex items-center justify-between px-4 md:px-6 py-2 text-xs font-mono">
+      <div className="fixed bottom-0 left-0 right-0 z-[70] bg-background border-t border-border">
+        <div className="flex items-center justify-between px-2 md:px-4 py-1 text-xs font-mono">
           {/* Left: Buffer info */}
-          <div className="flex items-center gap-3 sm:gap-4">
-            <span className="text-foreground font-semibold">{bufferName}</span>
-            <span className="text-muted-foreground/50 hidden sm:inline">—</span>
-            <span className="text-accent hidden sm:inline font-medium">{modeName}</span>
-            <span className="text-muted-foreground/50 hidden md:inline">—</span>
-            <span className="text-muted-foreground/60 hidden md:inline">{lineCol}</span>
+          <div className="flex items-center gap-2">
+            <span className="text-foreground font-bold">---</span>
+            <span className="text-foreground/80">{bufferName}</span>
+            <span className="text-foreground/60">--</span>
+            <span className="text-accent font-semibold">{modeName}</span>
+            <span className="text-foreground/60">--</span>
+            <span className="text-foreground/60">L1</span>
+            <span className="text-foreground/60">--</span>
+            <span className="text-foreground/60">C1</span>
+            <span className="text-foreground/60">--</span>
+            <span className="text-foreground/80">Fundamental</span>
           </div>
-          
-          {/* Center: Social links as mini-icons */}
-          <div className="hidden md:flex items-center gap-3">
-            {socialLinks.map((link, idx) => (
-              <motion.div
-                key={idx}
-                className="relative"
-                onMouseEnter={() => setActiveTooltip(idx)}
-                onMouseLeave={() => setActiveTooltip(null)}
-              >
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-foreground hover:bg-card/50 p-1 transition-all duration-200"
-                  aria-label={link.label}
-                >
-                  {link.icon === ChessSvg ? (
-                    <ChessSvg />
-                  ) : (
-                    <link.icon size={13} />
-                  )}
-                </a>
 
-                <AnimatePresence>
-                  {activeTooltip === idx && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10, scale: 0.9 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -10, scale: 0.9 }}
-                      className="absolute bottom-full mb-4 left-1/2 -translate-x-1/2 px-3 py-2 bg-popover text-popover-foreground shadow-2xl border border-border whitespace-nowrap z-50"
-                    >
-                      <div className="text-sm font-semibold">{link.label}</div>
-                      <div className="text-xs text-muted-foreground">
-                        {link.username}
-                      </div>
-                      <div className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-popover border-r border-b border-border rotate-45" />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
+          {/* Center: Social links */}
+          <div className="hidden md:flex items-center gap-1">
+            {socialLinks.map((link, idx) => (
+              <motion.a
+                key={idx}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground/70 hover:text-foreground hover:bg-foreground/20 px-2 py-0.5 transition-all duration-100"
+                aria-label={link.label}
+              >
+                {link.icon === ChessSvg ? (
+                  <ChessSvg />
+                ) : (
+                  <link.icon size={11} />
+                )}
+              </motion.a>
             ))}
           </div>
-          
+
           {/* Right: Time and position */}
-          <div className="flex items-center gap-2 sm:gap-4">
-            <span className="text-muted-foreground/60 hidden sm:inline">(U)</span>
-            <span className="text-muted-foreground/60 hidden sm:inline">UTF-8</span>
-            <span className="text-foreground font-semibold">{timeString}</span>
+          <div className="flex items-center gap-2">
+            <span className="text-foreground/60">U</span>
+            <span className="text-foreground/60">--</span>
+            <span className="text-foreground/80">UTF-8</span>
+            <span className="text-foreground/60">--</span>
+            <span className="text-foreground/80">Top</span>
+            <span className="text-foreground/60">--</span>
+            <span className="text-foreground font-bold">{timeString}</span>
           </div>
         </div>
       </div>
 
       {/* Add padding to main content to account for fixed mode line */}
-      <div className="h-8"></div>
+      <div className="h-6"></div>
     </>
   );
 };

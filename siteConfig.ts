@@ -53,9 +53,19 @@ export default {
   },
   projects: [
     {
+      name: "Chesh",
+      description:
+        "An opensource TUI chess game viewer written in Ink, using the Lichess API.",
+      stack: [[typescriptsvg, "typescript"]],
+      href: "https://github.com/chess10kp/chesh",
+      demo: "https://www.npmjs.com/package/chesh",
+      image: "",
+      blogId: "",
+    },
+    {
       name: "Chatherine",
       description:
-        "Non-technical business owners lack the expertise to manage web hosting and deployments. Chatherine is a content management system that lets business owners update content on their website and app with a Telegram Bot.",
+        "Chatherine is a content management system that lets business owners update content on their website and app with a Telegram Bot.",
       stack: [
         [typescriptsvg, "typescript"],
         [nextsvg, "next.js", true],
@@ -70,7 +80,7 @@ export default {
     {
       name: "Babelfish",
       description:
-        "Discord doesn't have a native translation layer despite hosting thousands of diverse communities. BabelFish is an AI layer on top of Discord to translate messages in real-time and provides instant chat summarization",
+        "BabelFish is an AI layer on top of Discord to translate messages in real-time and provides instant chat summarization",
       stack: [
         [typescriptsvg, "typescript"],
         [geminisvg, "google gemini", true],
@@ -83,21 +93,20 @@ export default {
       blogid: "babelfish",
     },
 
-    // {
-    //   name: "hd4",
-    //   demo: "",
-    //   image: "",
-    //   description:
-    //     "a cross platform mobile app for um dearborn's hackdearborn 4",
-    //   stack: [
-    //     [typescriptsvg, "typescript"],
-    //     [reactsvg, "react native"],
-    //     [javasvg, "java"],
-    //     [supabase, "supabase"],
-    //   ],
-    //   href: "https://play.google.com/store/apps/details?id=org.hackdearborn.hackdearbornapp&pli=1",
-    //   blogid: "hd4",
-    // },
+    {
+      name: "hd4",
+      demo: "",
+      image: "",
+      description:
+        "a cross platform mobile app for um dearborn's hackdearborn 4",
+      stack: [
+        [typescriptsvg, "typescript"],
+        [javasvg, "java"],
+        [supabase, "supabase"],
+      ],
+      href: "https://play.google.com/store/apps/details?id=org.hackdearborn.hackdearbornapp&pli=1",
+      blogid: "hd4",
+    },
     {
       name: "Chessbreak",
       description:
@@ -107,6 +116,15 @@ export default {
       demo: "https://github.com/inkscribe-org/chessbreak",
       image: "",
       blogid: "improving_my_rating",
+    },
+    {
+      name: "MType",
+      description:
+        "A lightweight, local first monkeytype alternative that still looks good",
+      stack: [[typescriptsvg, "typescript"]],
+      href: "https://github.com/chess10kp/mtype",
+      demo: "typing.nitinm.dev",
+      image: "",
     },
     // {
     //   name: "socraticoin",

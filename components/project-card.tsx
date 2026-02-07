@@ -37,7 +37,9 @@ const ProjectCard = ({ project }: { project: Project }) => {
           </CardHeader>
           <div>
             <CardDescription className="text-left font-mono text-muted-foreground p-4">
-              {project.description}
+              {project.description.split(/([.!?;:])\s*/).filter(Boolean).map((sentence, i) => (
+                <div key={i}>{sentence.trim()}</div>
+              ))}
             </CardDescription>
           </div>
           <CardContent className="flex-grow"></CardContent>

@@ -2,6 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { AnimatedSection } from "@/components/animated-section";
 import { ArrowRight } from "lucide-react";
 
@@ -17,8 +18,6 @@ type Props = {
   posts: Post[];
 };
 
-
-
 const LatestBlogPosts = ({ posts }: Props) => {
   const latestPosts = posts.slice(0, 3);
 
@@ -27,36 +26,30 @@ const LatestBlogPosts = ({ posts }: Props) => {
   }
 
   return (
-    <div id="blog" className="py-16 scroll-mt-24">
+    <div id="blog" className="py-10 scroll-mt-24">
       <AnimatedSection animation="fade-up">
-        <div className="mb-12">
-          <p className="text-accent font-mono text-sm tracking-widest uppercase mb-2">
-            Thoughts & Writing
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold mono text-foreground/90">
-            Latest Posts
+        <div className="org-modern-headline">
+          <p className="text-accent font-mono text-xs mb-1">;; Blog</p>
+          <h2 className="text-xl md:text-2xl font-semibold font-mono text-foreground">
+            ** Latest Posts
           </h2>
         </div>
       </AnimatedSection>
 
-      <div className="space-y-6">
+      <div className="space-y-2">
         {latestPosts.map(({ id, date, title, tags, tagline }, index) => (
-          <AnimatedSection
-            key={id}
-            animation="fade-up"
-            delay={index * 100}
-          >
+          <AnimatedSection key={id} animation="fade-up" delay={index * 60}>
             <Link href={`/blog/${id}`}>
-              <div className="h-full p-6 md:p-8 border border-border/30 bg-card/40 backdrop-blur-xl hover:bg-card/60 hover:border-accent/30 transition-all duration-200 group">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                  <span className="font-mono">{date}</span>
+              <div className="h-full py-1.5 hover:bg-muted/10 transition-colors group">
+                <div className="text-accent font-mono text-sm leading-relaxed">
+                  [[{title}][{title}]]
                 </div>
-                <h3 className="text-xl md:text-2xl mono font-semibold mb-4 line-clamp-2 text-accent group-hover:text-accent/80 transition-colors">
-                  {title}
-                </h3>
-                <p className="text-md text-muted-foreground leading-relaxed">
+                <Badge variant={"secondary"} className="text-xs font-mono mt-1">
+                  {date}
+                </Badge>
+                <div className="text-xs text-muted-foreground mt-0.5 font-mono">
                   {tagline}
-                </p>
+                </div>
               </div>
             </Link>
           </AnimatedSection>
@@ -64,15 +57,14 @@ const LatestBlogPosts = ({ posts }: Props) => {
       </div>
 
       {posts.length > 3 && (
-        <AnimatedSection animation="fade-up" delay={300}>
-          <div className="mt-12 text-center">
+        <AnimatedSection animation="fade-up" delay={200}>
+          <div className="mt-6 text-left">
             <Link href="/blog">
-              <Button 
-                variant="outline" 
-                className="group hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all duration-200"
+              <Button
+                variant="outline"
+                className="group hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all duration-200 font-mono text-xs"
               >
-                View All Posts
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                [View All Posts]
               </Button>
             </Link>
           </div>

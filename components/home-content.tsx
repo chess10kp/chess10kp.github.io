@@ -31,50 +31,43 @@ const HomeContent = ({ posts, availableBlogPosts }: HomeContentProps) => {
     <AnimationProvider>
       {/* <AnimatePresence>{isLoading && <Loader />}</AnimatePresence> */}
 
-      {!isLoading && (
+          {!isLoading && (
         <>
           <Header />
-           <div className="relative mx-auto flex w-screen items-center justify-center">
-             <main className="relative w-full">
-               <div className="absolute inset-0 z-[-1] pointer-events-none h-full w-full"
-                 style={{
-                   backgroundImage: `
-                     linear-gradient(to right, hsl(var(--foreground) / 0.1) 1px, transparent 1px),
-                     linear-gradient(to bottom, hsl(var(--foreground) / 0.1) 1px, transparent 1px)
-                   `,
-                   backgroundSize: '50px 50px'
-                 }}
-               />
-               <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                 <div className="max-w-5xl mx-auto">
-                   <div className="py-12 md:py-16 border-b border-border/30 relative z-10">
-                     <Hero />
-                   </div>
-                   <div className="py-24 border-b border-border/30 relative z-10">
-                     <Experience />
-                   </div>
-                   <div className="py-24 border-b border-border/30 relative z-10" id="projects">
-                     <Projects availableBlogPosts={availableBlogPosts} />
-                   </div>
-                   <div className="py-24 border-b border-border/30 relative z-10">
-                     <LatestBlogPosts posts={posts} />
-                   </div>
-                   <div className="py-12 md:py-16 border-b border-border/30 relative z-10">
-                     <Skills />
-                   </div>
-                   <div className="py-24 relative z-10">
-                     <ContactSection />
-                   </div>
-                   <div className="py-12 pb-24 relative z-10">
-                     {/* Extra padding for mode line */}
-                   </div>
-                 </div>
-               </div>
-             </main>
-           </div>
-           <Footer />
-         </>
-       )}
+          <div className="relative flex w-screen justify-center">
+            <main className="relative w-full max-w-4xl">
+              <div className="container px-4 sm:px-6 lg:px-8">
+                <div className="w-full pt-8 pb-24">
+                  <div className="py-8 md:py-12 relative z-10">
+                    <Hero />
+                  </div>
+                  <div className="org-modern-hr" />
+                  <div className="py-8 md:py-12 relative z-10">
+                    <Experience />
+                  </div>
+                  <div className="org-modern-hr" />
+                  <div className="py-8 md:py-12 relative z-10" id="projects">
+                    <Projects availableBlogPosts={availableBlogPosts} />
+                  </div>
+                  <div className="org-modern-hr" />
+                  <div className="py-8 md:py-12 relative z-10">
+                    <LatestBlogPosts posts={posts} />
+                  </div>
+                  <div className="org-modern-hr" />
+                  <div className="py-8 md:py-12 relative z-10">
+                    <Skills />
+                  </div>
+                  <div className="org-modern-hr" />
+                  <div className="py-8 md:py-12 relative z-10">
+                    <ContactSection />
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+          <Footer />
+        </>
+      )}
     </AnimationProvider>
   );
 };

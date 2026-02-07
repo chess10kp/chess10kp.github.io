@@ -24,62 +24,38 @@ const ProjectCard = ({
   hasBlogPost,
   delay = 0,
 }: ProjectCardType & { hasBlogPost: boolean; delay?: number }) => {
-  const CardContent = (
-    <>
-      <div className="my-2 mx-0 px-0 space-y-5 text-left">
-        <div className="flex items-start justify-between gap-4">
-          <h3 className="text-2xl text-accent text-accent/80 font-semibold mono">
-            {name}
-          </h3>
-        </div>
-        <p className="text-muted-foreground geist leading-relaxed">
-          {description}
-        </p>
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex flex-wrap gap-2">
-            {stack.slice(0, 6).map((tech: any, i: number) => (
-              <div
-                key={i}
-                className="relative group"
-              >
-                <Image
-                  src={tech[0]}
-                  width="20"
-                  height="20"
-                  alt={tech[1]}
-                  className={`${tech[2] == true ? "dark:invert" : ""} transition-transform group-hover:scale-110`}
-                />
-              </div>
-            ))}
-            {stack.length > 6 && (
-              <span className="text-xs text-muted-foreground/60 font-mono py-1">
-                +{stack.length - 6}
-              </span>
-            )}
+   const CardContent = (
+     <>
+       <div className="my-2 mx-0 px-0 space-y-2 text-left">
+          <div className="flex items-start justify-between gap-2">
+            <h3 className="text-base text-accent text-accent/90 font-semibold font-mono">
+              {name}
+            </h3>
           </div>
-          {href && (
-            <a 
-              href={href} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="inline-flex items-center gap-2 text-sm font-mono text-accent hover:text-accent/80 transition-colors group"
-            >
-              <span>View Project</span>
-              <svg 
-                className="w-4 h-4 transition-transform group-hover:translate-x-1" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
-          )}
-        </div>
-      </div>
-    </>
-  );
+         <p className="text-muted-foreground font-mono text-sm leading-relaxed">
+           {description}
+         </p>
+          <div className="flex flex-wrap gap-1.5">
+            {stack.map((s: any) => (
+              <span key={s[1]} className="px-2 py-0.5 text-xs font-mono bg-accent text-accent-foreground rounded-none">
+                {s[1]}
+              </span>
+            ))}
+          </div>
+         {href && (
+           <a
+             href={href}
+             target="_blank"
+             rel="noopener noreferrer"
+             onClick={(e) => e.stopPropagation()}
+             className="inline-flex items-center gap-1 text-xs font-mono text-accent hover:text-accent/80 transition-colors group"
+           >
+             <span>[View Project]</span>
+           </a>
+           )}
+         </div>
+       </>
+   );
 
   if (hasBlogPost) {
     return (
@@ -112,12 +88,12 @@ const Projects = ({ availableBlogPosts = [] }: ProjectsProps) => {
   return (
     <div id="projects" className="scroll-mt-24">
       <AnimatedSection animation="fade-up">
-        <div className="mb-12">
-          <p className="text-accent font-mono text-sm tracking-widest uppercase mb-2">
-            Selected Work
+        <div className="org-modern-headline">
+          <p className="text-accent font-mono text-xs mb-1">
+            ;; Selected Work
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold mono text-foreground/90">
-            Projects
+          <h2 className="text-xl md:text-2xl font-semibold font-mono text-foreground">
+            ** Projects
           </h2>
         </div>
       </AnimatedSection>
@@ -136,7 +112,7 @@ const Projects = ({ availableBlogPosts = [] }: ProjectsProps) => {
               href={project.href}
               blogId={project.blogId}
               hasBlogPost={hasBlogPost}
-              delay={i * 100}
+              delay={i * 80}
             />
           );
         })}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "katex/dist/katex.min.css";
+import EmacsMenuBar from "@/components/emacs-menu-bar";
 
 export const metadata: Metadata = {
   title: "Nitin's Page",
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <body className="font-mono relative bg-background text-foreground">
+        <EmacsMenuBar />
         {children}
       </body>
     </html>

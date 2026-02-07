@@ -1,7 +1,12 @@
 "use client";
 import React, { useState, useRef, useLayoutEffect } from "react";
 import { Github, Linkedin, Mail } from "@geist-ui/icons";
-import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useTransform,
+} from "framer-motion";
 import { Check, ExternalLink, ArrowRight } from "lucide-react";
 import siteConfig from "@/siteConfig";
 import { AnimatedSection } from "./animated-section";
@@ -76,11 +81,13 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
       transition={{ delay: 0.6 + index * 0.1 }}
     >
       <motion.button
-        onClick={link.copyable ? () => handleCopyEmail(link.username) : undefined}
+        onClick={
+          link.copyable ? () => handleCopyEmail(link.username) : undefined
+        }
         style={{ x: moveX, y: moveY }}
-        className={`relative p-4 text-muted-foreground transition-all duration-200 bg-card/30 border border-border/30 backdrop-blur-sm ${link.color}`}
+        className={`relative p-3 text-muted-foreground transition-all duration-200 bg-card/30 border border-border/30 backdrop-blur-sm font-mono text-sm ${link.color}`}
         whileHover={{
-          scale: 1.1,
+          scale: 1.05,
         }}
         whileTap={{ scale: 0.95 }}
         aria-label={link.label}
@@ -125,17 +132,22 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="absolute bottom-full mb-4 left-1/2 -translate-x-1/2 px-4 py-3 bg-popover text-popover-foreground shadow-2xl border border-border whitespace-nowrap z-50"
+            className="absolute bottom-full mb-4 left-1/2 -translate-x-1/2 px-3 py-2 bg-popover text-popover-foreground shadow-xl border border-border whitespace-nowrap z-50 font-mono text-xs"
           >
-            <div className="text-sm font-semibold mb-1">{link.label}</div>
-            <div className="text-xs text-muted-foreground">{link.username}</div>
+            <div className="text-xs font-semibold mb-1">{link.label}</div>
+            <div className="text-[11px] text-muted-foreground">
+              {link.username}
+            </div>
             {link.copyable && (
-              <div className="text-xs text-accent mt-2 flex items-center gap-1">
+              <div className="text-[11px] text-accent mt-1 flex items-center gap-1">
                 Click to copy
               </div>
             )}
             {!link.copyable && (
-              <ExternalLink size={12} className="inline ml-1 text-muted-foreground" />
+              <ExternalLink
+                size={10}
+                className="inline ml-1 text-muted-foreground"
+              />
             )}
             <div className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-popover border-r border-b border-border rotate-45" />
           </motion.div>
@@ -222,49 +234,47 @@ const Hero = () => {
   };
 
   return (
-    <section className="min-h-[70vh] flex flex-col justify-center space-y-12 py-8 relative">
+    <section className="min-h-[40vh] flex flex-col justify-center space-y-5 py-4 relative text-left">
       <motion.div
         className="absolute inset-0 pointer-events-none"
         animate={{
-          background: `radial-gradient(800px circle at ${mousePosition.x}px ${mousePosition.y}px, hsl(var(--primary) / 0.03), transparent 50%)`,
+          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, hsl(var(--primary) / 0.02), transparent 50%)`,
         }}
       />
-      <div className="space-y-8 relative z-10">
+      <div className="space-y-5 relative z-10 text-left">
         <AnimatedSection threshold={0.1} animation="fade-up" delay={0}>
-          <div className="space-y-4">
-            <p className="text-accent font-mono text-sm tracking-widest uppercase">
+          <div className="space-y-2  text-left">
+            <h1 className="text-2xl flex gap-8  md:text-4xl lg:text-5xl font-semibold text-foreground leading-tight font-mono tracking-tight text-left">
               I'm
-            </p>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-tight">
-              <div className="flex">
+              <div className="flex flex-wrap gap-1">
                 {firstName.map((letter, index) => (
                   <motion.span
                     key={index}
-                    initial={{ y: 20, opacity: 0 }}
+                    initial={{ y: 15, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{
-                      duration: 0.2,
-                      delay: index * 0.05,
+                      duration: 0.15,
+                      delay: index * 0.03,
                       ease: "easeOut",
                     }}
-                    className="inline-block hover:text-accent transition-colors duration-200 cursor-default"
+                    className="inline-block hover:text-accent transition-colors duration-150 cursor-default"
                   >
                     {letter}
                   </motion.span>
                 ))}
               </div>
-              <div className="flex">
+              <div className="flex flex-wrap gap-1">
                 {lastName.map((letter, index) => (
                   <motion.span
                     key={index}
-                    initial={{ y: 20, opacity: 0 }}
+                    initial={{ y: 15, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{
-                      duration: 0.2,
-                      delay: 0.25 + index * 0.05,
+                      duration: 0.15,
+                      delay: 0.2 + index * 0.03,
                       ease: "easeOut",
                     }}
-                    className="inline-block text-secondary/80 hover:text-accent transition-colors duration-200 cursor-default"
+                    className="inline-block text-secondary/80 hover:text-accent transition-colors duration-150 cursor-default"
                   >
                     {letter}
                   </motion.span>
@@ -274,39 +284,47 @@ const Hero = () => {
           </div>
         </AnimatedSection>
 
-        <AnimatedSection threshold={0.1} animation="fade-up" delay={150}>
-          <p className="geist text-xl md:text-2xl text-muted-foreground max-w-2xl leading-relaxed">
-            I build software when existing solutions fail.
-            I shipped React Native software to a Fortune 500 company.
-            Currently at Ancor building LLM-powered asset management.
-          </p>
+        <AnimatedSection threshold={0.1} animation="fade-up" delay={200}>
+          <div className="py-2 flex-col flex gap-4 text-left">
+            {[
+              "I build software where existing solutions fail.",
+              "Currently at Ancor building scalable digital asset management solutions.",
+            ].map((p, i) => (
+              <p
+                key={i}
+                className="font-mono text-sm md:text-base text-foreground leading-relaxed text-left"
+              >
+                {p}
+              </p>
+            ))}
+          </div>
         </AnimatedSection>
 
-        <AnimatedSection threshold={0.1} animation="fade-up" delay={300}>
-          <div className="inline-flex items-center gap-2 group cursor-pointer">
+        <AnimatedSection threshold={0.1} animation="fade-up" delay={200}>
+          <div className="inline-flex items-center gap-2 group cursor-pointer text-left">
             <a
               href="/about"
-              className="text-foreground hover:text-accent transition-colors duration-200 flex items-center gap-2"
+              className="text-accent hover:text-accent transition-colors duration-200 flex items-center gap-2 font-mono text-sm"
             >
-              <span className="text-lg geist">Who am I?</span>
+              <span>[Who am I?]</span>
               <motion.span
                 className="relative"
-                whileHover={{ x: 4 }}
+                whileHover={{ x: 3 }}
                 transition={{ type: "spring", stiffness: 400 }}
               >
-                <ArrowRight size={18} />
+                <ArrowRight size={14} />
               </motion.span>
             </a>
           </div>
         </AnimatedSection>
       </div>
 
-      <AnimatedSection threshold={0.1} animation="fade-up" delay={450}>
-        <div className="pt-8 border-t border-border/50 relative" ref={heroRef}>
-          <p className="text-sm mono text-muted-foreground mb-4 font-mono">
-            Open to full time opportunities
+      <AnimatedSection threshold={0.1} animation="fade-up" delay={300}>
+        <div className="pt-3 relative text-left" ref={heroRef}>
+          <p className="text-xs mono text-muted-foreground mb-2 font-mono text-left">
+            * Open to full time opportunities
           </p>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5">
             {socialLinks.map((link, idx) => (
               <MagneticButton
                 key={idx}
@@ -330,18 +348,16 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="fixed bottom-24 left-6 z-50 bg-green-500/10 border border-green-500/30 text-green-500 px-6 py-4 backdrop-blur-xl flex items-center gap-3 shadow-2xl"
+            className="fixed bottom-24 left-6 z-[80] bg-green-500/10 border border-green-500/30 text-green-500 px-3 py-1.5 backdrop-blur-xl flex items-center gap-2 shadow-2xl font-mono text-xs"
           >
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
             >
-              <Check size={20} />
+              <Check size={14} />
             </motion.div>
-            <span className="text-sm font-medium">
-              Email copied to clipboard!
-            </span>
+            <span>Email copied to clipboard!</span>
           </motion.div>
         )}
       </AnimatePresence>

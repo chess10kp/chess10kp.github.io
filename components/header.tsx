@@ -1,209 +1,129 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import siteConfig from "@/siteConfig";
 import Link from "next/link";
 
 const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
   const currentPathName = usePathname();
 
-  const navItems = [
-    { name: "Projects", link: "/#projects" },
-    { name: "About", link: "/about" },
+  const buffers = [
+    { name: "index.org", link: "/", mode: "Website" },
+    { name: "projects.org", link: "/projects", mode: "Projects" },
+    { name: "about.org", link: "/about", mode: "About" },
+    { name: "blog.org", link: "/blog", mode: "Blog" },
   ];
 
-  const isBlogPage = currentPathName.startsWith("/blog");
-
-  const isActiveLink = (link: string) => {
-    if (link === "/about") {
-      return currentPathName === "/about";
-    }
-    if (link === "/#projects") {
-      return currentPathName === "/" || currentPathName === "/#projects";
-    }
-    return false;
+  const getCurrentBuffer = () => {
+    if (currentPathName === "/") return buffers[0];
+    if (currentPathName === "/projects") return buffers[1];
+    if (currentPathName === "/about") return buffers[2];
+    if (currentPathName.startsWith("/blog")) return buffers[3];
+    return buffers[0];
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const scrollToSection = (link: string) => {
-    const [pathname, id] = link.split("#");
-    const currentPath = currentPathName;
-    const element = document.querySelector(id);
-
-    console.log(pathname, currentPath);
-
-    if (pathname === "/" && currentPath === "/" && id) {
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+    if (link.includes("#")) {
+      const [pathname, id] = link.split("#");
+      if (pathname === "/" && currentPathName === "/") {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      } else {
+        router.push(link);
       }
     } else {
       router.push(link);
-      element?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
-  const getBufferName = () => {
-    if (currentPathName === "/") return "index.org";
-    if (currentPathName === "/about") return "about.org";
-    if (currentPathName.startsWith("/blog")) return "blog.org";
-    if (currentPathName.startsWith("/projects")) return "projects.org";
-    return currentPathName.replace(/\//g, "") + ".org";
-  };
-
-  const getModeName = () => {
-    if (currentPathName === "/") return "Website";
-    if (currentPathName === "/about") return "About";
-    if (currentPathName.startsWith("/blog")) return "Blog";
-    if (currentPathName.startsWith("/projects")) return "Projects";
-    return "Fundamental";
-  };
+  const currentBuffer = getCurrentBuffer();
 
   return (
-    <div
-      className={`fixed top-0 z-[60] w-full transition-all duration-500 border-b border-border/30 bg-background/80 backdrop-blur-xl`}
-    >
-      {/* Emacs-style tabbar */}
-      <div className="flex items-center px-4 md:px-6 py-2 bg-background/30 overflow-x-auto">
-        {/* Home tab */}
-        <Link href="/" className="flex-shrink-0">
-          <motion.div
-            whileHover={{ y: -2 }}
-            whileTap={{ y: 0 }}
-            transition={{ type: "inertia", stiffness: 400, damping: 17 }}
-          >
-            <div
-              className={`px-4 py-2 text-base sm:text-lg transition-all duration-200 cursor-pointer border border-foreground ${
-                currentPathName === "/"
-                  ? "bg-background text-foreground border border-border"
-                  : "text-muted-foreground hover:text-foreground hover:bg-background/50"
-              }`}
+    <div className="fixed top-[28px] z-[60] w-full bg-background/95 backdrop-blur border-b border-border">
+      {/* Emacs Tabbar */}
+      <div className="flex items-center gap-1 px-2 py-1 overflow-x-auto">
+        {/* Buffer tabs */}
+        {buffers.map((buffer, idx) => {
+          const isActive = currentBuffer.name === buffer.name;
+          return (
+            <motion.div
+              key={buffer.name}
+              whileHover={{ y: -1 }}
+              whileTap={{ y: 0 }}
             >
-              {siteConfig.personal.name}
-            </div>
-          </motion.div>
-        </Link>
-
-        <div className="w-px h-6 bg-border/30 mx-2" />
-
-        {/* Projects tab */}
-        <motion.button
-          onClick={() => scrollToSection("/#projects")}
-          whileHover={{ y: -2 }}
-          whileTap={{ y: 0 }}
-          transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          className={`px-4 py-2 text-base sm:text-lg hidden md:inline-flex transition-all duration-200 flex-shrink-0 ${
-            currentPathName === "/" || currentPathName === "/#projects"
-              ? "bg-secondary text-background border border-border"
-              : "text-muted-foreground hover:text-foreground hover:bg-background/50"
-          }`}
-        >
-          Projects
-        </motion.button>
-
-        {/* About tab */}
-        <motion.button
-          onClick={() => router.push("/about")}
-          whileHover={{ y: -2 }}
-          whileTap={{ y: 0 }}
-          transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          className={`hidden md:inline-flex px-4 py-2 text-base sm:text-lg transition-all duration-200 flex-shrink-0 ${
-            currentPathName === "/about"
-              ? "bg-secondary text-background border border-border"
-              : "text-muted-foreground hover:text-foreground hover:bg-background/50"
-          }`}
-        >
-          About
-        </motion.button>
-
-        {/* Blog tab */}
-        <motion.button
-          onClick={() => router.push("/blog")}
-          whileHover={{ y: -2 }}
-          whileTap={{ y: 0 }}
-          transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          className={`hidden md:inline-flex px-4 py-2 text-base sm:text-lg transition-all duration-200 flex-shrink-0 ${
-            isBlogPage
-              ? "bg-secondary text-background border border-border"
-              : "text-muted-foreground hover:text-foreground hover:bg-background/50"
-          }`}
-        >
-          Blog
-        </motion.button>
+              {buffer.link === "/index" || buffer.link === "/" ? (
+                <Link href={buffer.link}>
+                  <div
+                    className={`emacs-buffer font-mono text-sm px-3 py-1 flex-shrink-0 ${
+                      isActive ? "active" : ""
+                    }`}
+                  >
+                    <span className="opacity-60 mr-1">{idx + 1}:</span>
+                    {buffer.name}
+                    <span className="opacity-50 ml-2 text-xs">
+                      {isActive && buffer.mode}
+                    </span>
+                  </div>
+                </Link>
+              ) : (
+                <button
+                  onClick={() => scrollToSection(buffer.link)}
+                  className={`emacs-buffer font-mono text-sm px-3 py-1 flex-shrink-0 ${
+                    isActive ? "active" : ""
+                  }`}
+                >
+                  <span className="opacity-60 mr-1">{idx + 1}:</span>
+                  {buffer.name}
+                  <span className="opacity-50 ml-2 text-xs">
+                    {isActive && buffer.mode}
+                  </span>
+                </button>
+              )}
+            </motion.div>
+          );
+        })}
 
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="md:hidden ml-auto px-3 py-2 text-lg text-muted-foreground hover:text-foreground hover:bg-background/50 transition-all duration-200 flex-shrink-0"
+          className="md:hidden ml-auto px-3 py-1 text-sm font-mono text-muted-foreground hover:text-foreground emacs-button flex-shrink-0"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          {isMobileMenuOpen ? "✕" : "☰"}
+          {isMobileMenuOpen ? "[×]" : "[≡]"}
         </motion.button>
       </div>
 
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden bg-card border-t border-border/30 overflow-hidden"
-          >
-            <div className="container px-4 py-4">
-              <nav className="flex flex-col gap-2">
-                {navItems.map((item, idx) => (
-                  <motion.button
-                    key={idx}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.1 }}
-                    onClick={() => {
-                      scrollToSection(item.link);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className={`text-left text-lg transition-all duration-200 py-3 px-4 border ${
-                      isActiveLink(item.link)
-                        ? "text-foreground border-border bg-background"
-                        : "text-muted-foreground border-transparent hover:text-foreground hover:bg-background/50"
-                    }`}
-                  >
-                    {item.name}
-                  </motion.button>
-                ))}
-                <motion.button
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: navItems.length * 0.1 }}
+      {/* Mobile menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden border-t border-border bg-background">
+          <div className="px-2 py-2">
+            {buffers.map((buffer, idx) => {
+              const isActive = currentBuffer.name === buffer.name;
+              return (
+                <button
+                  key={buffer.name}
                   onClick={() => {
-                    router.push("/blog");
+                    scrollToSection(buffer.link);
                     setIsMobileMenuOpen(false);
                   }}
-                  className={`text-left text-lg  transition-all duration-200 py-3 px-4 border ${
-                    isBlogPage
-                      ? "text-foreground border-border bg-background"
-                      : "text-muted-foreground border-transparent hover:text-foreground hover:bg-background/50"
+                  className={`w-full text-left font-mono text-sm px-3 py-2 flex items-center gap-2 ${
+                    isActive ? "bg-accent text-accent-foreground" : "hover:bg-muted"
                   }`}
                 >
-                  Blog
-                </motion.button>
-              </nav>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                  <span className="opacity-60">{idx + 1}:</span>
+                  {buffer.name}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
