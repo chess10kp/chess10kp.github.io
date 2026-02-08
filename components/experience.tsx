@@ -28,36 +28,46 @@ const ExperienceCard = ({
     >
       <div className="py-1.5 mb-6 pl-4 border-l border-border">
         <div className="space-y-2 flex-col gap-4  text-left">
-          <div className="flex flex-wrap justify-between items-start gap-4">
-            <div className="md:text-base gap-2 flex font-mono font-semibold">
-              <span className="text-accent text-xl">{position}</span>
-              <span className="text-muted-foreground text-xl mx-1">@</span>
-              <span className=" text-xl text-foreground">{employer}</span>
-            </div>
-
-            <div className="flex flex-wrap gap-1.5 shrink-0">
-              {tech.map((t: string) => (
-                <span
-                  key={t}
-                  className="px-2 py-0.5 text-xs font-mono bg-secondary text-accent-foreground rounded-none"
-                >
-                  {t}
+          <div className="mb-8">
+            <div className="flex flex-wrap justify-between items-start gap-4">
+              <div className="md:text-base gap-2 flex flex-col md:flex-row font-mono font-semibold">
+                <span className="text-accent text-xl">{position}</span>
+                <span className="text-muted-foreground text-xl md:flex hidden mx-1">
+                  @
                 </span>
-              ))}
+                <span className=" md:text-xl text-md  text-foreground">
+                  {employer}
+                </span>
+              </div>
+
+              <div className="md:flex hidden flex-wrap gap-1.5 shrink-0">
+                {tech.map((t: string) => (
+                  <span
+                    key={t}
+                    className="px-2 py-0.5 text-xs font-mono bg-secondary text-accent-foreground rounded-none"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="text-muted-foreground mt-4 text-left font-mono font-semibold text-md">
+              {timeline}
             </div>
           </div>
-
-          <div className="text-muted-foreground text-left font-mono font-semibold text-xs mb-1.5">
-            {timeline}
-          </div>
-          {description && description.split('.').map((p, i) => (
-            <p
-              key={i}
-              className="text-muted-foreground font-mono text-sm leading-relaxed"
-            >
-              {p}
-            </p>
-          ))}
+          {description &&
+            description
+              .split(".")
+              .filter(Boolean)
+              .map((p, i) => (
+                <p
+                  key={i}
+                  className="text-muted-foreground font-mono text-sm leading-relaxed"
+                >
+                  {p}
+                </p>
+              ))}
         </div>
       </div>
     </AnimatedSection>
@@ -81,7 +91,7 @@ export function Experience() {
       employer: "UofM",
       employer_link: "https://github.com/chess10kp/cobas",
       description:
-        "Traditional Battery Management Systems are clunky and expensive. Finetuning ResNet models to wirelessly predict battery charge in low-fidelity environments. Feature extraction from ultrasonic chirped excitation .",
+        "Finetuning ResNet models to wirelessly predict battery charge in low-fidelity environments. Worked on feature extraction from ultrasonic chirped excitation .",
       tech: ["Python", "PyTorch", "Numpy"],
     },
     {
@@ -91,7 +101,7 @@ export function Experience() {
       employer: "GDG",
       description:
         "Worked on the HackDearborn's mobile app to improve event discovery and user engagement. Serving on the board as an advisor",
-      tech: ["Reac Native", "TypeScript"],
+      tech: ["React Native", "TypeScript"],
     },
     {
       position: "Research Assistant",

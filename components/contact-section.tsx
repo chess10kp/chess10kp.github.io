@@ -19,11 +19,8 @@ export function ContactSection() {
       transition={{ delay: 0.2 }}
     >
       <div className="mb-5">
-        <p className="text-accent font-mono text-xs mb-1.5">
-          ;; I'd love to hear from you
-        </p>
         <h2 className="text-xl md:text-2xl font-semibold font-mono text-foreground mb-3">
-          ** Reach Out
+          Reach Out
         </h2>
       </div>
       <div className="py-2">

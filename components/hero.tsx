@@ -244,7 +244,7 @@ const Hero = () => {
       <div className="space-y-5 relative z-10 text-left">
         <AnimatedSection threshold={0.1} animation="fade-up" delay={0}>
           <div className="space-y-2  text-left">
-            <h1 className="text-2xl flex gap-8  md:text-4xl lg:text-5xl font-semibold text-foreground leading-tight font-mono tracking-tight text-left">
+            <h1 className="text-2xl flex flex-wrap gap-4 md:gap-8 lg:gap-12  md:text-4xl lg:text-5xl font-semibold text-foreground leading-tight font-mono tracking-tight text-left">
               I'm
               <div className="flex flex-wrap gap-1">
                 {firstName.map((letter, index) => (

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { AnimatedSection } from "@/components/animated-section";
 import { ArrowRight } from "lucide-react";
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 export type Post = {
   id: string;
@@ -29,28 +30,27 @@ const LatestBlogPosts = ({ posts }: Props) => {
     <div id="blog" className="py-10 scroll-mt-24">
       <AnimatedSection animation="fade-up">
         <div className="org-modern-headline">
-          <p className="text-accent font-mono text-xs mb-1">;; Blog</p>
-          <h2 className="text-xl md:text-2xl font-semibold font-mono text-foreground">
-            ** Latest Posts
+          <h2 className="text-xl  md:text-3xl font-semibold font-mono text-foreground">
+            Latest Posts
           </h2>
         </div>
       </AnimatedSection>
 
-      <div className="space-y-2">
+      <div className="space-y-2 gap-4 flex flex-col">
         {latestPosts.map(({ id, date, title, tags, tagline }, index) => (
           <AnimatedSection key={id} animation="fade-up" delay={index * 60}>
             <Link href={`/blog/${id}`}>
-              <div className="h-full py-1.5 hover:bg-muted/10 transition-colors group">
-                <div className="text-accent font-mono text-sm leading-relaxed">
-                  [[{title}][{title}]]
-                </div>
-                <Badge variant={"secondary"} className="text-xs font-mono mt-1">
-                  {date}
-                </Badge>
-                <div className="text-xs text-muted-foreground mt-0.5 font-mono">
-                  {tagline}
-                </div>
-              </div>
+              <Card className="h-full w-full bg-background border-0 border-l-2 hover:bg-muted/10 transition-colors">
+                <CardHeader>
+                  <div className="flex flex-row justify-between items-start">
+                    <CardTitle className="text-accent font-mono text-xl">{title}</CardTitle>
+                    
+                  </div>
+                  <CardDescription className="font-mono">
+                    {tagline}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
             </Link>
           </AnimatedSection>
         ))}
@@ -59,12 +59,12 @@ const LatestBlogPosts = ({ posts }: Props) => {
       {posts.length > 3 && (
         <AnimatedSection animation="fade-up" delay={200}>
           <div className="mt-6 text-left">
-            <Link href="/blog">
+            <Link href="/projects">
               <Button
                 variant="outline"
                 className="group hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all duration-200 font-mono text-xs"
               >
-                [View All Posts]
+                [Check out everything else]
               </Button>
             </Link>
           </div>

@@ -20,8 +20,6 @@ import { Project } from "@/lib/types";
 import { useId } from "react";
 
 const ProjectCard = ({ project }: { project: Project }) => {
-  const id = useId();
-
   return (
     <Link href={`/blog/${project.blogId}`}>
       <motion.div
@@ -37,7 +35,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
           </CardHeader>
           <div>
             <CardDescription className="text-left font-mono text-muted-foreground p-4">
-              {project.description.split(/([.!?;:])\s*/).filter(Boolean).map((sentence, i) => (
+              {project.description.split('.').filter(Boolean).map((sentence, i) => (
                 <div key={i}>{sentence.trim()}</div>
               ))}
             </CardDescription>

@@ -46,18 +46,18 @@ const HomeContent = ({ posts, availableBlogPosts }: HomeContentProps) => {
                     <Experience />
                   </div>
                   <div className="org-modern-hr" />
-                  <div className="py-8 md:py-12 relative z-10" id="projects">
-                    <Projects availableBlogPosts={availableBlogPosts} />
-                  </div>
-                  <div className="org-modern-hr" />
+                  {/* <div className="py-8 md:py-12 relative z-10" id="projects"> */}
+                  {/*   <Projects availableBlogPosts={availableBlogPosts} /> */}
+                  {/* </div> */}
+                  {/* <div className="org-modern-hr" /> */}
                   <div className="py-8 md:py-12 relative z-10">
                     <LatestBlogPosts posts={posts} />
                   </div>
                   <div className="org-modern-hr" />
-                  <div className="py-8 md:py-12 relative z-10">
-                    <Skills />
-                  </div>
-                  <div className="org-modern-hr" />
+                  {/* <div className="py-8 md:py-12 relative z-10"> */}
+                  {/*   <Skills /> */}
+                  {/* </div> */}
+                  {/* <div className="org-modern-hr" /> */}
                   <div className="py-8 md:py-12 relative z-10">
                     <ContactSection />
                   </div>

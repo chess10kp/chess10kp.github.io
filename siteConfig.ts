@@ -53,6 +53,16 @@ export default {
   },
   projects: [
     {
+      name: "Triad",
+      description:
+        "An trimodal, computer accessibility framework. Winner at SpartaHacks 2026",
+      stack: [[typescriptsvg, "typescript"]],
+      href: "https://github.com/chess10kp/triad",
+      demo: "https://devpost.com/software/the-four?ref_content=my-projects-tab&ref_feature=my_projects",
+      image: "",
+      blogId: "",
+    },
+    {
       name: "Chesh",
       description:
         "An opensource TUI chess game viewer written in Ink, using the Lichess API.",
@@ -63,29 +73,13 @@ export default {
       blogId: "",
     },
     {
-      name: "Chatherine",
-      description:
-        "Chatherine is a content management system that lets business owners update content on their website and app with a Telegram Bot.",
-      stack: [
-        [typescriptsvg, "typescript"],
-        [nextsvg, "next.js", true],
-        [geminisvg, "google gemini", true],
-        [fastapisvg, "fastapi", true],
-      ],
-      href: "https://github.com/inkscribe-org/chatherine",
-      demo: "",
-      image: "",
-      blogId: "",
-    },
-    {
       name: "Babelfish",
       description:
         "BabelFish is an AI layer on top of Discord to translate messages in real-time and provides instant chat summarization",
       stack: [
         [typescriptsvg, "typescript"],
-        [geminisvg, "google gemini", true],
+        [geminisvg, "gemini", true],
         [fastapisvg, "fastapi", true],
-        [langchainsvg, "langchain", true],
       ],
       href: "https://devpost.com/software/babelfetch",
       demo: "https://devpost.com/software/babelfetch",
@@ -100,6 +94,7 @@ export default {
       description:
         "a cross platform mobile app for um dearborn's hackdearborn 4",
       stack: [
+        [javaSvg, "react native"],
         [typescriptsvg, "typescript"],
         [javasvg, "java"],
         [supabase, "supabase"],
@@ -110,7 +105,7 @@ export default {
     {
       name: "Chessbreak",
       description:
-        "Chess players often lose focus by continuing to play when they are tired. Chessbreak is an extension that monitors accuracy and tracks sessions on chess.com. This blocks users when their play quality drops, ensuring they only play at their best.",
+        "Chess players often lose focus by continuing to play when they are tired. Chessbreak is an extension that monitors accuracy and tracks online chess sessions. This blocks users when their play quality drops, ensuring they only play at their best.",
       stack: [[typescriptsvg, "typescript"]],
       href: "https://github.com/inkscribe-org/chessbreak",
       demo: "https://github.com/inkscribe-org/chessbreak",
