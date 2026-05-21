@@ -16,6 +16,11 @@ import fastAPISvg from "@/assets/images/fastapi.svg";
 import typescriptSvg from "@/assets/images/Typescript.svg";
 import javaSvg from "@/assets/images/Java.svg";
 import langChainSvg from "@/assets/images/langchain.svg";
+import rustSvg from "@/assets/images/rust.svg";
+import nodeSvg from "@/assets/images/Node.svg";
+import awsSvg from "@/assets/images/AWS.svg";
+import mongoSvg from "@/assets/images/MongoDB.svg";
+import jsSvg from "@/assets/images/Javascript.svg";
 
 export default {
   currentStanding: () => {
@@ -55,10 +60,70 @@ export default {
     {
       name: "Triad",
       description:
-        "An trimodal, computer accessibility framework. Winner at SpartaHacks 2026",
+        "Uncompromising trimodal remote computer accessibility. Best Accessibility Hack at SpartaHack 11.",
+      stack: [
+        [pythonSvg, "python"],
+        [geminisvg, "gemini", true],
+      ],
+      href: "https://devpost.com/software/the-four",
+      demo: "https://devpost.com/software/the-four",
+      image: "",
+      blogId: "",
+    },
+    {
+      name: "Checkpoint",
+      description:
+        "Your chessboard plays on anyone's screen. Winner of the Hardware Track & Jaseci Labs Best Use of Agentic AI at RocketHacks 2026.",
+      stack: [
+        [awsSvg, "aws"],
+        [jsSvg, "javascript"],
+        [reactSvg, "react native"],
+      ],
+      href: "https://devpost.com/software/checkpoint-bywsm1",
+      demo: "https://devpost.com/software/checkpoint-bywsm1",
+      image: "",
+      blogId: "",
+    },
+    {
+      name: "PinPoint",
+      description:
+        "Your desk is your classroom. 2nd Place and MLH Best Use of Vultr at GrizzHacks 8.",
+      stack: [[pythonSvg, "python"]],
+      href: "https://devpost.com/software/embettered",
+      demo: "https://devpost.com/software/embettered",
+      image: "",
+      blogId: "",
+    },
+    {
+      name: "Hijac",
+      description:
+        "Hijacks your routine. 1st Place in the Social Impact Track at JacHacks.",
       stack: [[typescriptsvg, "typescript"]],
-      href: "https://github.com/chess10kp/triad",
-      demo: "https://devpost.com/software/the-four?ref_content=my-projects-tab&ref_feature=my_projects",
+      href: "https://devpost.com/software/hijac",
+      demo: "https://devpost.com/software/hijac",
+      image: "",
+      blogId: "",
+    },
+    {
+      name: "Tether",
+      description:
+        "A tether to your financial goals. 1st Place at WayneHacks 4.",
+      stack: [[reactSvg, "react native"]],
+      href: "https://devpost.com/software/tether-nw1i2x",
+      demo: "https://devpost.com/software/tether-nw1i2x",
+      image: "",
+      blogId: "",
+    },
+    {
+      name: "X Wrapped",
+      description:
+        "Generate personalized X (Twitter) personality wrapped experiences with AI-powered analysis and cinematic video generation. Best Use of Magic Hour at FalconHacks by MongoDB.",
+      stack: [
+        [mongoSvg, "mongodb"],
+        [typescriptsvg, "typescript"],
+      ],
+      href: "https://devpost.com/software/x-wrapped",
+      demo: "https://devpost.com/software/x-wrapped",
       image: "",
       blogId: "",
     },
@@ -71,36 +136,6 @@ export default {
       demo: "https://www.npmjs.com/package/chesh",
       image: "",
       blogId: "",
-    },
-    {
-      name: "Babelfish",
-      description:
-        "BabelFish is an AI layer on top of Discord to translate messages in real-time and provides instant chat summarization",
-      stack: [
-        [typescriptsvg, "typescript"],
-        [geminisvg, "gemini", true],
-        [fastapisvg, "fastapi", true],
-      ],
-      href: "https://devpost.com/software/babelfetch",
-      demo: "https://devpost.com/software/babelfetch",
-      image: "",
-      blogid: "babelfish",
-    },
-
-    {
-      name: "hd4",
-      demo: "",
-      image: "",
-      description:
-        "a cross platform mobile app for um dearborn's hackdearborn 4",
-      stack: [
-        [javaSvg, "react native"],
-        [typescriptsvg, "typescript"],
-        [javasvg, "java"],
-        [supabase, "supabase"],
-      ],
-      href: "https://play.google.com/store/apps/details?id=org.hackdearborn.hackdearbornapp&pli=1",
-      blogid: "hd4",
     },
     {
       name: "Chessbreak",

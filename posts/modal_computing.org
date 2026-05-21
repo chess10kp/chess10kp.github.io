@@ -1,7 +1,7 @@
 ---
 title: Modal Computing
 date: "2025-12-24"
-tags: ["linux"]
+tags: ["linux", "wm"]
 tagline: How scripting helps me lock in
 ---
 

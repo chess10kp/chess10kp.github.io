@@ -77,7 +77,16 @@ const ExperienceCard = ({
 export function Experience() {
   const experiences: ExperienceCardType[] = [
     {
-      position: "Software Innovation Intern",
+      position: "Software Developer",
+      timeline: "May 2026 — Present",
+      employer: "Jaseci Labs",
+      employer_link: "jaseci.org",
+      description:
+        "Work on the Jac stack and other Jaseci tooling",
+      tech: ["Jac", "Jaseci", "LLM"],
+    },
+    {
+      position: "Software Developer",
       timeline: "Jun 2025 — Present",
       employer: "Ancor",
       employer_link: "weareancor.com",

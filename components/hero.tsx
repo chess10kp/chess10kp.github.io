@@ -321,9 +321,6 @@ const Hero = () => {
 
       <AnimatedSection threshold={0.1} animation="fade-up" delay={300}>
         <div className="pt-3 relative text-left" ref={heroRef}>
-          <p className="text-xs mono text-muted-foreground mb-2 font-mono text-left">
-            * Open to full time opportunities
-          </p>
           <div className="flex items-center gap-1.5">
             {socialLinks.map((link, idx) => (
               <MagneticButton

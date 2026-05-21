@@ -11,3 +11,5 @@ node_modules
 .firebaserc
 .github
 .firebase/
+firebase-debug.log
+*~
