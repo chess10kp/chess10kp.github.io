@@ -7,7 +7,6 @@ import { Experience } from "@/components/experience";
 
 import Projects from "@/components/projects";
 import LatestBlogPosts from "@/components/latest-blog-posts";
-import { ContactSection } from "@/components/contact-section";
 import Footer from "@/components/footer";
 import { type Post } from "@/components/latest-blog-posts";
 import { AnimationProvider } from "@/contexts/animation-context";
@@ -58,9 +57,6 @@ const HomeContent = ({ posts, availableBlogPosts }: HomeContentProps) => {
                   {/*   <Skills /> */}
                   {/* </div> */}
                   {/* <div className="org-modern-hr" /> */}
-                  <div className="py-8 md:py-12 relative z-10">
-                    <ContactSection />
-                  </div>
                 </div>
               </div>
             </main>

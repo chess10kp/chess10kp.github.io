@@ -13,4 +13,4 @@ tagline: Zed has something much more lightweight
 - zed has built in support for jupyter kernels with `repl: start` command
 
 
-I like jupyter notebooks just as much as the next person. They don't have a learning curve, and stateful development is awesome! However, the tooling surrounding jupyter is just way too bloated. 
+I like jupyter notebooks just as much as the next person. They offer a powerful python environment essentially for no runtime cost.
