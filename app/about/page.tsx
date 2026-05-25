@@ -49,19 +49,7 @@ const Intro = () => {
         className="flex flex-col lg:mx-0 md:mx-16 text-base gap-6 mx-6 md:mx-12"
       >
         <p className="text-base md:text-lg leading-relaxed text-muted-foreground font-mono">
-    I'm a senior at UMich Dearborn graduating April 2026. I build software when existing solutions fail. I'm open to full stack/mobile dev roles anywhere in US.
-        </p>
-        <p className="text-base md:text-lg leading-relaxed text-muted-foreground font-mono">
-          When I'm not glued to my editor, you'll find me playing chess. Here's me hitting 2650 on{" "}
-          <Link
-            href="https://www.chess.com/member/n_s_m/stats"
-            className="text-accent hover:text-accent/80 transition-colors underline underline-offset-4 decoration-2 hover:decoration-accent"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            chess.com
-          </Link>
-          .
+      I'm a UM-Dearborn gradutate currently working as a SWE at Ancor and Jaseci Labs. 
         </p>
         <p className="text-lg md:text-xl leading-relaxed text-muted-foreground geist">
           When I'm not glued to my editor, you'll find me playing chess. Here's me hitting 2650 on{" "}
