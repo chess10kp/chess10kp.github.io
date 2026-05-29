@@ -4,7 +4,9 @@ date: "2024-09-24"
 tags: [ "project", "typescript", "nextjs", "crypto" ]
 ---
 
-Most explanations of blockchain oversimplify the "digital ledger" metaphor greatly. The ones that don't are 3 hour long protocol deep dives that no one sits through. At HackDearborn 2024, with one of the tracks being Financial Literacy, my team and I identified a perfect fit in making an educational blockchain simulator.  
+Most explanations of blockchain oversimplify the "digital ledger" metaphor greatly. The ones that don't are 3 hour long protocol deep dives that no one sits through. There's definitely a middle ground 
+
+At HackDearborn 2024, with one of the tracks being Financial Literacy, my team and I identified a perfect fit in making an educational blockchain simulator.  
 
 Socraticoin is a webapp that lets users mine blocks, make transactions and add these transactions to the blockchain. By giving them a full overview into the different roles involved, it makes it clear that the blockchain really isn't that complicated at all. 
 

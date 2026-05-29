@@ -16,11 +16,6 @@ type Props = {
 const BlogPosts = ({ posts }: Props) => {
   return (
     <div className="min-h-[80vh] pt-16">
-      <AnimatedSection animation="fade-up" delay={0}>
-        <div className="mb-10">
-          <p className="text-accent font-mono text-lg mb-2">;; Blog</p>
-        </div>
-      </AnimatedSection>
       <ul className="space-y-3">
         {posts &&
           posts.map(({ id, date, title, tags, tagline }, index) => {
@@ -31,15 +26,17 @@ const BlogPosts = ({ posts }: Props) => {
                 delay={index * 50 + 100}
                 className="flex items-start justify-between p-3 rounded-none bg-card/30 hover:bg-card/50  transition-all duration-300"
               >
-                <div className="flex-1">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 items-center">
+                <Badge variant={"secondary"} className="text-xs font-mono">
+                {date}
+                </Badge>
                   <Link href={`/blog/${id}`}>
-                    <h1 className="text-lg font-bold text-accent hover:text-accent/80 transition-colors font-mono">
+                    <h1 className="text-lg h-fit p-0 bg-white font-bold text-accent hover:text-accent/80 transition-colors font-mono">
                       {title}
                     </h1>
                   </Link>
-                  <Badge variant={"secondary"} className="text-xs font-mono">
-                    {date}
-                  </Badge>
+                  </div>
                   {tagline && (
                     <p className="text-sm text-muted-foreground/80 mt-1 line-clamp-2 font-mono">
                       {tagline}
