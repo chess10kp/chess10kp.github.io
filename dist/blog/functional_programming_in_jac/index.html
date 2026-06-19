@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en" style="background-color:#0e1419"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Nitin Madhu's Website"><link rel="icon" type="image/x-icon" href="/favicon.ico"><title>Functional Programming in Jac, Part 1 - Functions</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Sans:wght@100..900&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@100..900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css"><link rel="stylesheet" href="/_astro/about.C55cWll5.css">
+<link rel="stylesheet" href="/_astro/about.BAu4Pen_.css"></head> <body class="font-mono relative bg-background text-foreground">   <div class="flex justify-center min-h-screen"> <div class="my-8 sm:my-12 md:my-16 w-full max-w-4xl bg-card p-8 rounded-none shadow-lg"> <div class="flex flex-col"> <h1 class="font-bold text-5xl mono text-left">Functional Programming in Jac, Part 1 - Functions</h1> <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4"> <p class="text-md text-zinc-400 mb-2 sm:mb-0"> 2026-04-24 </p> </div> </div> <div class="post"> <p>This post is a follow up to <a href="/blog/functional_programming_with_cs">Functional Programming with C#</a>, I wrote a year ago. My recent programming language infatuation has been <a href="https://jaseci.org">Jaceci Labs’s</a> Jac language.</p>
+<p>Since Jac is relatively new (having started development only in 2021), the Jaseci team benefits from all the research around language ergonomics over the last 30 years, so I expected them to use an existing paradigm and reuse the design principles from other langauges.</p>
+<p>The Jac team, however, decided to implement their own paradigm, Object Spatial programming (OSP). OSP defines computation as a series of nodes and walkers, and so all Jac programs follow a graph driven model.
+Pretty much everything in Jac can be represented as nodes and graph traversals (called “walkers”), and this novelty nerd sniped me. So cool!</p>
+<p>Guess what other language paradigm is also great at representing computation as traversals? Functional programming! This led me to believe that Jac syntax favored a functional style. Jac’s syntax closely resembles Python, but I’m not going to let that stop me.</p>
+<p>So in effect, this post is a little view into how well Jac’s OSP translates to Functional Programming concepts.</p>
+<h2 id="a-little-setup">A little setup</h2>
+<p>Jac supports <code>def</code> just fine, which closely resembles Python functions, and I could most definitely use these. But for reasons that will become clear later, I think it makes more sense to define functions as Jac’s <code>nodes</code> and represent function calls as <code>walker</code> traversals when exploring a functional style.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>node Function {</span></span>
+<span class="line"><span>    has x: any;</span></span>
+<span class="line"><span>    has fn: object; # your function object</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>This definition makes our lives much easier, so lets assume that this is the same definition we are using for the rest of the post.</p>
+<h2 id="functional-purity">Functional purity</h2>
+<p>Functional purity is <em>the</em> fundamental property of functional programming. So it makes sense to start here. Pure functions in Jac might look like this:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>walker Apply {</span></span>
+<span class="line"><span>    has x: any; </span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    can start with Root entry {</span></span>
+<span class="line"><span>        visit [-->]; # visit the first connected function </span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    can start with Function entry {</span></span>
+<span class="line"><span>        self.value = here.fn(self.x); </span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    can done with Root exit {</span></span>
+<span class="line"><span>        report self.value # at the end, exit!</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>That was easy! To “call” this function, we just attach a function object to the root node, and traverse the root! That might look like this:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>with entry {</span></span>
+<span class="line"><span>    root :+> Function(fn=lambda x: x * 2) </span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    arg: int = 20;</span></span>
+<span class="line"><span>    result = root spawn Apply(value=arg); # returns 40</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h2 id="function-and-function-composition">Function and Function Composition</h2>
+<p>And now for the walker:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>can start with Function entry {</span></span>
+<span class="line"><span>    # grab the function from the current Function node</span></span>
+<span class="line"><span>    arg: any = self.x</span></span>
+<span class="line"><span>    # and apply it to the parameter</span></span>
+<span class="line"><span>    self.value = here.fn(arg); </span></span>
+<span class="line"><span>    visit [-->]; </span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>You can now compose functions like this:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>with entry {</span></span>
+<span class="line"><span>        root :+> Function(fn=lambda x: str : int(x)) </span></span>
+<span class="line"><span>             :+> Function(fn=lambda x: int : x * 2) </span></span>
+<span class="line"><span>             :+> Function(fn=lambda x: int : f"Result: {x}");</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>and call them the same way as before</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>result = root spawm Apply(value="20")</span></span></code></pre>
+<h2 id="partial-application">Partial Application</h2>
+<p>Partial Application is the ability for a function that takes two arguments, to take a single argument and return another function that takes in the second argument. Its functionception!</p>
+<p>With our previous definition, partial application is essentially free! Since elements are of type <code>any</code>, we can pass any value to <code>Function</code>, including other functions.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>with entry {</span></span>
+<span class="line"><span>       root :+> Function(fn=lambda x: str : int(x))</span></span>
+<span class="line"><span>            :+> Function(fn=lambda x: int : x * 2)</span></span>
+<span class="line"><span>            :+> Function(fn=lambda x: int : f"Result: {x}");</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    result = root spawn Compose(value=lambda x: int : x * 2);</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>Here, result is now a <code>lambda</code> type, and used in a <code>Function</code> node of its own.
+I mean I guess that’s fine, but it looks kinda ugly (inline lambdas give me the ick).</p>
+<p>I think <code>Function</code> needs an upgrade. The simplest way I can think of would be to wrap the value in a Monad, letting walkers unwrap the value only when reporting it’s value at the end. The other way would be to</p> </div> <div class="flex justify-between items-center gap-4 mt-12 pt-8 border-t border-border/30"> <div class="flex-1"> <div class="flex-1"></div> </div> <div class="flex-1 flex justify-end"> <a href="/blog/i_fixed_python_functional_chaining" class="flex items-center gap-2 px-4 py-3 border border-border/30 bg-card/40 hover:bg-card/60 hover:border-accent/30 transition-all duration-300 flex-row-reverse text-right"> <span class="text-xs text-muted-foreground font-mono uppercase">Next</span> <span class="text-sm font-semibold text-foreground line-clamp-1 max-w-[200px]">I fixed Python&#39;s functional chaining</span> </a> </div> </div> </div> </div>   </body></html>

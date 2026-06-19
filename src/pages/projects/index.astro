@@ -1,0 +1,24 @@
+---
+import PageShell from "../../layouts/PageShell.astro";
+import { ProjectsPage } from "../../components/projects-page";
+import { getCollection } from "astro:content";
+
+const allProjects = await getCollection("projects");
+const projects = allProjects
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((p) => ({
+    name: p.data.name,
+    description: p.body?.trim() || "",
+    stack: p.data.stack,
+    href: p.data.href,
+    demo: p.data.demo,
+    blogId: p.data.blogId,
+  }));
+
+const blogPosts = await getCollection("blog");
+const availableBlogPosts = blogPosts.map((p) => p.id);
+---
+
+<PageShell title="Projects — Nitin's Page">
+  <ProjectsPage client:load currentPath={Astro.url.pathname} projects={projects} availableBlogPosts={availableBlogPosts} />
+</PageShell>

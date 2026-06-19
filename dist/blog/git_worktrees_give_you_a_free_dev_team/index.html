@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="en" style="background-color:#0e1419"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Nitin Madhu's Website"><link rel="icon" type="image/x-icon" href="/favicon.ico"><title>Git Worktrees give you a free dev team</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Sans:wght@100..900&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@100..900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css"><link rel="stylesheet" href="/_astro/about.C55cWll5.css">
+<link rel="stylesheet" href="/_astro/about.BAu4Pen_.css"></head> <body class="font-mono relative bg-background text-foreground">   <div class="flex justify-center min-h-screen"> <div class="my-8 sm:my-12 md:my-16 w-full max-w-4xl bg-card p-8 rounded-none shadow-lg"> <div class="flex flex-col"> <h1 class="font-bold text-5xl mono text-left">Git Worktrees give you a free dev team</h1> <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4"> <p class="text-md text-zinc-400 mb-2 sm:mb-0"> 2025-11-17 </p> </div> </div> <div class="post"> <p><a href="https://git-scm.com/docs/git-worktree">Git Worktrees</a> can literally change your life.</p>
+<p>As of 2025, LLMs are incredibly good at making isolated changes to your codebase. They can add a feature, fix a bug, refactor a module. But they do it one at a time. And that means that you’re stuck waiting for a refactor to complete when you could be doing other things instead.
+I might be waiting for <a href="https://claude.ai">Claude Code</a> to finish the auth refactor before I can start optimizing my db queries. Or I interrupt it when it takes too long, wasting time and tokens. Worktrees fix all of this.</p>
+<h3 id="wait-what-even-are-worktrees">Wait, what even are worktrees?</h3>
+<p>Git worktrees let you check out multiple branches of the same repo at the same time. Each one lives in its own directory. So instead of constantly switching branches and stashing changes, you just… have multiple versions of your codebase sitting there.
+Here’s what it looks like:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Your main codebase</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> ~/projects/snip</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Create a worktree for the auth refactor</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> worktree</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> ../snip-auth</span><span style="color:#9ECBFF"> auth-refactor</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Another for database work</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> worktree</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> ../snip-db</span><span style="color:#9ECBFF"> db-optimization</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> worktree</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> ../snip-payfix</span><span style="color:#9ECBFF"> payment-error</span></span></code></pre>
+<p>Now you’ve got three folders. Three branches. All connected to the same git repo, but completely independent working directories.</p>
+<p>Here’s where it gets interesting.</p>
+<p>Open three different <a href="https://www.claude.com/product/claude-code">Claude Code</a> or <a href="https://www.cursor.com">Cursor</a> (or <a href="https://opencode.ai">OpenCode</a>) instances. Point each one at a different worktree.</p>
+<p>Instance 1: “Refactor the authentication to use JWT”<br>
+Instance 2: “Optimize these queries by adding db indices”<br>
+Instance 3: “Payment flow is broken, here’s the stacktrace”</p>
+<p>They all work, at the same time! No conflicts. No more “waiting” for AI to finish a task, because <em>you</em> can keep working on a separate worktree as well.</p>
+<p>When one’s done, you review and merge it.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> checkout</span><span style="color:#9ECBFF"> main</span><span style="color:#6A737D"> # or whatever branch you worktree'd off of </span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> merge</span><span style="color:#9ECBFF"> auth-refactor</span><span style="color:#E1E4E8"> </span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># When you're done with one, remove it</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> worktree</span><span style="color:#9ECBFF"> remove</span><span style="color:#9ECBFF"> ../snip-auth</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Clean up any old references</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> worktree</span><span style="color:#9ECBFF"> prune</span></span></code></pre>
+<p>The others keep going.</p>
+<p>The thing about LLMs is they’re really good at focused work. Ask it to juggle three things at once and it gets messy. When using worktrees, each instance gets one task, one branch, one directory.</p>
+<p>Plus, you can actually test everything in parallel. Run each version of your app on a different port. See how they all work before any of them touch your main branch.</p>
+<h3 id="it-really-is-a-dev-team">It really is a dev team</h3>
+<p>…except the team works for free and doesn’t need breaks. As long as Silicon Valley provides free or subsidized LLM access, you can literally 10x your productivity. <em>If</em> you have a clear path ahead on how you want to build your product.</p>
+<p>It also changes how you think about building stuff. Instead of “what should I work on next?” you start asking “what can I work on in parallel?” You’re not waiting for the LLM anymore. You’re coordinating multiple workstreams.</p>
+<p>Git worktrees have been around since like 2015. LLMs that can actually ship code have been around for maybe two years. We’re still figuring out the best ways to use them together.</p>
+<p>So stop waiting for your LLM, and instead give it some coworkers.</p>
+<p><strong>Bonus Tip</strong>: If you’re working on a web project, use <code>pnpm</code> instead of <code>npm</code> so you aren’t installing your node dependencies into each worktree.</p> </div> <div class="flex justify-between items-center gap-4 mt-12 pt-8 border-t border-border/30"> <div class="flex-1"> <a href="/blog/babelfish" class="flex items-center gap-2 px-4 py-3 border border-border/30 bg-card/40 hover:bg-card/60 hover:border-accent/30 transition-all duration-300"> <span class="text-xs text-muted-foreground font-mono uppercase">Previous</span> <span class="text-sm font-semibold text-foreground line-clamp-1 max-w-[200px]">BabelFish</span> </a> </div> <div class="flex-1 flex justify-end"> <a href="/blog/improving_my_rating" class="flex items-center gap-2 px-4 py-3 border border-border/30 bg-card/40 hover:bg-card/60 hover:border-accent/30 transition-all duration-300 flex-row-reverse text-right"> <span class="text-xs text-muted-foreground font-mono uppercase">Next</span> <span class="text-sm font-semibold text-foreground line-clamp-1 max-w-[200px]">How I improved my chess elo by 300 points (2350 -&gt; 2650)</span> </a> </div> </div> </div> </div>   </body></html>

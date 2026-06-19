@@ -1,0 +1,20 @@
+---
+import PageShell from "../../layouts/PageShell.astro";
+import { BlogPage } from "../../components/blog-page";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("blog");
+const posts = allPosts
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .map((p) => ({
+    id: p.id,
+    title: p.data.title,
+    date: p.data.date.toISOString().slice(0, 10),
+    tags: p.data.tags,
+    tagline: p.data.tagline,
+  }));
+---
+
+<PageShell title="Blog — Nitin's Page">
+  <BlogPage client:load currentPath={Astro.url.pathname} posts={posts} />
+</PageShell>

@@ -1,0 +1,37 @@
+---
+import PageShell from "../layouts/PageShell.astro";
+import { HomePage } from "../components/home-page";
+import { getCollection } from "astro:content";
+
+const allExperiences = await getCollection("experience");
+const experiences = allExperiences
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((e) => ({
+    position: e.data.position,
+    employer: e.data.employer,
+    timeline: e.data.timeline,
+    description: e.body?.trim() || "",
+    tech: e.data.tech,
+  }));
+
+const allPosts = await getCollection("blog");
+const posts = allPosts
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .map((p) => ({
+    id: p.id,
+    title: p.data.title,
+    date: p.data.date.toISOString().slice(0, 10),
+    tags: p.data.tags,
+    tagline: p.data.tagline,
+  }));
+---
+
+<PageShell title="Nitin's Page">
+  <HomePage
+    client:load
+    currentPath={Astro.url.pathname}
+    introText="Currently at Jaseci Labs building Jac, a modern graph based programming language."
+    experiences={experiences}
+    posts={posts}
+  />
+</PageShell>

@@ -1,0 +1,48 @@
+{
+  "$ref": "#/definitions/projects",
+  "definitions": {
+    "projects": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "stack": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "href": {
+          "type": "string",
+          "default": ""
+        },
+        "demo": {
+          "type": "string",
+          "default": ""
+        },
+        "blogId": {
+          "type": "string",
+          "default": ""
+        },
+        "award": {
+          "type": "string",
+          "default": ""
+        },
+        "order": {
+          "type": "number"
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "stack",
+        "order"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

@@ -1,0 +1,62 @@
+---
+import PageShell from "../../layouts/PageShell.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+// Get adjacent posts
+const allPosts = (await getCollection("blog")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+const currentIndex = allPosts.findIndex((p) => p.id === post.id);
+const prev = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+const next = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+---
+
+<PageShell title={post.data.title} currentPath={Astro.url.pathname}>
+  <div class="flex justify-center min-h-screen">
+    <div class="my-8 sm:my-12 md:my-16 w-full max-w-4xl bg-card p-8 rounded-none shadow-lg">
+      <div class="flex flex-col">
+        <h1 class="font-bold text-5xl mono text-left">{post.data.title}</h1>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+          <p class="text-md text-zinc-400 mb-2 sm:mb-0">
+            {post.data.date.toISOString().slice(0, 10)}
+          </p>
+        </div>
+      </div>
+      <div class="post">
+        <Content />
+      </div>
+
+      {prev || next ? (
+        <div class="flex justify-between items-center gap-4 mt-12 pt-8 border-t border-border/30">
+          <div class="flex-1">
+            {prev ? (
+              <a href={`/blog/${prev.id}`} class="flex items-center gap-2 px-4 py-3 border border-border/30 bg-card/40 hover:bg-card/60 hover:border-accent/30 transition-all duration-300">
+                <span class="text-xs text-muted-foreground font-mono uppercase">Previous</span>
+                <span class="text-sm font-semibold text-foreground line-clamp-1 max-w-[200px]">{prev.data.title}</span>
+              </a>
+            ) : <div class="flex-1" />}
+          </div>
+          <div class="flex-1 flex justify-end">
+            {next ? (
+              <a href={`/blog/${next.id}`} class="flex items-center gap-2 px-4 py-3 border border-border/30 bg-card/40 hover:bg-card/60 hover:border-accent/30 transition-all duration-300 flex-row-reverse text-right">
+                <span class="text-xs text-muted-foreground font-mono uppercase">Next</span>
+                <span class="text-sm font-semibold text-foreground line-clamp-1 max-w-[200px]">{next.data.title}</span>
+              </a>
+            ) : <div class="flex-1" />}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  </div>
+</PageShell>
