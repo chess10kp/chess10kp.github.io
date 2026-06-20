@@ -4,6 +4,7 @@ import mdx from '@astrojs/mdx';
 import tailwind from '@astrojs/tailwind';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import { rehypeSyntaxHighlight } from './src/lib/rehype-syntax-highlight';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -15,6 +16,10 @@ export default defineConfig({
     tailwind(),
   ],
   output: 'static',
+  markdown: {
+    syntaxHighlight: false, // Disable built-in syntax highlighting
+    rehypePlugins: [rehypeSyntaxHighlight],
+  },
   vite: {
     resolve: {
       alias: {

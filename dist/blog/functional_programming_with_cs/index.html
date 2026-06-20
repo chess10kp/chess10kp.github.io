@@ -1,334 +1,256 @@
-<!DOCTYPE html><html lang="en" style="background-color:#0e1419"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Nitin Madhu's Website"><link rel="icon" type="image/x-icon" href="/favicon.ico"><title>Functional Programming with C#</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Sans:wght@100..900&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@100..900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css"><link rel="stylesheet" href="/_astro/about.C55cWll5.css">
-<link rel="stylesheet" href="/_astro/about.BAu4Pen_.css"></head> <body class="font-mono relative bg-background text-foreground">   <div class="flex justify-center min-h-screen"> <div class="my-8 sm:my-12 md:my-16 w-full max-w-4xl bg-card p-8 rounded-none shadow-lg"> <div class="flex flex-col"> <h1 class="font-bold text-5xl mono text-left">Functional Programming with C#</h1> <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4"> <p class="text-md text-zinc-400 mb-2 sm:mb-0"> 2025-05-19 </p> </div> </div> <div class="post"> <h1 id="introduction">Introduction</h1>
-<p>This post is an attempt at writing C# as if it were a <a href="https://en.wikipedia.org/wiki/Functional_programming">functional language</a> like Haskell. Yes, I know <a href="https://fsharp.org">F#</a> exists, but the point is to keep using an OOP language where it is useful, while using a functional approach to make transformations more expressive (the real reason is because it’s fun).</p>
-<p>Consider this example of a depth-first search on a graph using an OOP approach:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> DFS</span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> Traverse</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Node</span><span style="color:#B392F0"> node</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">HashSet</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">Node</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">visited</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">    {</span></span>
-<span class="line"><span style="color:#F97583">        if</span><span style="color:#E1E4E8"> (visited.</span><span style="color:#B392F0">Contains</span><span style="color:#E1E4E8">(node)) </span><span style="color:#F97583">return</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#E1E4E8">        visited.</span><span style="color:#B392F0">Add</span><span style="color:#E1E4E8">(node);</span></span>
-<span class="line"><span style="color:#F97583">        foreach</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">var</span><span style="color:#B392F0"> neighbor</span><span style="color:#F97583"> in</span><span style="color:#E1E4E8"> node.Neighbors)</span></span>
-<span class="line"><span style="color:#B392F0">            Traverse</span><span style="color:#E1E4E8">(neighbor, visited);</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<p>Notice how in the Traverse method, we mutate the visited set at each step. Mutable state and side effects are a common pattern in OOP. The equivalent functional programming approach might look like this:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> static</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> FunctionalDFS</span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> static</span><span style="color:#B392F0"> IEnumerable</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">Traverse</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Node</span><span style="color:#B392F0"> node</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span></span>
-<span class="line"><span style="color:#B392F0">        Traverse</span><span style="color:#E1E4E8">(node, </span><span style="color:#F97583">new</span><span style="color:#B392F0"> HashSet</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">Node</span><span style="color:#E1E4E8">>());</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">    private</span><span style="color:#F97583"> static</span><span style="color:#B392F0"> IEnumerable</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">Traverse</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Node</span><span style="color:#B392F0"> node</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">HashSet</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">Node</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">visited</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">    {</span></span>
-<span class="line"><span style="color:#F97583">        if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">visited.</span><span style="color:#B392F0">Add</span><span style="color:#E1E4E8">(node))</span></span>
-<span class="line"><span style="color:#F97583">            return</span><span style="color:#E1E4E8"> Enumerable.</span><span style="color:#B392F0">Empty</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">>();</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">        return</span></span>
-<span class="line"><span style="color:#F97583">            new</span><span style="color:#E1E4E8">[] { node.Value }</span></span>
-<span class="line"><span style="color:#E1E4E8">            .</span><span style="color:#B392F0">Concat</span><span style="color:#E1E4E8">(node.Neighbors.</span><span style="color:#B392F0">SelectMany</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">n</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> Traverse</span><span style="color:#E1E4E8">(n, visited)));</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<p>In this version, Traverse creates a new stack frame for each Node, meaning that the state of the visited set is passed as an argument.</p>
-<p>This means that node traversal in the OOP version is dependent on each previous step’s state, while the functional version is independent of the previous one.</p>
-<p>By expressing a solution as a series of function compositions instead of a series of statements, we get a more predictable way of reasoning about our program.</p>
-<h2 id="lazy-evaluation"><a href="https://en.wikipedia.org/wiki/Lazy_evaluation">Lazy Evaluation</a></h2>
-<p>The best way I could think of to create lazy sequences would be yield on an <code>IEnumerable</code></p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> static</span><span style="color:#B392F0"> IEnumerable</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">InfiniteRange</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">int</span><span style="color:#B392F0"> start</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#F97583">    while</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#F97583">        yield</span><span style="color:#F97583"> return</span><span style="color:#E1E4E8"> start</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<p>Here, <code>InfiniteRange</code> doesn’t literally store an infinite list of numbers, rather producing each element of the list lazily.</p>
-<p>For anything that isn’t an <code>IEnumerable</code>, wrapping it in a callback should suffice.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> static</span><span style="color:#B392F0"> Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">LazyWrapper</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">>(</span><span style="color:#B392F0">T</span><span style="color:#B392F0"> value</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> value;</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<h2 id="functional-composition"><a href="https://en.wikipedia.org/wiki/Function_composition">Functional composition</a></h2>
-<p>Thankfully LINQ exists, so we already have a pretty sweet querying language that chains compositionally.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> evenSquares</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> InfiniteRange</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">Where</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">x</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> x </span><span style="color:#F97583">%</span><span style="color:#79B8FF"> 2</span><span style="color:#F97583"> ==</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">Select</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">x</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> x </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> x)</span></span>
-<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">Take</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">5</span><span style="color:#E1E4E8">);</span></span></code></pre>
-<p>Other types of chaining is painful though.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">int</span><span style="color:#B392F0"> AddOne</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">int</span><span style="color:#B392F0"> i</span><span style="color:#E1E4E8">) {</span></span>
-<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">; </span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<p>If you wanted to get two instead, you would chain <code>AddOne(AddOne(0))</code>, but that doesn’t look nice at all. The equivalent Haskell is as follows</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="haskell"><code><span class="line"><span style="color:#B392F0">succ</span><span style="color:#F97583"> ::</span><span style="color:#F97583"> Int</span><span style="color:#F97583"> -></span><span style="color:#F97583"> Int</span></span>
-<span class="line"><span style="color:#E1E4E8">succ x </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> x </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">two </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> succ </span><span style="color:#F97583">.</span><span style="color:#E1E4E8"> succ </span><span style="color:#F97583">$</span><span style="color:#79B8FF"> 0</span></span></code></pre>
-<p>Getting something like this should be done with a custom class.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> Compose</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#F97583">    private</span><span style="color:#F97583"> readonly</span><span style="color:#B392F0"> Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">_composition</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#B392F0"> Compose</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">params</span><span style="color:#B392F0"> Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">>[] </span><span style="color:#B392F0">functions</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">    {</span></span>
-<span class="line"><span style="color:#E1E4E8">        _composition </span><span style="color:#F97583">=</span><span style="color:#B392F0"> x</span><span style="color:#F97583"> =></span></span>
-<span class="line"><span style="color:#E1E4E8">        {</span></span>
-<span class="line"><span style="color:#B392F0">            T</span><span style="color:#B392F0"> result</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> x;</span></span>
-<span class="line"><span style="color:#F97583">            foreach</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">var</span><span style="color:#B392F0"> f</span><span style="color:#F97583"> in</span><span style="color:#E1E4E8"> functions)</span></span>
-<span class="line"><span style="color:#E1E4E8">                result </span><span style="color:#F97583">=</span><span style="color:#B392F0"> f</span><span style="color:#E1E4E8">(result);</span></span>
-<span class="line"><span style="color:#F97583">            return</span><span style="color:#E1E4E8"> result;</span></span>
-<span class="line"><span style="color:#E1E4E8">        };</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#B392F0"> T</span><span style="color:#B392F0"> Apply</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">T</span><span style="color:#B392F0"> input</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#B392F0"> _composition</span><span style="color:#E1E4E8">(input);</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<p>Using it is as simple as</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> addTwo</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Compose</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">>(AddOne, AddOne);</span></span>
-<span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> result</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> addTwo.</span><span style="color:#B392F0">Apply</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">); </span><span style="color:#6A737D">// 2</span></span></code></pre>
-<h2 id="pure-functions"><a href="https://en.wikipedia.org/wiki/Pure_function">Pure Functions</a></h2>
-<p>Just make functions that don’t have internal state! The easiest way to make this work is to just lift everything into a parameter, even for class methods. Think something like:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> static</span><span style="color:#F97583"> int</span><span style="color:#B392F0"> SumList</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">IEnumerable</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">numbers</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">int</span><span style="color:#B392F0"> accumulator</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">numbers.</span><span style="color:#B392F0">Any</span><span style="color:#E1E4E8">()) </span><span style="color:#F97583">return</span><span style="color:#E1E4E8"> accumulator;</span></span>
-<span class="line"><span style="color:#F97583">    return</span><span style="color:#B392F0"> SumList</span><span style="color:#E1E4E8">(numbers.</span><span style="color:#B392F0">Skip</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">), accumulator </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> numbers.</span><span style="color:#B392F0">First</span><span style="color:#E1E4E8">());</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<p>instead of</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> static</span><span style="color:#F97583"> int</span><span style="color:#B392F0"> SumList</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">IEnumerable</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">numbers</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#F97583">    int</span><span style="color:#B392F0"> s</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#F97583">    foreach</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">var</span><span style="color:#B392F0"> n</span><span style="color:#F97583"> in</span><span style="color:#E1E4E8"> numbers) {</span></span>
-<span class="line"><span style="color:#E1E4E8">        s </span><span style="color:#F97583">+=</span><span style="color:#E1E4E8"> n;</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> s;</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<p>Now that we got the basics covered, what’s left is to implement more advanced features and make C# finally readable.</p>
-<h2 id="functors"><a href="https://en.wikipedia.org/wiki/Functor">Functors</a></h2>
-<p>A functor is basically a box that you can map over. If you’ve used LINQ, you’ve already been using functors without knowing it. <code>IEnumerable&#x3C;T></code> is a functor, and <code>Select</code> is the <code>fmap</code> operation.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> numbers</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#E1E4E8">[] { </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8"> };</span></span>
-<span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> doubled</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> numbers.</span><span style="color:#B392F0">Select</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">x</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> x </span><span style="color:#F97583">*</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">); </span><span style="color:#6A737D">// [2, 4, 6]</span></span></code></pre>
-<p>The functor pattern is more interesting when dealing with things that might not have values. Let’s create a <code>Maybe&#x3C;T></code> type:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> abstract</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> sealed</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Just</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">T</span><span style="color:#B392F0"> Value</span><span style="color:#E1E4E8">) : </span><span style="color:#B392F0">Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">>;</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> sealed</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Nothing</span><span style="color:#E1E4E8"> : </span><span style="color:#B392F0">Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">>;</span></span>
-<span class="line"><span style="color:#E1E4E8">    </span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">Map</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>(</span><span style="color:#B392F0">Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">f</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span></span>
-<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#F97583"> switch</span></span>
-<span class="line"><span style="color:#E1E4E8">        {</span></span>
-<span class="line"><span style="color:#B392F0">            Just</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">var</span><span style="color:#B392F0"> value</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Just</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">f</span><span style="color:#E1E4E8">(value)),</span></span>
-<span class="line"><span style="color:#B392F0">            Nothing</span><span style="color:#F97583"> =></span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Nothing</span><span style="color:#E1E4E8">(),</span></span>
-<span class="line"><span style="color:#79B8FF">            _</span><span style="color:#F97583"> =></span><span style="color:#F97583"> throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> InvalidOperationException</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">        };</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<p>Now you can chain transformations without worrying about null:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> result</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Just</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">5</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">Map</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">x</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> x </span><span style="color:#F97583">*</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">Map</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">x</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> x </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 3</span><span style="color:#E1E4E8">); </span><span style="color:#6A737D">// Just(13)</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> empty</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Nothing</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">Map</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">x</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> x </span><span style="color:#F97583">*</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">Map</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">x</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> x </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 3</span><span style="color:#E1E4E8">); </span><span style="color:#6A737D">// Nothing</span></span></code></pre>
-<p>The key insight is that the functor handles the context (the “maybe there’s a value” part), while you just write the transformation as if the value was always there.</p>
-<h2 id="applicative-functors"><a href="https://en.wikipedia.org/wiki/Applicative_functor">Applicative Functors</a></h2>
-<p>Functors let you apply a regular function to a wrapped value. But what if the function itself is wrapped? That’s where applicatives come in.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> abstract</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> sealed</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Just</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">T</span><span style="color:#B392F0"> Value</span><span style="color:#E1E4E8">) : </span><span style="color:#B392F0">Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">>;</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> sealed</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Nothing</span><span style="color:#E1E4E8"> : </span><span style="color:#B392F0">Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">>;</span></span>
-<span class="line"><span style="color:#E1E4E8">    </span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">Map</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>(</span><span style="color:#B392F0">Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">f</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span></span>
-<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#F97583"> switch</span></span>
-<span class="line"><span style="color:#E1E4E8">        {</span></span>
-<span class="line"><span style="color:#B392F0">            Just</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">var</span><span style="color:#B392F0"> value</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Just</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">f</span><span style="color:#E1E4E8">(value)),</span></span>
-<span class="line"><span style="color:#B392F0">            Nothing</span><span style="color:#F97583"> =></span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Nothing</span><span style="color:#E1E4E8">(),</span></span>
-<span class="line"><span style="color:#79B8FF">            _</span><span style="color:#F97583"> =></span><span style="color:#F97583"> throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> InvalidOperationException</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">        };</span></span>
-<span class="line"><span style="color:#E1E4E8">    </span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">Apply</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>(</span><span style="color:#B392F0">Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>> </span><span style="color:#B392F0">wrappedFunc</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span></span>
-<span class="line"><span style="color:#E1E4E8">        (</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">, wrappedFunc) </span><span style="color:#F97583">switch</span></span>
-<span class="line"><span style="color:#E1E4E8">        {</span></span>
-<span class="line"><span style="color:#E1E4E8">            (</span><span style="color:#B392F0">Just</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">var</span><span style="color:#B392F0"> value</span><span style="color:#E1E4E8">), </span><span style="color:#B392F0">Just</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">var</span><span style="color:#B392F0"> func</span><span style="color:#E1E4E8">)) </span><span style="color:#F97583">=></span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Just</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">func</span><span style="color:#E1E4E8">(value)),</span></span>
-<span class="line"><span style="color:#79B8FF">            _</span><span style="color:#F97583"> =></span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Nothing</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">        };</span></span>
-<span class="line"><span style="color:#E1E4E8">    </span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> static</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">Pure</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">T</span><span style="color:#B392F0"> value</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Just</span><span style="color:#E1E4E8">(value);</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<p>This lets you combine multiple wrapped values in interesting ways:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#B392F0">Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">maybeAdd</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">a</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">b</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#F97583">    var</span><span style="color:#B392F0"> addFunc</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">int</span><span style="color:#E1E4E8">>>.</span><span style="color:#B392F0">Just</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">x</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> x);</span></span>
-<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> b.</span><span style="color:#B392F0">Apply</span><span style="color:#E1E4E8">(a.</span><span style="color:#B392F0">Map</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">int</span><span style="color:#E1E4E8">>>(</span><span style="color:#B392F0">x</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> y</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> x </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> y));</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> result</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> maybeAdd</span><span style="color:#E1E4E8">(</span></span>
-<span class="line"><span style="color:#F97583">    new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Just</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">5</span><span style="color:#E1E4E8">),</span></span>
-<span class="line"><span style="color:#F97583">    new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Just</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">); </span><span style="color:#6A737D">// Just(8)</span></span></code></pre>
-<p>Applicatives are useful when you have multiple independent computations that might fail, and you want to combine their results.</p>
-<h2 id="monads"><a href="https://en.wikipedia.org/wiki/Monad_(functional_programming)">Monads</a></h2>
-<p>Monads are functors with extra power. They let you chain operations where each step depends on the result of the previous one, and each operation returns a wrapped value.</p>
-<p>The key operation is <code>Bind</code> (also called <code>flatMap</code> or <code>>>=</code> in Haskell):</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> abstract</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> sealed</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Just</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">T</span><span style="color:#B392F0"> Value</span><span style="color:#E1E4E8">) : </span><span style="color:#B392F0">Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">>;</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> sealed</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Nothing</span><span style="color:#E1E4E8"> : </span><span style="color:#B392F0">Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">>;</span></span>
-<span class="line"><span style="color:#E1E4E8">    </span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">Map</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>(</span><span style="color:#B392F0">Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">f</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span></span>
-<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#F97583"> switch</span></span>
-<span class="line"><span style="color:#E1E4E8">        {</span></span>
-<span class="line"><span style="color:#B392F0">            Just</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">var</span><span style="color:#B392F0"> value</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Just</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">f</span><span style="color:#E1E4E8">(value)),</span></span>
-<span class="line"><span style="color:#B392F0">            Nothing</span><span style="color:#F97583"> =></span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Nothing</span><span style="color:#E1E4E8">(),</span></span>
-<span class="line"><span style="color:#79B8FF">            _</span><span style="color:#F97583"> =></span><span style="color:#F97583"> throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> InvalidOperationException</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">        };</span></span>
-<span class="line"><span style="color:#E1E4E8">    </span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">Bind</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>(</span><span style="color:#B392F0">Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>> </span><span style="color:#B392F0">f</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span></span>
-<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#F97583"> switch</span></span>
-<span class="line"><span style="color:#E1E4E8">        {</span></span>
-<span class="line"><span style="color:#B392F0">            Just</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">var</span><span style="color:#B392F0"> value</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#B392F0"> f</span><span style="color:#E1E4E8">(value),</span></span>
-<span class="line"><span style="color:#B392F0">            Nothing</span><span style="color:#F97583"> =></span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Nothing</span><span style="color:#E1E4E8">(),</span></span>
-<span class="line"><span style="color:#79B8FF">            _</span><span style="color:#F97583"> =></span><span style="color:#F97583"> throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> InvalidOperationException</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">        };</span></span>
-<span class="line"><span style="color:#E1E4E8">    </span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> static</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">Return</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">T</span><span style="color:#B392F0"> value</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Just</span><span style="color:#E1E4E8">(value);</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<p>The difference between <code>Map</code> and <code>Bind</code> is subtle but important. <code>Map</code> takes a function that returns an unwrapped value, while <code>Bind</code> takes a function that returns a wrapped value. This prevents you from ending up with <code>Maybe&#x3C;Maybe&#x3C;T>></code>.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#B392F0">Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">Divide</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">int</span><span style="color:#B392F0"> a</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">int</span><span style="color:#B392F0"> b</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span></span>
-<span class="line"><span style="color:#E1E4E8">    b </span><span style="color:#F97583">==</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8"> </span></span>
-<span class="line"><span style="color:#F97583">        ?</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Nothing</span><span style="color:#E1E4E8">() </span></span>
-<span class="line"><span style="color:#F97583">        :</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Just</span><span style="color:#E1E4E8">(a </span><span style="color:#F97583">/</span><span style="color:#E1E4E8"> b);</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> result</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Just</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">20</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">Bind</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">x</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> Divide</span><span style="color:#E1E4E8">(x, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">))</span></span>
-<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">Bind</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">x</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> Divide</span><span style="color:#E1E4E8">(x, </span><span style="color:#79B8FF">5</span><span style="color:#E1E4E8">)); </span><span style="color:#6A737D">// Just(2)</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> divideByZero</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Just</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">20</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">Bind</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">x</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> Divide</span><span style="color:#E1E4E8">(x, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">))</span></span>
-<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">Bind</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">x</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> Divide</span><span style="color:#E1E4E8">(x, </span><span style="color:#79B8FF">5</span><span style="color:#E1E4E8">)); </span><span style="color:#6A737D">// Nothing</span></span></code></pre>
-<p>LINQ’s <code>SelectMany</code> is actually the <code>Bind</code> operation, which means C# already has monad support built in! You can even use query syntax as a form of do-notation:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> result</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> </span></span>
-<span class="line"><span style="color:#F97583">    from</span><span style="color:#B392F0"> x</span><span style="color:#F97583"> in</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Just</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">5</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#F97583">    from</span><span style="color:#B392F0"> y</span><span style="color:#F97583"> in</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Just</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#F97583">    select</span><span style="color:#E1E4E8"> x </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> y; </span><span style="color:#6A737D">// Just(8)</span></span></code></pre>
-<p>Another useful monad is <code>Result&#x3C;T, E></code> for error handling:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> abstract</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Result</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">E</span><span style="color:#E1E4E8">></span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> sealed</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Ok</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">T</span><span style="color:#B392F0"> Value</span><span style="color:#E1E4E8">) : </span><span style="color:#B392F0">Result</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">E</span><span style="color:#E1E4E8">>;</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> sealed</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Error</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">E</span><span style="color:#B392F0"> ErrorValue</span><span style="color:#E1E4E8">) : </span><span style="color:#B392F0">Result</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">E</span><span style="color:#E1E4E8">>;</span></span>
-<span class="line"><span style="color:#E1E4E8">    </span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#B392F0"> Result</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">E</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">Bind</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>(</span><span style="color:#B392F0">Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">Result</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">E</span><span style="color:#E1E4E8">>> </span><span style="color:#B392F0">f</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span></span>
-<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#F97583"> switch</span></span>
-<span class="line"><span style="color:#E1E4E8">        {</span></span>
-<span class="line"><span style="color:#B392F0">            Ok</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">var</span><span style="color:#B392F0"> value</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#B392F0"> f</span><span style="color:#E1E4E8">(value),</span></span>
-<span class="line"><span style="color:#B392F0">            Error</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">var</span><span style="color:#B392F0"> error</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Result</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">E</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Error</span><span style="color:#E1E4E8">(error),</span></span>
-<span class="line"><span style="color:#79B8FF">            _</span><span style="color:#F97583"> =></span><span style="color:#F97583"> throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> InvalidOperationException</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">        };</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<p>This lets you chain operations that might fail while preserving error information, without throwing exceptions.</p>
-<h2 id="pattern-matching"><a href="https://en.wikipedia.org/wiki/Pattern_matching">Pattern Matching</a></h2>
-<p>C# has gotten much better at pattern matching in recent versions. Switch expressions replace verbose if-else chains with something that actually looks functional.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">string</span><span style="color:#B392F0"> Describe</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">maybe</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> maybe </span><span style="color:#F97583">switch</span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#B392F0">    Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Just</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">var</span><span style="color:#B392F0"> value</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">when</span><span style="color:#E1E4E8"> value </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 10</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> "Big number"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#B392F0">    Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Just</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">var</span><span style="color:#B392F0"> value</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#9ECBFF"> $"Small number: </span><span style="color:#9ECBFF">{</span><span style="color:#E1E4E8">value</span><span style="color:#9ECBFF">}</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#B392F0">    Maybe</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">>.</span><span style="color:#B392F0">Nothing</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> "No value"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">    _</span><span style="color:#F97583"> =></span><span style="color:#F97583"> throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> InvalidOperationException</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre>
-<p>You can pattern match on types, properties, and even destructure tuples:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">string</span><span style="color:#B392F0"> AnalyzePoint</span><span style="color:#E1E4E8">((</span><span style="color:#F97583">int</span><span style="color:#B392F0"> x</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">int</span><span style="color:#B392F0"> y</span><span style="color:#E1E4E8">) </span><span style="color:#B392F0">point</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> point </span><span style="color:#F97583">switch</span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#E1E4E8">    (</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#9ECBFF"> "Origin"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">    (</span><span style="color:#F97583">var</span><span style="color:#B392F0"> x</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#9ECBFF"> $"On X-axis at </span><span style="color:#9ECBFF">{</span><span style="color:#E1E4E8">x</span><span style="color:#9ECBFF">}</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">    (</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">var</span><span style="color:#B392F0"> y</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#9ECBFF"> $"On Y-axis at </span><span style="color:#9ECBFF">{</span><span style="color:#E1E4E8">y</span><span style="color:#9ECBFF">}</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">    (</span><span style="color:#F97583">var</span><span style="color:#B392F0"> x</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">var</span><span style="color:#B392F0"> y</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">when</span><span style="color:#E1E4E8"> x </span><span style="color:#F97583">==</span><span style="color:#B392F0"> y</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> "On diagonal"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#E1E4E8">    (</span><span style="color:#F97583">var</span><span style="color:#B392F0"> x</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">var</span><span style="color:#B392F0"> y</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#9ECBFF"> $"Point at (</span><span style="color:#9ECBFF">{</span><span style="color:#E1E4E8">x</span><span style="color:#9ECBFF">}</span><span style="color:#9ECBFF">, </span><span style="color:#9ECBFF">{</span><span style="color:#E1E4E8">y</span><span style="color:#9ECBFF">}</span><span style="color:#9ECBFF">)"</span></span>
-<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre>
-<p>Pattern matching really shines when combined with algebraic data types. It gives you exhaustiveness checking and makes your code much more declarative.</p>
-<h2 id="algebraic-data-types"><a href="https://en.wikipedia.org/wiki/Algebraic_data_type">Algebraic Data Types</a></h2>
-<p>ADTs come in two flavors: product types (like tuples or records) and sum types (discriminated unions). C# records make this pretty natural.</p>
-<p>Product types are straightforward:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Person</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">string</span><span style="color:#B392F0"> Name</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">int</span><span style="color:#B392F0"> Age</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">string</span><span style="color:#B392F0"> Email</span><span style="color:#E1E4E8">);</span></span></code></pre>
-<p>Sum types are more interesting. They represent “this OR that” rather than “this AND that”:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> abstract</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Shape</span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> sealed</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Circle</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">double</span><span style="color:#B392F0"> Radius</span><span style="color:#E1E4E8">) : </span><span style="color:#B392F0">Shape</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> sealed</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Rectangle</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">double</span><span style="color:#B392F0"> Width</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">double</span><span style="color:#B392F0"> Height</span><span style="color:#E1E4E8">) : </span><span style="color:#B392F0">Shape</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> sealed</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Triangle</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">double</span><span style="color:#B392F0"> Base</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">double</span><span style="color:#B392F0"> Height</span><span style="color:#E1E4E8">) : </span><span style="color:#B392F0">Shape</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<p>Combined with pattern matching, this becomes incredibly expressive:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">double</span><span style="color:#B392F0"> CalculateArea</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Shape</span><span style="color:#B392F0"> shape</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> shape </span><span style="color:#F97583">switch</span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#B392F0">    Shape</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">Circle</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">var</span><span style="color:#B392F0"> r</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> Math.PI </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> r </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> r,</span></span>
-<span class="line"><span style="color:#B392F0">    Shape</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">Rectangle</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">var</span><span style="color:#B392F0"> w</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">var</span><span style="color:#B392F0"> h</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> w </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> h,</span></span>
-<span class="line"><span style="color:#B392F0">    Shape</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">Triangle</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">var</span><span style="color:#B392F0"> b</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">var</span><span style="color:#B392F0"> h</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#79B8FF"> 0.5</span><span style="color:#F97583"> *</span><span style="color:#E1E4E8"> b </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> h,</span></span>
-<span class="line"><span style="color:#79B8FF">    _</span><span style="color:#F97583"> =></span><span style="color:#F97583"> throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> InvalidOperationException</span><span style="color:#E1E4E8">()</span></span>
-<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre>
-<p>The compiler will even warn you if you forget to handle a case. This is huge for making illegal states unrepresentable:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> abstract</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> PaymentStatus</span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> sealed</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Pending</span><span style="color:#E1E4E8"> : </span><span style="color:#B392F0">PaymentStatus</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> sealed</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Processing</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">string</span><span style="color:#B392F0"> TransactionId</span><span style="color:#E1E4E8">) : </span><span style="color:#B392F0">PaymentStatus</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> sealed</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Completed</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">string</span><span style="color:#B392F0"> TransactionId</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">DateTime</span><span style="color:#B392F0"> CompletedAt</span><span style="color:#E1E4E8">) : </span><span style="color:#B392F0">PaymentStatus</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> sealed</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> Failed</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">string</span><span style="color:#B392F0"> Reason</span><span style="color:#E1E4E8">) : </span><span style="color:#B392F0">PaymentStatus</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<p>Now there’s no way to accidentally have a completed payment without a transaction ID, because the type system won’t let you.</p>
-<h2 id="currying-and-partial-application"><a href="https://en.wikipedia.org/wiki/Currying">Currying and Partial Application</a></h2>
-<p>Currying transforms a function that takes multiple arguments into a chain of functions that each take a single argument. In Haskell, all functions are curried by default. In C#, we have to do it manually.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> static</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> Curry</span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> static</span><span style="color:#B392F0"> Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T1</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T2</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>> </span><span style="color:#B392F0">Apply</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T1</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">T2</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>(</span></span>
-<span class="line"><span style="color:#B392F0">        Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T1</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">T2</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">f</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span></span>
-<span class="line"><span style="color:#B392F0">        x</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> y</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> f</span><span style="color:#E1E4E8">(x, y);</span></span>
-<span class="line"><span style="color:#E1E4E8">    </span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> static</span><span style="color:#B392F0"> Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T1</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T2</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T3</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>>> </span><span style="color:#B392F0">Apply</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T1</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">T2</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">T3</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>(</span></span>
-<span class="line"><span style="color:#B392F0">        Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T1</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">T2</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">T3</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">f</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span></span>
-<span class="line"><span style="color:#B392F0">        x</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> y</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> z</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> f</span><span style="color:#E1E4E8">(x, y, z);</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<p>This lets you do partial application naturally:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#B392F0">Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">int</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">int</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">Add</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> (</span><span style="color:#B392F0">a</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">b</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> a </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> b;</span></span>
-<span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> curriedAdd</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> Curry.</span><span style="color:#B392F0">Apply</span><span style="color:#E1E4E8">(Add);</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> addFive</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> curriedAdd</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">5</span><span style="color:#E1E4E8">);</span></span>
-<span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> result</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> addFive</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">); </span><span style="color:#6A737D">// 8</span></span></code></pre>
-<p>Partial application is useful when you want to configure a function and reuse it:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#B392F0">Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">string</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">string</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">bool</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">Contains</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> (</span><span style="color:#B392F0">text</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">substring</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> </span></span>
-<span class="line"><span style="color:#E1E4E8">    text.</span><span style="color:#B392F0">Contains</span><span style="color:#E1E4E8">(substring);</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> curriedContains</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> Curry.</span><span style="color:#B392F0">Apply</span><span style="color:#E1E4E8">(Contains);</span></span>
-<span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> containsHello</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> curriedContains</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Hello"</span><span style="color:#E1E4E8">);</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> strings</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#E1E4E8">[] { </span><span style="color:#9ECBFF">"Hello World"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"Goodbye"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"Hello there"</span><span style="color:#E1E4E8"> };</span></span>
-<span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> filtered</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> strings.</span><span style="color:#B392F0">Where</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">s</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> containsHello</span><span style="color:#E1E4E8">(s));</span></span></code></pre>
-<p>You can also create a more general partial application helper:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> static</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> Partial</span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> static</span><span style="color:#B392F0"> Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T2</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">Apply</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T1</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">T2</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>(</span></span>
-<span class="line"><span style="color:#B392F0">        Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T1</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">T2</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">f</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">T1</span><span style="color:#B392F0"> arg1</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span></span>
-<span class="line"><span style="color:#B392F0">        x</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> f</span><span style="color:#E1E4E8">(arg1, x);</span></span>
-<span class="line"><span style="color:#E1E4E8">    </span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> static</span><span style="color:#B392F0"> Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T2</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">T3</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">Apply</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T1</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">T2</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">T3</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">>(</span></span>
-<span class="line"><span style="color:#B392F0">        Func</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T1</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">T2</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">T3</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">TResult</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">f</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">T1</span><span style="color:#B392F0"> arg1</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span></span>
-<span class="line"><span style="color:#E1E4E8">        (</span><span style="color:#B392F0">x</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">y</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#B392F0"> f</span><span style="color:#E1E4E8">(arg1, x, y);</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<h2 id="immutability"><a href="https://en.wikipedia.org/wiki/Immutable_object">Immutability</a></h2>
-<p>Immutability is the foundation of functional programming. If nothing ever changes, you don’t have to worry about side effects or shared state.</p>
-<p>C# has gotten much better at this with records and init properties:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> record</span><span style="color:#B392F0"> User</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">string</span><span style="color:#B392F0"> Name</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">string</span><span style="color:#B392F0"> Email</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">int</span><span style="color:#B392F0"> Age</span><span style="color:#E1E4E8">);</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> user</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> User</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Alice"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"alice@example.com"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">25</span><span style="color:#E1E4E8">);</span></span>
-<span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> olderUser</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> user </span><span style="color:#F97583">with</span><span style="color:#E1E4E8"> { Age </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 26</span><span style="color:#E1E4E8"> }; </span><span style="color:#6A737D">// Creates a new instance</span></span></code></pre>
-<p>The <code>with</code> expression creates a copy with some properties changed, leaving the original untouched.</p>
-<p>For collections, use immutable types:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">using</span><span style="color:#B392F0"> System</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">Collections</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">Immutable</span><span style="color:#E1E4E8">;</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> list</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> ImmutableList.</span><span style="color:#B392F0">Create</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">);</span></span>
-<span class="line"><span style="color:#F97583">var</span><span style="color:#B392F0"> newList</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> list.</span><span style="color:#B392F0">Add</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">4</span><span style="color:#E1E4E8">); </span><span style="color:#6A737D">// Returns a new list, original unchanged</span></span></code></pre>
-<p>For classes that can’t be records, use readonly and init:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="csharp"><code><span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> Config</span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> string</span><span style="color:#B392F0"> ServerUrl</span><span style="color:#E1E4E8"> { </span><span style="color:#F97583">get</span><span style="color:#E1E4E8">; </span><span style="color:#F97583">init</span><span style="color:#E1E4E8">; }</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> int</span><span style="color:#B392F0"> Timeout</span><span style="color:#E1E4E8"> { </span><span style="color:#F97583">get</span><span style="color:#E1E4E8">; </span><span style="color:#F97583">init</span><span style="color:#E1E4E8">; }</span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#B392F0"> ImmutableList</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">string</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">AllowedHosts</span><span style="color:#E1E4E8"> { </span><span style="color:#F97583">get</span><span style="color:#E1E4E8">; </span><span style="color:#F97583">init</span><span style="color:#E1E4E8">; }</span></span>
-<span class="line"><span style="color:#E1E4E8">    </span></span>
-<span class="line"><span style="color:#F97583">    public</span><span style="color:#B392F0"> Config</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">string</span><span style="color:#B392F0"> serverUrl</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">int</span><span style="color:#B392F0"> timeout</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">ImmutableList</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#F97583">string</span><span style="color:#E1E4E8">> </span><span style="color:#B392F0">allowedHosts</span><span style="color:#E1E4E8">)</span></span>
-<span class="line"><span style="color:#E1E4E8">    {</span></span>
-<span class="line"><span style="color:#E1E4E8">        ServerUrl </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> serverUrl;</span></span>
-<span class="line"><span style="color:#E1E4E8">        Timeout </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> timeout;</span></span>
-<span class="line"><span style="color:#E1E4E8">        AllowedHosts </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> allowedHosts;</span></span>
-<span class="line"><span style="color:#E1E4E8">    }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<p>Immutability makes your code easier to reason about because values don’t change unexpectedly. Combined with pure functions, you get code that’s predictable, testable, and composable.</p>
-<p>The key insight of functional programming is that by restricting what you can do (no mutation, no side effects, no null), you actually make your code more powerful and easier to understand. C# might not be Haskell, but with a little creativity, you can get pretty close.</p> </div> <div class="flex justify-between items-center gap-4 mt-12 pt-8 border-t border-border/30"> <div class="flex-1"> <a href="/blog/snip" class="flex items-center gap-2 px-4 py-3 border border-border/30 bg-card/40 hover:bg-card/60 hover:border-accent/30 transition-all duration-300"> <span class="text-xs text-muted-foreground font-mono uppercase">Previous</span> <span class="text-sm font-semibold text-foreground line-clamp-1 max-w-[200px]">Making things for the sake of it</span> </a> </div> <div class="flex-1 flex justify-end"> <div class="flex-1"></div> </div> </div> </div> </div>   </body></html>
+<!DOCTYPE html><html lang="en" style="background-color:#0e1419"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Nitin Madhu's Website"><link rel="icon" type="image/x-icon" href="/favicon.ico"><title>Functional Programming with C#</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Sans:wght@100..900&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@100..900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="/_astro/about.C55cWll5.css">
+<link rel="stylesheet" href="/_astro/about.He-g3pmb.css"></head> <body class="font-mono relative bg-background text-foreground">   <div class="flex justify-center min-h-screen"> <div class="my-8 sm:my-12 md:my-16 w-full max-w-4xl bg-card p-8 rounded-none"> <div class="flex flex-col"> <h1 class="font-bold text-5xl mono text-left">Functional Programming with C#</h1> <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4"> <p class="text-md text-zinc-400 mb-2 sm:mb-0"> 2025-05-19 </p> </div> </div> <div class="post">  </div> <div class="flex justify-between items-center gap-4 mt-12 pt-8 border-t border-border/30"> <div class="flex-1"> <a href="/blog/snip" class="flex items-center gap-2 px-4 py-3 border border-border/30 bg-card/40 hover:bg-card/60 hover:border-accent/30 transition-all duration-300"> <span class="text-xs text-muted-foreground font-mono uppercase">Previous</span> <span class="text-sm font-semibold text-foreground line-clamp-1 max-w-[200px]">Making things for the sake of it</span> </a> </div> <div class="flex-1 flex justify-end"> <div class="flex-1"></div> </div> </div> </div> </div> <script>
+    // Jac syntax highlighting function (client-side version)
+    function highlightJacCode(code) {
+      const keywords = new Set([
+        'node', 'edge', 'walker', 'can', 'with', 'entry', 'exit', 'def', 'class', 'obj',
+        'enum', 'has', 'ability', 'if', 'else', 'elif', 'for', 'while', 'return',
+        'spawn', 'visit', 'disengage', 'yield', 'try', 'except', 'finally', 'assert',
+        'import', 'include', 'from', 'as', 'global', 'async', 'await', 'lambda',
+        'here', 'self', 'root', 'super', 'init', 'postinit', 'visitor', 'impl',
+        'and', 'or', 'not', 'in', 'is', 'True', 'False', 'None', 'break', 'continue',
+        'pass', 'del', 'raise', 'test', 'check'
+      ]);
+      
+      const visitKeywords = new Set(['visit', 'disengage']);
+      const types = new Set(['str', 'int', 'float', 'bool', 'list', 'dict', 'tuple', 'set', 'any', 'type']);
+      const operators = new Set(['=', '+', '-', '*', '/', '%', '==', '!=', '<', '>', '<=', '>=', '+=', '-=', '*=', '/=', '|', '&', '^', '~', '<<', '>>', '**']);
+
+      const tokens = [];
+      let i = 0;
+      let bracketStack = [];
+
+      while (i < code.length) {
+        if (/\s/.test(code[i])) {
+          let whitespace = '';
+          while (i < code.length && /\s/.test(code[i])) {
+            whitespace += code[i];
+            i++;
+          }
+          tokens.push({ type: 'whitespace', value: whitespace });
+          continue;
+        }
+
+        if (code[i] === '#') {
+          if (code[i + 1] === '*') {
+            let comment = '';
+            while (i < code.length && !(code[i] === '*' && code[i + 1] === '#')) {
+              comment += code[i];
+              i++;
+            }
+            if (i < code.length) {
+              comment += code[i] + code[i + 1];
+              i += 2;
+            }
+            tokens.push({ type: 'comment', value: comment });
+          } else {
+            let comment = '';
+            while (i < code.length && code[i] !== '\n') {
+              comment += code[i];
+              i++;
+            }
+            tokens.push({ type: 'comment', value: comment });
+          }
+          continue;
+        }
+
+        if (code[i] === '"' || code[i] === "'") {
+          const quote = code[i];
+          let string = quote;
+          i++;
+          while (i < code.length && code[i] !== quote) {
+            if (code[i] === '\\' && i + 1 < code.length) {
+              string += code[i] + code[i + 1];
+              i += 2;
+            } else {
+              string += code[i];
+              i++;
+            }
+          }
+          if (i < code.length) {
+            string += code[i];
+            i++;
+          }
+          tokens.push({ type: 'string', value: string });
+          continue;
+        }
+
+        if (/\d/.test(code[i])) {
+          let number = '';
+          while (i < code.length && /[\d.]/.test(code[i])) {
+            number += code[i];
+            i++;
+          }
+          tokens.push({ type: 'number', value: number });
+          continue;
+        }
+
+        if (code[i] === '{') {
+          bracketStack.push('{');
+          tokens.push({ type: 'bracket', value: code[i], level: bracketStack.length - 1 });
+          i++;
+          continue;
+        }
+        
+        if (code[i] === '}') {
+          if (bracketStack.length > 0 && bracketStack[bracketStack.length - 1] === '{') {
+            bracketStack.pop();
+          }
+          tokens.push({ type: 'bracket', value: code[i], level: bracketStack.length });
+          i++;
+          continue;
+        }
+
+        if (code[i] === '(' || code[i] === '[') {
+          bracketStack.push(code[i]);
+          tokens.push({ type: 'bracket', value: code[i], level: bracketStack.length - 1 });
+          i++;
+          continue;
+        }
+        
+        if (code[i] === ')' || code[i] === ']') {
+          const expectedOpen = code[i] === ')' ? '(' : '[';
+          if (bracketStack.length > 0 && bracketStack[bracketStack.length - 1] === expectedOpen) {
+            bracketStack.pop();
+          }
+          tokens.push({ type: 'bracket', value: code[i], level: bracketStack.length });
+          i++;
+          continue;
+        }
+
+        let operator = '';
+        let j = i;
+        while (j < code.length && /[=+\-*/%<>!&|^~]/.test(code[j])) {
+          operator += code[j];
+          j++;
+        }
+        if (operator && operators.has(operator)) {
+          tokens.push({ type: 'operator', value: operator });
+          i = j;
+          continue;
+        }
+
+        if (/[a-zA-Z_]/.test(code[i])) {
+          let identifier = '';
+          while (i < code.length && /[a-zA-Z0-9_]/.test(code[i])) {
+            identifier += code[i];
+            i++;
+          }
+          
+          const prevNonWhitespaceToken = tokens.slice().reverse().find(t => t.type !== 'whitespace');
+          const isAfterImport = prevNonWhitespaceToken && 
+            ['import', 'include', 'from'].includes(prevNonWhitespaceToken.value);
+          
+          if (isAfterImport) {
+            while (i < code.length && code[i] === '.') {
+              identifier += code[i];
+              i++;
+              while (i < code.length && /[a-zA-Z0-9_]/.test(code[i])) {
+                identifier += code[i];
+                i++;
+              }
+            }
+            tokens.push({ type: 'module', value: identifier });
+            continue;
+          }
+          
+          const isAfterArchetypeKeyword = prevNonWhitespaceToken && 
+            ['walker', 'node', 'edge', 'obj', 'class', 'enum'].includes(prevNonWhitespaceToken.value);
+          const isAfterCan = prevNonWhitespaceToken && prevNonWhitespaceToken.value === 'can';
+          const isAfterWith = prevNonWhitespaceToken && prevNonWhitespaceToken.value === 'with';
+          
+          if (['entry', 'exit'].includes(identifier) && (isAfterWith || isAfterCan)) {
+            tokens.push({ type: 'special-keyword', value: identifier });
+          } else if (visitKeywords.has(identifier)) {
+            tokens.push({ type: 'visit-keyword', value: identifier });
+          } else if (keywords.has(identifier)) {
+            tokens.push({ type: 'keyword', value: identifier });
+          } else if (types.has(identifier)) {
+            tokens.push({ type: 'type', value: identifier });
+          } else if (isAfterArchetypeKeyword || /^[A-Z]/.test(identifier)) {
+            tokens.push({ type: 'class-name', value: identifier });
+          } else if (isAfterCan) {
+            tokens.push({ type: 'function', value: identifier });
+          } else {
+            let k = i;
+            while (k < code.length && /\s/.test(code[k])) k++;
+            if (k < code.length && code[k] === '(') {
+              tokens.push({ type: 'function', value: identifier });
+            } else {
+              tokens.push({ type: 'variable', value: identifier });
+            }
+          }
+          continue;
+        }
+
+        tokens.push({ type: 'punctuation', value: code[i] });
+        i++;
+      }
+
+      return tokens.map(token => {
+        const escaped = escapeHtml(token.value);
+        switch (token.type) {
+          case 'comment': return `<span class="jac-comment">${escaped}</span>`;
+          case 'string': return `<span class="jac-string">${escaped}</span>`;
+          case 'number': return `<span class="jac-number">${escaped}</span>`;
+          case 'keyword': return `<span class="jac-keyword">${escaped}</span>`;
+          case 'special-keyword': return `<span class="jac-special-keyword">${escaped}</span>`;
+          case 'visit-keyword': return `<span class="jac-visit-keyword">${escaped}</span>`;
+          case 'type': return `<span class="jac-type">${escaped}</span>`;
+          case 'class-name': return `<span class="jac-class-name">${escaped}</span>`;
+          case 'module': return `<span class="jac-module">${escaped}</span>`;
+          case 'function': return `<span class="jac-function">${escaped}</span>`;
+          case 'variable': return `<span class="jac-variable">${escaped}</span>`;
+          case 'operator': return `<span class="jac-operator">${escaped}</span>`;
+          case 'bracket': return `<span class="jac-bracket-level-${(token.level || 0) % 4}">${escaped}</span>`;
+          default: return escaped;
+        }
+      }).join('');
+    }
+
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Auto-highlight on load
+    const highlightJacBlocks = () => {
+      // Find all code blocks and check if they contain Jac code
+      const allCodeBlocks = document.querySelectorAll('pre code');
+      
+      allCodeBlocks.forEach((block) => {
+        // Skip if already highlighted
+        if (block.querySelector('.jac-keyword')) return;
+        
+        const originalCode = block.textContent || '';
+        
+        // Check if this looks like Jac code by looking for Jac-specific keywords
+        const jacKeywords = ['node', 'edge', 'walker', 'can', 'with', 'entry', 'exit', 'has', 'ability'];
+        const hasJacKeywords = jacKeywords.some(keyword => originalCode.includes(keyword));
+        
+        if (hasJacKeywords && originalCode.trim()) {
+          const highlighted = highlightJacCode(originalCode);
+          block.innerHTML = highlighted;
+          block.classList.remove('astro-code');
+          if (block.parentElement) {
+            block.parentElement.classList.remove('astro-code');
+          }
+        }
+      });
+    };
+
+    // Run on load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', highlightJacBlocks);
+    } else {
+      highlightJacBlocks();
+    }
+
+    // Observe for dynamic content
+    const observer = new MutationObserver(highlightJacBlocks);
+    observer.observe(document.body, { childList: true, subtree: true });
+  </script>   </body></html>

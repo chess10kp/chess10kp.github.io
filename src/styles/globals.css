@@ -360,3 +360,292 @@ h1, h2, h3, h4, h5, h6 {
 * {
   font-family: var(--font-mono) !important;
 }
+
+/* Post-specific styling */
+.post h1 {
+  @apply underline-offset-4 font-semibold my-8 text-4xl text-foreground;
+  font-family: var(--font-mono);
+}
+
+.post h2 {
+  @apply font-semibold my-6 text-3xl text-foreground;
+  font-family: var(--font-mono);
+}
+
+.post h3 {
+  @apply font-semibold my-5 text-2xl text-foreground;
+  font-family: var(--font-mono);
+}
+
+.post h4 {
+  @apply font-semibold my-4 text-xl text-foreground;
+  font-family: var(--font-mono);
+}
+
+.post h5 {
+  @apply font-medium my-4 text-lg text-foreground;
+  font-family: var(--font-mono);
+}
+
+.post h6 {
+  @apply font-medium my-4 text-base text-foreground;
+  font-family: var(--font-mono);
+}
+
+.post {
+  font-family: var(--font-geist);
+}
+
+.post blockquote {
+  border-left: 4px solid hsl(var(--border));
+  margin: 1.5em 0;
+  padding: 0.5em 1em;
+  quotes: "\201C" "\201D" "\2018" "\2019";
+  color: hsl(var(--muted-foreground));
+  font-style: italic;
+}
+
+.post p {
+  @apply text-lg sm:text-xl text-foreground mt-4;
+  font-family: var(--font-geist);
+  line-height: 1.8 !important;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.post ul {
+  @apply text-lg sm:text-xl text-foreground mt-4;
+  font-family: var(--font-geist);
+  line-height: 1.8 !important;
+  list-style-type: disc;
+  padding-left: 2rem;
+}
+
+.post ol {
+  @apply text-lg sm:text-xl text-foreground mt-4;
+  font-family: var(--font-geist);
+  line-height: 1.8 !important;
+  list-style-type: decimal;
+  padding-left: 2rem;
+}
+
+.post li {
+  @apply text-lg sm:text-xl text-foreground;
+  font-family: var(--font-geist);
+  line-height: 1.8 !important;
+  margin-bottom: 0.5rem;
+}
+
+.post pre {
+  @apply bg-card border-border rounded-none my-6 overflow-x-auto;
+  font-family: var(--font-mono);
+  border: 1px solid hsl(var(--border));
+  position: relative;
+  max-width: 100%;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.post pre::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: hsl(var(--muted));
+  border-radius: 0;
+}
+
+.post pre code {
+  @apply block p-4 text-sm leading-relaxed;
+  color: hsl(var(--foreground));
+  font-size: 16px;
+  tab-size: 2;
+  background: transparent !important;
+}
+
+/* Override Prism theme colors to match your design */
+.post pre[class*="language-"] {
+  font-size: 16px;
+  background: hsl(var(--card)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+}
+
+.post code[class*="language-"] {
+  color: hsl(var(--foreground)) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 16px;
+}
+
+/* Syntax highlighting colors that match your theme */
+.post .token.comment,
+.post .token.prolog,
+.post .token.doctype,
+.post .token.cdata {
+  color: hsl(var(--muted-foreground)) !important;
+}
+
+.post .token.punctuation {
+  color: hsl(var(--foreground)) !important;
+}
+
+.post .token.property,
+.post .token.tag,
+.post .token.boolean,
+.post .token.number,
+.post .token.constant,
+.post .token.symbol,
+.post .token.deleted {
+  color: hsl(var(--chart-4)) !important;
+}
+
+.post .token.selector,
+.post .token.attr-name,
+.post .token.string,
+.post .token.char,
+.post .token.builtin,
+.post .token.inserted {
+  color: hsl(var(--chart-2)) !important;
+}
+
+.post .token.operator,
+.post .token.entity,
+.post .token.url,
+.post .language-css .token.string,
+.post .style .token.string {
+  color: hsl(var(--accent)) !important;
+}
+
+.post .token.atrule,
+.post .token.attr-value,
+.post .token.keyword {
+  color: hsl(var(--primary)) !important;
+}
+
+.post .token.function,
+.post .token.class-name {
+  color: hsl(var(--chart-5)) !important;
+}
+
+.post p code,
+.post li code {
+  @apply bg-muted/50 text-foreground px-2 py-0.5 rounded-none text-sm font-mono;
+  border: 2px solid hsl(var(--border) / 50);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  transition: all 0.15s ease;
+}
+
+.post p code:hover,
+.post li code:hover {
+  @apply bg-muted/80;
+  border-color: hsl(var(--border));
+  transform: translateY(-0.5px);
+}
+
+/* Image styles */
+.post img {
+  @apply rounded-none my-6;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid hsl(var(--border));
+  transition: all 0.2s ease;
+}
+
+.post img:hover {
+  transform: scale(1.02);
+}
+
+/* Responsive images */
+@media (max-width: 640px) {
+  .post img {
+    @apply rounded-none;
+    margin: 1rem 0;
+  }
+
+  .post pre {
+    overflow-x: hidden;
+    word-break: break-all;
+    white-space: pre-wrap;
+  }
+
+  .post pre code {
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+}
+
+/* Footnote styles */
+.footnote-ref {
+  @apply text-xs align-super;
+  color: hsl(var(--primary));
+  font-family: var(--font-mono);
+  font-weight: 600;
+  margin: 0 2px;
+}
+
+.footnote-ref a {
+  text-decoration: none;
+  border-bottom: 1px dotted hsl(var(--primary));
+  transition: all 0.2s ease;
+}
+
+.footnote-ref a:hover {
+  color: hsl(var(--primary-foreground));
+  background: hsl(var(--primary));
+  border-bottom: none;
+  padding: 1px 3px;
+  border-radius: 0;
+}
+
+.footnotes {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid hsl(var(--border));
+}
+
+.footnotes hr {
+  border: none;
+  height: 2px;
+  background: hsl(var(--border));
+  margin-bottom: 2rem;
+}
+
+.footnotes ol {
+  @apply text-sm text-muted-foreground;
+  padding-left: 1.5rem;
+  font-family: var(--font-geist);
+  line-height: 1.7;
+}
+
+.footnotes li {
+  margin-bottom: 0.75rem;
+  padding-left: 0.5rem;
+}
+
+.footnotes li:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive footnotes */
+@media (max-width: 640px) {
+  .footnotes {
+    margin-top: 2rem;
+    padding-top: 1rem;
+  }
+  
+  .footnotes ol {
+    font-size: 0.8rem;
+    padding-left: 1rem;
+  }
+  
+  .footnotes li {
+    margin-bottom: 0.5rem;
+  }
+}

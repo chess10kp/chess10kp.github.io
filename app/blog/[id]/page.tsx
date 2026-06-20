@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import CodeBlockCopy from "@/components/code-block-copy";
 import MermaidRenderer from "@/components/mermaid-renderer";
 import BlogNavigation from "@/components/blog-navigation";
+import JacSyntaxHighlighter from "@/components/jac-syntax-highlighter";
 
 export async function generateStaticParams() {
   const posts = getAllPostIds();
@@ -25,7 +26,7 @@ export default async function Page({
   return (
     <div className="flex justify-center min-h-screen px-4 lg:px-64 md:px-8">
       {title ? (
-        <div className="my-8 sm:my-12 md:my-16 w-full max-w-4xl bg-card p-8 rounded-none shadow-lg">
+        <div className="my-8 sm:my-12 md:my-16 w-full max-w-4xl bg-card p-8 rounded-none">
           <div className="flex flex-col">
             <h1 className="font-bold text-5xl mono text-left">{title}</h1>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
@@ -57,6 +58,7 @@ export default async function Page({
         </div>
       )}
       <CodeBlockCopy />
+      <JacSyntaxHighlighter />
     </div>
   );
 }

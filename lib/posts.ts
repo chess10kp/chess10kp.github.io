@@ -15,10 +15,17 @@ import "prismjs/components/prism-sql";
 import "prismjs/components/prism-haskell";
 import "prismjs/components/prism-csharp";
 
+// Register Jac as a language (even though we use custom highlighting)
+Prism.languages.jac = Prism.languages.python;
+
 marked.use(markedKatex());
 marked.use(markedHighlight({
   langPrefix: 'language-',
   highlight(code, lang) {
+    // Skip Jac highlighting - we handle it client-side
+    if (lang === 'jac') {
+      return code; // Return raw code for client-side highlighting
+    }
     if (Prism.languages[lang]) {
       return Prism.highlight(code, Prism.languages[lang], lang);
     }
@@ -35,6 +42,10 @@ marked.use(markedHighlight({
     code(code: string, language: string | undefined) {
       if (language === 'mermaid') {
         return `<div class="mermaid">${code}</div>`;
+      }
+      // Handle Jac language specifically
+      if (language === 'jac') {
+        return `<pre><code class="language-jac">${code}</code></pre>`;
       }
       return `<pre><code class="language-${language || ''}">${code}</code></pre>`;
     }
@@ -68,7 +79,7 @@ function processFootnotes(content: string): { processedContent: string; footnote
   return { processedContent, footnotes };
 }
 
-const postsDirectory = path.join(process.cwd(), "posts");
+const postsDirectory = path.join(process.cwd(), "src/content/blog");
 
 export function getSortedPostsData() {
   const fileNames = fs.readdirSync(postsDirectory);

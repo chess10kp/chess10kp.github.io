@@ -1,0 +1,92 @@
+/* Jac language syntax highlighting styles */
+.jac-code-block {
+  font-size: 0.8rem !important;
+  line-height: 1.4 !important;
+  padding: 1rem !important;
+  margin: 1rem 0 !important;
+  background: #24292e !important;
+  border-radius: 0.5rem !important;
+  overflow-x: auto !important;
+  display: block !important;
+}
+
+.jac-code-block code {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+  color: #d4d4d4 !important;
+  background: transparent !important;
+}
+
+.jac-keyword {
+  color: #569cd6;
+  font-weight: 500;
+}
+
+.jac-string {
+  color: #ce9178;
+}
+
+.jac-comment {
+  color: #6a9955;
+  font-style: italic;
+}
+
+.jac-number {
+  color: #b5cea8;
+}
+
+.jac-type {
+  color: #3ac9b0;
+}
+
+.jac-class-name {
+  color: #4ec9b0;
+}
+
+.jac-operator {
+  color: #d4d4d4;
+}
+
+.jac-function {
+  color: #dcdcaa;
+}
+
+.jac-variable {
+  color: #9cdcfe;
+}
+
+.jac-special-keyword {
+  color: #c678dd;
+}
+
+.jac-visit-keyword {
+  color: #c678dd;
+}
+
+.jac-module {
+  color: #4ec9b0;
+}
+
+.jac-punctuation {
+  color: #d4d4d4;
+}
+
+/* Bracket nesting colors */
+.jac-bracket-level-0 {
+  color: #ffd700; /* Yellow for outermost brackets */
+  font-weight: bold;
+}
+
+.jac-bracket-level-1 {
+  color: #c678dd; /* Purple for second level */
+  font-weight: bold;
+}
+
+.jac-bracket-level-2 {
+  color: #61afef; /* Blue for third level */
+  font-weight: bold;
+}
+
+.jac-bracket-level-3 {
+  color: #98c379; /* Green for fourth level (fallback) */
+  font-weight: bold;
+}

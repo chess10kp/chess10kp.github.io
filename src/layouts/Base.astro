@@ -1,5 +1,6 @@
 ---
 import "../styles/globals.css";
+import "../lib/syntax/jacSyntax.css";
 
 interface Props {
   title?: string;
@@ -22,6 +23,7 @@ const { title = "Nitin's Page", description = "Nitin Madhu's Website", currentPa
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Sans:wght@100..900&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@100..900&display=swap" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
   </head>
   <body class="font-mono relative bg-background text-foreground">
     <slot />

@@ -1,6 +1,7 @@
 @import "../../globals.css";
 @import "prismjs/themes/prism-tomorrow.css";
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap");
+@import "../../lib/syntax/jacSyntax.css";
 
 .post h1 {
   @apply underline-offset-4 font-semibold my-8 text-4xl text-foreground;
@@ -211,7 +212,6 @@
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 0.025em;
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   transition: all 0.15s ease;
 }
 
@@ -220,7 +220,6 @@
   @apply bg-muted/80;
   border-color: hsl(var(--border));
   transform: translateY(-0.5px);
-  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.1);
 }
 
 body::webkit-scrollbar {
@@ -229,7 +228,7 @@ body::webkit-scrollbar {
 
 /* Image styles */
 .post img {
-  @apply rounded-none shadow-md my-6;
+  @apply rounded-none my-6;
   max-width: 100%;
   height: auto;
   display: block;
@@ -240,7 +239,6 @@ body::webkit-scrollbar {
 }
 
 .post img:hover {
-  @apply shadow-lg;
   transform: scale(1.02);
 }
 
