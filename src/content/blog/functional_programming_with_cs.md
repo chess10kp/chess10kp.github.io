@@ -6,9 +6,9 @@ tags: ["csharp", "functional-programming"]
 
 # Introduction
 
-This post is an attempt at writing C# as if it were a [functional language](https://en.wikipedia.org/wiki/Functional_programming) like Haskell. Yes, I know [F#](https://fsharp.org) exists, but the point is to keep using an OOP language where it is useful, while using a functional approach to make transformations more expressive (the real reason is because it's fun).
+This post is an attempt at writing C# as if it were a functional language like Haskell. Yes, I know [F#](https://fsharp.org) exists, but the point is to keep using an OOP language where it's actually useful while sneaking in a functional approach to make transformations more expressive. The real reason is because it's fun.
 
-Consider this example of a depth-first search on a graph using an OOP approach:
+Consider this depth-first search on a graph, written OOP style: 
 
 ```csharp
 public class DFS
@@ -23,7 +23,7 @@ public class DFS
 }
 ```
 
-Notice how in the Traverse method, we mutate the visited set at each step. Mutable state and side effects are a common pattern in OOP. The equivalent functional programming approach might look like this:
+We mutate the `visited` set at every step. Mutable state and side effects are just how OOP works. The functional version looks like this instead:
 
 ```csharp
 public static class FunctionalDFS
@@ -43,15 +43,11 @@ public static class FunctionalDFS
 }
 ```
 
-In this version, Traverse creates a new stack frame for each Node, meaning that the state of the visited set is passed as an argument.  
+Here `Traverse` gets a fresh stack frame per node, and the state of `visited` is passed along as an argument. The OOP version's traversal depends on whatever the previous step did to the set, while the functional version doesn't care. Expressing a solution as a chain of function compositions instead of a list of statements gives you a much more predictable way to reason about what your program is doing.
 
-This means that node traversal in the OOP version is dependent on each previous step's state, while the functional version is independent of the previous one.  
+## Lazy Evaluation
 
-By expressing a solution as a series of function compositions instead of a series of statements, we get a more predictable way of reasoning about our program.
-
-## [Lazy Evaluation](https://en.wikipedia.org/wiki/Lazy_evaluation)
-
-The best way I could think of to create lazy sequences would be yield on an `IEnumerable`
+The cleanest way to get lazy sequences is to `yield` on an `IEnumerable`:
 
 ```csharp
 public static IEnumerable<int> InfiniteRange(int start)
@@ -61,9 +57,9 @@ public static IEnumerable<int> InfiniteRange(int start)
 }
 ```
 
-Here, `InfiniteRange` doesn't literally store an infinite list of numbers, rather producing each element of the list lazily.  
+`InfiniteRange` doesn't store an infinite list anywhere, it just hands you each element as you ask for it.
 
-For anything that isn't an `IEnumerable`, wrapping it in a callback should suffice.
+For anything that isn't an `IEnumerable`, wrapping it in a callback does the job:
 
 ```csharp
 public static Func<T> LazyWrapper<T>(T value) {
@@ -71,7 +67,7 @@ public static Func<T> LazyWrapper<T>(T value) {
 }
 ```
 
-## [Functional composition](https://en.wikipedia.org/wiki/Function_composition)
+## Functional composition
 
 Thankfully LINQ exists, so we already have a pretty sweet querying language that chains compositionally.
 
@@ -82,15 +78,15 @@ var evenSquares = InfiniteRange(1)
     .Take(5);
 ```
 
-Other types of chaining is painful though. 
+Every other kind of chaining is painful though.
 
 ```csharp
 int AddOne(int i) {
-    return i + 1; 
+    return i + 1;
 }
 ```
 
-If you wanted to get two instead, you would chain `AddOne(AddOne(0))`, but that doesn't look nice at all. The equivalent Haskell is as follows
+If you want two, you write `AddOne(AddOne(0))`, which reads inside-out and looks terrible. Here's the same thing in Haskell:
 
 ```haskell
 succ :: Int -> Int
@@ -99,7 +95,7 @@ succ x = x + 1
 two = succ . succ $ 0
 ```
 
-Getting something like this should be done with a custom class.
+To get anything close to that in C# you need a little class:
 
 ```csharp
 public class Compose<T>
@@ -121,16 +117,16 @@ public class Compose<T>
 }
 ```
 
-Using it is as simple as 
+And then it's just:
 
 ```csharp
 var addTwo = new Compose<int>(AddOne, AddOne);
 var result = addTwo.Apply(0); // 2
 ```
 
-## [Pure Functions](https://en.wikipedia.org/wiki/Pure_function)
+## Pure Functions
 
-Just make functions that don't have internal state! The easiest way to make this work is to just lift everything into a parameter, even for class methods. Think something like: 
+Just make functions that don't have internal state! The trick is to lift everything into a parameter, even for class methods:
 
 ```csharp
 public static int SumList(IEnumerable<int> numbers, int accumulator = 0)
@@ -140,7 +136,7 @@ public static int SumList(IEnumerable<int> numbers, int accumulator = 0)
 }
 ```
 
-instead of 
+instead of
 
 ```csharp
 public static int SumList(IEnumerable<int> numbers)
@@ -153,25 +149,25 @@ public static int SumList(IEnumerable<int> numbers)
 }
 ```
 
-Now that we got the basics covered, what's left is to implement more advanced features and make C# finally readable.
+Now that we've got the basics covered, let's implement the fun stuff and make C# finally readable.
 
-## [Functors](https://en.wikipedia.org/wiki/Functor)
+## Functors
 
-A functor is basically a box that you can map over. If you've used LINQ, you've already been using functors without knowing it. `IEnumerable<T>` is a functor, and `Select` is the `fmap` operation.
+A functor is just a box you can map over. If you've used LINQ you've been using functors this whole time without knowing it. `IEnumerable<T>` is a functor and `Select` is its `fmap`.
 
 ```csharp
 var numbers = new[] { 1, 2, 3 };
 var doubled = numbers.Select(x => x * 2); // [2, 4, 6]
 ```
 
-The functor pattern is more interesting when dealing with things that might not have values. Let's create a `Maybe<T>` type:
+It gets more interesting once the box might be empty. Let's build a `Maybe<T>`:
 
 ```csharp
 public abstract record Maybe<T>
 {
     public sealed record Just(T Value) : Maybe<T>;
     public sealed record Nothing : Maybe<T>;
-    
+
     public Maybe<TResult> Map<TResult>(Func<T, TResult> f) =>
         this switch
         {
@@ -182,7 +178,7 @@ public abstract record Maybe<T>
 }
 ```
 
-Now you can chain transformations without worrying about null:
+Now you can chain transformations and never once think about null:
 
 ```csharp
 var result = new Maybe<int>.Just(5)
@@ -194,45 +190,28 @@ var empty = new Maybe<int>.Nothing()
     .Map(x => x + 3); // Nothing
 ```
 
-The key insight is that the functor handles the context (the "maybe there's a value" part), while you just write the transformation as if the value was always there.
+The functor quietly carries the "maybe there's nothing here" part, and you get to write the code as if the value was always there.
 
-## [Applicative Functors](https://en.wikipedia.org/wiki/Applicative_functor)
+## Applicative Functors
 
-Functors let you apply a regular function to a wrapped value. But what if the function itself is wrapped? That's where applicatives come in.
+A functor lets you apply a normal function to a wrapped value. But what if the function itself is wrapped? That's an applicative. We just bolt an `Apply` onto the same `Maybe<T>`:
 
 ```csharp
-public abstract record Maybe<T>
-{
-    public sealed record Just(T Value) : Maybe<T>;
-    public sealed record Nothing : Maybe<T>;
-    
-    public Maybe<TResult> Map<TResult>(Func<T, TResult> f) =>
-        this switch
-        {
-            Just(var value) => new Maybe<TResult>.Just(f(value)),
-            Nothing => new Maybe<TResult>.Nothing(),
-            _ => throw new InvalidOperationException()
-        };
-    
-    public Maybe<TResult> Apply<TResult>(Maybe<Func<T, TResult>> wrappedFunc) =>
-        (this, wrappedFunc) switch
-        {
-            (Just(var value), Just(var func)) => new Maybe<TResult>.Just(func(value)),
-            _ => new Maybe<TResult>.Nothing()
-        };
-    
-    public static Maybe<T> Pure(T value) => new Just(value);
-}
+public Maybe<TResult> Apply<TResult>(Maybe<Func<T, TResult>> wrappedFunc) =>
+    (this, wrappedFunc) switch
+    {
+        (Just(var value), Just(var func)) => new Maybe<TResult>.Just(func(value)),
+        _ => new Maybe<TResult>.Nothing()
+    };
+
+public static Maybe<T> Pure(T value) => new Just(value);
 ```
 
-This lets you combine multiple wrapped values in interesting ways:
+This lets you combine multiple wrapped values:
 
 ```csharp
-Maybe<int> maybeAdd(Maybe<int> a, Maybe<int> b)
-{
-    var addFunc = new Maybe<Func<int, int>>.Just(x => x);
-    return b.Apply(a.Map<Func<int, int>>(x => y => x + y));
-}
+Maybe<int> maybeAdd(Maybe<int> a, Maybe<int> b) =>
+    b.Apply(a.Map<Func<int, int>>(x => y => x + y));
 
 var result = maybeAdd(
     new Maybe<int>.Just(5),
@@ -240,46 +219,30 @@ var result = maybeAdd(
 ); // Just(8)
 ```
 
-Applicatives are useful when you have multiple independent computations that might fail, and you want to combine their results.
+Handy when you've got a bunch of independent computations that might each fail and you want to mash their results together. If any one of them is `Nothing`, the whole thing is `Nothing`.
 
-## [Monads](https://en.wikipedia.org/wiki/Monad_(functional_programming))
+## Monads
 
-Monads are functors with extra power. They let you chain operations where each step depends on the result of the previous one, and each operation returns a wrapped value.
+Everyone says you lose the ability to explain monads the moment you understand them, so here's my attempt before that happens to me.
 
-The key operation is `Bind` (also called `flatMap` or `>>=` in Haskell):
+A monad is a functor that lets each step depend on the result of the previous one, where every step also returns a wrapped value. The operation that makes it work is `Bind` (a.k.a. `flatMap`, or `>>=` if you're feeling Haskell):
 
 ```csharp
-public abstract record Maybe<T>
-{
-    public sealed record Just(T Value) : Maybe<T>;
-    public sealed record Nothing : Maybe<T>;
-    
-    public Maybe<TResult> Map<TResult>(Func<T, TResult> f) =>
-        this switch
-        {
-            Just(var value) => new Maybe<TResult>.Just(f(value)),
-            Nothing => new Maybe<TResult>.Nothing(),
-            _ => throw new InvalidOperationException()
-        };
-    
-    public Maybe<TResult> Bind<TResult>(Func<T, Maybe<TResult>> f) =>
-        this switch
-        {
-            Just(var value) => f(value),
-            Nothing => new Maybe<TResult>.Nothing(),
-            _ => throw new InvalidOperationException()
-        };
-    
-    public static Maybe<T> Return(T value) => new Just(value);
-}
+public Maybe<TResult> Bind<TResult>(Func<T, Maybe<TResult>> f) =>
+    this switch
+    {
+        Just(var value) => f(value),
+        Nothing => new Maybe<TResult>.Nothing(),
+        _ => throw new InvalidOperationException()
+    };
 ```
 
-The difference between `Map` and `Bind` is subtle but important. `Map` takes a function that returns an unwrapped value, while `Bind` takes a function that returns a wrapped value. This prevents you from ending up with `Maybe<Maybe<T>>`.
+The difference between `Map` and `Bind` is small but it matters. `Map` takes a function returning an unwrapped value, `Bind` takes one returning a wrapped value. Without `Bind` you'd end up holding a `Maybe<Maybe<T>>`, which nobody wants.
 
 ```csharp
 Maybe<int> Divide(int a, int b) =>
-    b == 0 
-        ? new Maybe<int>.Nothing() 
+    b == 0
+        ? new Maybe<int>.Nothing()
         : new Maybe<int>.Just(a / b);
 
 var result = new Maybe<int>.Just(20)
@@ -291,23 +254,23 @@ var divideByZero = new Maybe<int>.Just(20)
     .Bind(x => Divide(x, 5)); // Nothing
 ```
 
-LINQ's `SelectMany` is actually the `Bind` operation, which means C# already has monad support built in! You can even use query syntax as a form of do-notation:
+Here's the fun part: LINQ's `SelectMany` *is* `Bind`, which means C# has had monads built in this whole time. You can even abuse query syntax as do-notation:
 
 ```csharp
-var result = 
+var result =
     from x in new Maybe<int>.Just(5)
     from y in new Maybe<int>.Just(3)
     select x + y; // Just(8)
 ```
 
-Another useful monad is `Result<T, E>` for error handling:
+The other monad you'll actually reach for is `Result<T, E>` for error handling:
 
 ```csharp
 public abstract record Result<T, E>
 {
     public sealed record Ok(T Value) : Result<T, E>;
     public sealed record Error(E ErrorValue) : Result<T, E>;
-    
+
     public Result<TResult, E> Bind<TResult>(Func<T, Result<TResult, E>> f) =>
         this switch
         {
@@ -318,11 +281,11 @@ public abstract record Result<T, E>
 }
 ```
 
-This lets you chain operations that might fail while preserving error information, without throwing exceptions.
+Chain as many fallible steps as you want, keep the error around, and never throw an exception to do it.
 
-## [Pattern Matching](https://en.wikipedia.org/wiki/Pattern_matching)
+## Pattern Matching
 
-C# has gotten much better at pattern matching in recent versions. Switch expressions replace verbose if-else chains with something that actually looks functional.
+C# pattern matching has gotten genuinely good. Switch expressions take those verbose if-else ladders and turn them into something that actually looks functional:
 
 ```csharp
 string Describe(Maybe<int> maybe) => maybe switch
@@ -334,7 +297,7 @@ string Describe(Maybe<int> maybe) => maybe switch
 };
 ```
 
-You can pattern match on types, properties, and even destructure tuples:
+You can match on types, properties, and destructure tuples while you're at it:
 
 ```csharp
 string AnalyzePoint((int x, int y) point) => point switch
@@ -347,19 +310,19 @@ string AnalyzePoint((int x, int y) point) => point switch
 };
 ```
 
-Pattern matching really shines when combined with algebraic data types. It gives you exhaustiveness checking and makes your code much more declarative.
+It really comes alive next to algebraic data types, which conveniently is the next thing.
 
-## [Algebraic Data Types](https://en.wikipedia.org/wiki/Algebraic_data_type)
+## Algebraic Data Types
 
-ADTs come in two flavors: product types (like tuples or records) and sum types (discriminated unions). C# records make this pretty natural.
+ADTs come in two flavors: product types (tuples, records) and sum types (discriminated unions). Records make this painless.
 
-Product types are straightforward:
+Product types are the boring half:
 
 ```csharp
 public record Person(string Name, int Age, string Email);
 ```
 
-Sum types are more interesting. They represent "this OR that" rather than "this AND that":
+Sum types are the fun half. They mean "this OR that" instead of "this AND that":
 
 ```csharp
 public abstract record Shape
@@ -370,7 +333,7 @@ public abstract record Shape
 }
 ```
 
-Combined with pattern matching, this becomes incredibly expressive:
+Pair that with pattern matching and it gets expressive fast:
 
 ```csharp
 double CalculateArea(Shape shape) => shape switch
@@ -382,7 +345,7 @@ double CalculateArea(Shape shape) => shape switch
 };
 ```
 
-The compiler will even warn you if you forget to handle a case. This is huge for making illegal states unrepresentable:
+The compiler even nags you when you forget a case, which is how you make illegal states unrepresentable:
 
 ```csharp
 public abstract record PaymentStatus
@@ -394,11 +357,11 @@ public abstract record PaymentStatus
 }
 ```
 
-Now there's no way to accidentally have a completed payment without a transaction ID, because the type system won't let you.
+There's now no way to have a completed payment without a transaction ID, because the type system flat out won't let you build one.
 
-## [Currying and Partial Application](https://en.wikipedia.org/wiki/Currying)
+## Currying and Partial Application
 
-Currying transforms a function that takes multiple arguments into a chain of functions that each take a single argument. In Haskell, all functions are curried by default. In C#, we have to do it manually.
+Currying turns a function of many arguments into a chain of functions that each take one. Haskell does this to every function by default. In C# we do it by hand:
 
 ```csharp
 public static class Curry
@@ -406,14 +369,14 @@ public static class Curry
     public static Func<T1, Func<T2, TResult>> Apply<T1, T2, TResult>(
         Func<T1, T2, TResult> f) =>
         x => y => f(x, y);
-    
+
     public static Func<T1, Func<T2, Func<T3, TResult>>> Apply<T1, T2, T3, TResult>(
         Func<T1, T2, T3, TResult> f) =>
         x => y => z => f(x, y, z);
 }
 ```
 
-This lets you do partial application naturally:
+Which gets you partial application basically for free:
 
 ```csharp
 Func<int, int, int> Add = (a, b) => a + b;
@@ -423,76 +386,40 @@ var addFive = curriedAdd(5);
 var result = addFive(3); // 8
 ```
 
-Partial application is useful when you want to configure a function and reuse it:
+The nice thing is configuring a function once and reusing it everywhere:
 
 ```csharp
-Func<string, string, bool> Contains = (text, substring) => 
+Func<string, string, bool> Contains = (text, substring) =>
     text.Contains(substring);
 
-var curriedContains = Curry.Apply(Contains);
-var containsHello = curriedContains("Hello");
+var containsHello = Curry.Apply(Contains)("Hello");
 
 var strings = new[] { "Hello World", "Goodbye", "Hello there" };
 var filtered = strings.Where(s => containsHello(s));
 ```
 
-You can also create a more general partial application helper:
+## Immutability
 
-```csharp
-public static class Partial
-{
-    public static Func<T2, TResult> Apply<T1, T2, TResult>(
-        Func<T1, T2, TResult> f, T1 arg1) =>
-        x => f(arg1, x);
-    
-    public static Func<T2, T3, TResult> Apply<T1, T2, T3, TResult>(
-        Func<T1, T2, T3, TResult> f, T1 arg1) =>
-        (x, y) => f(arg1, x, y);
-}
-```
+If nothing ever changes, there's no shared state to corrupt and no side effects to chase down. This is the whole point, and C# finally has decent tools for it.
 
-## [Immutability](https://en.wikipedia.org/wiki/Immutable_object)
-
-Immutability is the foundation of functional programming. If nothing ever changes, you don't have to worry about side effects or shared state.
-
-C# has gotten much better at this with records and init properties:
+Records plus `with` do most of the work:
 
 ```csharp
 public record User(string Name, string Email, int Age);
 
 var user = new User("Alice", "alice@example.com", 25);
-var olderUser = user with { Age = 26 }; // Creates a new instance
+var olderUser = user with { Age = 26 }; // a new instance, original untouched
 ```
 
-The `with` expression creates a copy with some properties changed, leaving the original untouched.
-
-For collections, use immutable types:
+For collections, reach for the immutable types:
 
 ```csharp
 using System.Collections.Immutable;
 
 var list = ImmutableList.Create(1, 2, 3);
-var newList = list.Add(4); // Returns a new list, original unchanged
+var newList = list.Add(4); // new list, original unchanged
 ```
 
-For classes that can't be records, use readonly and init:
+And when you're stuck with a class that can't be a record, `init` properties get you read-only-after-construction without the ceremony.
 
-```csharp
-public class Config
-{
-    public string ServerUrl { get; init; }
-    public int Timeout { get; init; }
-    public ImmutableList<string> AllowedHosts { get; init; }
-    
-    public Config(string serverUrl, int timeout, ImmutableList<string> allowedHosts)
-    {
-        ServerUrl = serverUrl;
-        Timeout = timeout;
-        AllowedHosts = allowedHosts;
-    }
-}
-```
-
-Immutability makes your code easier to reason about because values don't change unexpectedly. Combined with pure functions, you get code that's predictable, testable, and composable.
-
-The key insight of functional programming is that by restricting what you can do (no mutation, no side effects, no null), you actually make your code more powerful and easier to understand. C# might not be Haskell, but with a little creativity, you can get pretty close.
+The whole trick of functional programming is that locking yourself out of things, no mutation, no side effects, no null, somehow makes your code easier to follow instead of harder. C# isn't Haskell, but with a bit of creativity you can get surprisingly close.

@@ -6,7 +6,7 @@ tagline: map().filter().reduce() chaining is a great pattern, but python doesn't
 ---
 
 
-Javascript embraced functional programming and implemented it in a really idiomatic way. I love how arrow functions they mirror the FP style. Python's take on FP has been List comprehensions. They're are a very readable alternative to map or filter, so I was hyped to see what their reduce function was. I was very disappointed to find out that looks awful. Here's a comparison with two other languages that have varying degrees of functional programming baked into the core.
+Javascript embraced functional programming and implemented it in a really idiomatic way. I love how arrow functions mirror the FP style. Python's take on FP has been List comprehensions. They're a very readable alternative to map or filter, so I was hyped to see what its reduce function was. I was very disappointed to find out that looks awful. Here's a comparison with two other languages that have varying degrees of functional programming baked into the core.
 ```javascript
     [1,2,3,4].map(x => x*2).reduce((e, i) => e + i)
 ```
@@ -35,7 +35,7 @@ I want maps and reductions to always flow like this:
 
     A |> transformed |> summation |> final result
 
-One reason I can think of for why it isn't this way is that it allows for any class to define their own `__iter__` functions. This means map, and filter can be run on *any* class, not iterable classes like `List`. That's pretty cool.
+One reason I can think of for why it isn't this way is that it allows for any class to define their own `__iter__` functions. This means map, and filter can be run on *any* class, not just iterable classes like `List`. That's pretty cool.
 
 But I still need functional chaining for transformation pipelines. So I found a way to hack it in.
 
