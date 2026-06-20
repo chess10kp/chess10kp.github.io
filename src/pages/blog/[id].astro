@@ -1,5 +1,6 @@
 ---
 import PageShell from "../../layouts/PageShell.astro";
+import { SiteHeader } from "../../components/site-header";
 import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
@@ -23,12 +24,13 @@ const next = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : n
 ---
 
 <PageShell title={post.data.title} currentPath={Astro.url.pathname}>
+  <SiteHeader client:load currentPath={Astro.url.pathname} />
   <div class="flex justify-center min-h-screen">
-    <div class="my-8 sm:my-12 md:my-16 w-full max-w-4xl bg-card p-8 rounded-none">
+    <div class="my-8 sm:my-12 md:my-16 w-full max-w-6xl bg-card p-8 rounded-none">
       <div class="flex flex-col">
-        <h1 class="font-bold text-5xl mono text-left">{post.data.title}</h1>
+        <h1 class="font-bold text-5xl mono text-left" style="color: #fabd2f">{post.data.title}</h1>
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
-          <p class="text-md text-zinc-400 mb-2 sm:mb-0">
+          <p class="text-md mb-2 sm:mb-0" style="color: #928374">
             {post.data.date.toISOString().slice(0, 10)}
           </p>
         </div>
@@ -42,16 +44,16 @@ const next = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : n
           <div class="flex-1">
             {prev ? (
               <a href={`/blog/${prev.id}`} class="flex items-center gap-2 px-4 py-3 border border-border/30 bg-card/40 hover:bg-card/60 hover:border-accent/30 transition-all duration-300">
-                <span class="text-xs text-muted-foreground font-mono uppercase">Previous</span>
-                <span class="text-sm font-semibold text-foreground line-clamp-1 max-w-[200px]">{prev.data.title}</span>
+                <span class="text-xs text-accent font-mono uppercase">Previous</span>
+                <span class="text-sm font-semibold text-accent line-clamp-1 max-w-[200px]">{prev.data.title}</span>
               </a>
             ) : <div class="flex-1" />}
           </div>
           <div class="flex-1 flex justify-end">
             {next ? (
               <a href={`/blog/${next.id}`} class="flex items-center gap-2 px-4 py-3 border border-border/30 bg-card/40 hover:bg-card/60 hover:border-accent/30 transition-all duration-300 flex-row-reverse text-right">
-                <span class="text-xs text-muted-foreground font-mono uppercase">Next</span>
-                <span class="text-sm font-semibold text-foreground line-clamp-1 max-w-[200px]">{next.data.title}</span>
+                <span class="text-xs text-accent font-mono uppercase">Next</span>
+                <span class="text-sm font-semibold text-accent line-clamp-1 max-w-[200px]">{next.data.title}</span>
               </a>
             ) : <div class="flex-1" />}
           </div>

@@ -18,15 +18,15 @@ const BlogNavigation = ({ prev, next }: Props) => {
   const NavButton = ({ post, direction, icon: Icon, className }: { post: Post; direction: "prev" | "next"; icon: any; className?: string }) => (
     <a
       href={`/blog/${post.id}`}
-      className={`flex items-center gap-2 px-4 py-3 rounded-lg border border-border/30 bg-card/40 hover:bg-card/60 hover:border-accent/30 transition-all duration-300 ${className}`}
+      className={`flex items-center gap-2 px-4 py-3 rounded-lg border border-accent/40 bg-card/40 hover:bg-accent/10 hover:border-accent transition-all duration-300 ${className}`}
       onClick={() => setLoadingId(post.id)}
     >
-      {direction === "prev" && <Icon size={18} />}
+      {direction === "prev" && <Icon size={18} className="text-accent" />}
       <div className="flex flex-col items-start">
-        <span className="text-xs text-muted-foreground font-mono uppercase">{direction === "prev" ? "Previous" : "Next"}</span>
+        <span className="text-xs text-accent/70 font-mono uppercase">{direction === "prev" ? "Previous" : "Next"}</span>
         <span className="text-sm font-semibold text-foreground line-clamp-1 max-w-[150px] md:max-w-[200px]">{post.title}</span>
       </div>
-      {direction === "next" && <Icon size={18} />}
+      {direction === "next" && <Icon size={18} className="text-accent" />}
     </a>
   );
 

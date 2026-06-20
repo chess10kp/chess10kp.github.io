@@ -1,92 +1,93 @@
-/* Jac language syntax highlighting styles */
+/* Jac language syntax highlighting styles — gruvbox palette */
 .jac-code-block {
   font-size: 0.8rem !important;
   line-height: 1.4 !important;
   padding: 1rem !important;
   margin: 1rem 0 !important;
-  background: #24292e !important;
-  border-radius: 0.5rem !important;
+  /* Gruvbox colors on the site's dark background (not gruvbox's #282828) */
+  background: #0e1419 !important;
+  border-radius: 0 !important;
   overflow-x: auto !important;
   display: block !important;
 }
 
 .jac-code-block code {
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
-  color: #d4d4d4 !important;
+  font-family: var(--font-mono) !important;
+  color: #ebdbb2 !important;
   background: transparent !important;
 }
 
 .jac-keyword {
-  color: #569cd6;
+  color: #fb4934; /* red */
   font-weight: 500;
 }
 
 .jac-string {
-  color: #ce9178;
+  color: #b8bb26; /* green */
 }
 
 .jac-comment {
-  color: #6a9955;
+  color: #928374; /* gray */
   font-style: italic;
 }
 
 .jac-number {
-  color: #b5cea8;
+  color: #d3869b; /* purple */
 }
 
 .jac-type {
-  color: #3ac9b0;
+  color: #fabd2f; /* yellow */
 }
 
 .jac-class-name {
-  color: #4ec9b0;
+  color: #fabd2f; /* yellow */
 }
 
 .jac-operator {
-  color: #d4d4d4;
+  color: #ebdbb2; /* fg */
 }
 
 .jac-function {
-  color: #dcdcaa;
+  color: #b8bb26; /* green */
 }
 
 .jac-variable {
-  color: #9cdcfe;
+  color: #83a598; /* blue */
 }
 
 .jac-special-keyword {
-  color: #c678dd;
+  color: #fe8019; /* orange */
 }
 
 .jac-visit-keyword {
-  color: #c678dd;
+  color: #fe8019; /* orange */
 }
 
 .jac-module {
-  color: #4ec9b0;
+  color: #8ec07c; /* aqua */
 }
 
 .jac-punctuation {
-  color: #d4d4d4;
+  color: #ebdbb2; /* fg */
 }
 
-/* Bracket nesting colors */
+/* Bracket nesting colors (gruvbox accents) */
 .jac-bracket-level-0 {
-  color: #ffd700; /* Yellow for outermost brackets */
+  color: #fabd2f; /* yellow */
   font-weight: bold;
 }
 
 .jac-bracket-level-1 {
-  color: #c678dd; /* Purple for second level */
+  color: #d3869b; /* purple */
   font-weight: bold;
 }
 
 .jac-bracket-level-2 {
-  color: #61afef; /* Blue for third level */
+  color: #83a598; /* blue */
   font-weight: bold;
 }
 
 .jac-bracket-level-3 {
-  color: #98c379; /* Green for fourth level (fallback) */
+  color: #b8bb26; /* green */
   font-weight: bold;
 }

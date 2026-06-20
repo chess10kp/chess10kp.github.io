@@ -25,8 +25,8 @@ export function HomePage({ currentPath, introText, experiences, posts }: HomePag
     <PathnameProvider path={currentPath}>
       <Header />
         <div className="relative flex w-screen justify-center">
-          <main className="relative w-full max-w-4xl">
-            <div className="container px-4 sm:px-6 lg:px-8">
+          <main className="relative w-full max-w-6xl">
+            <div className="container px-4 sm:px-4 lg:px-2">
               <div className="w-full pt-8 pb-24">
                 <div className="py-8 md:py-12 relative z-10">
                   <Hero introText={introText} />

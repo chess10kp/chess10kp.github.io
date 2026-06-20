@@ -19,7 +19,7 @@ export function BlogPage({ currentPath, posts }: BlogPageProps) {
   return (
     <PathnameProvider path={currentPath}>
       <Header />
-        <section className="flex flex-col items-start justify-center my-10 px-4 md:px-8 pb-24">
+        <section className="flex flex-col items-start justify-center my-10 px-4 md:px-2 pb-24">
           <div className="w-full">
             <BlogPosts posts={posts} />
           </div>

@@ -10,7 +10,7 @@ export const rehypeSyntaxHighlight = () => {
   return async (tree: Root) => {
     if (!highlighterInstance) {
       highlighterInstance = await createHighlighter({
-        themes: ['github-dark'],
+        themes: ['gruvbox-dark-medium'],
         langs: [
           'javascript',
           'typescript',
@@ -79,7 +79,10 @@ export const rehypeSyntaxHighlight = () => {
           // Use Shiki for other languages
           const html = highlighterInstance.codeToHtml(codeText, {
             lang: lang === 'text' ? 'plaintext' : lang,
-            theme: 'github-dark',
+            theme: 'gruvbox-dark-medium',
+            // Keep the gruvbox palette but swap gruvbox's default background
+            // (#282828) for the site's dark background so it matches the theme.
+            colorReplacements: { '#282828': '#0e1419' },
           });
           
           // Replace the entire pre element with Shiki's HTML output
