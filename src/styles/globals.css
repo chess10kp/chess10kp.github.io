@@ -14,6 +14,11 @@
   --foreground-rgb: 235, 219, 178;
   --background-start-rgb: 14, 20, 25;
   --background-end-rgb: 14, 20, 25;
+
+  /* Heights of the fixed Header (buffer tabs) and Footer (modeline).
+     The homepage columns portal is pinned between these two bars. */
+  --header-h: 40px;
+  --footer-h: 28px;
 }
 
 @media (prefers-color-scheme: dark) {

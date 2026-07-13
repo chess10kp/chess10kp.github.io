@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import siteConfig from "@/siteConfig";
 import { Github, Linkedin, Mail } from "@geist-ui/icons";
 
@@ -26,7 +26,6 @@ const Footer = ({ currentPath }: FooterProps) => {
     if (currentPath === "/") return "index.org";
     if (currentPath === "/about") return "about.org";
     if (currentPath.startsWith("/blog")) return "blog.org";
-    if (currentPath.startsWith("/projects")) return "projects.org";
     return currentPath.replace(/\//g, "") + ".org";
   };
 
@@ -34,7 +33,6 @@ const Footer = ({ currentPath }: FooterProps) => {
     if (currentPath === "/") return "Website";
     if (currentPath === "/about") return "About";
     if (currentPath.startsWith("/blog")) return "Blog";
-    if (currentPath.startsWith("/projects")) return "Projects";
     return "Fundamental";
   };
 

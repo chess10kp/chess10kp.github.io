@@ -4,6 +4,7 @@
 const siteConfig = {
   links: {
     github: "https://github.com/chess10kp",
+    twitter: "https://x.com/3M4C5",
     linkedin: "https://www.linkedin.com/in/nitin-shankar-madhu",
     email: "mailto:nmadhu@umich.edu",
     chess: "https://chess.com/member/N_S_M",

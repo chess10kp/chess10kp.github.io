@@ -14,6 +14,18 @@ const experiences = allExperiences
     tech: e.data.tech,
   }));
 
+const allProjects = await getCollection("projects");
+const projects = allProjects
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((project) => ({
+    name: project.data.name,
+    description: project.body?.trim() || "",
+    stack: project.data.stack,
+    href: project.data.href,
+    demo: project.data.demo,
+    blogId: project.data.blogId,
+  }));
+
 const allPosts = await getCollection("blog");
 const posts = allPosts
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
@@ -32,6 +44,7 @@ const posts = allPosts
     currentPath={Astro.url.pathname}
     introText="Currently at Jaseci Labs building Jac, a modern graph based programming language."
     experiences={experiences}
+    projects={projects}
     posts={posts}
   />
 </PageShell>
